@@ -4,7 +4,7 @@ Some starter code for React on Flask.
 
 ## Compiling Javascript using Webpack
 
-```$ webpack --watch```
+```$ webpack --config webpack-build-config.js --watch```
 
 ## Running the web server
 
