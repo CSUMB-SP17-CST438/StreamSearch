@@ -1,6 +1,6 @@
-# lecture6-thuhe
+# lecture7-thuhe
 
-Some starter code for React on Flask.
+Wiring Flask with Socket.io: a review
 
 ## Upgrade Node version to 6
 
@@ -39,7 +39,6 @@ the you click on "Send up a random number". The client is completely done for yo
 
 * `Button.js` contains code for the button, generating a random number, and
 sending it up to the server.
-
 * `Content.js` contains code for taking a list of numbers from the server, and
 rendering it as a list in React.
 
