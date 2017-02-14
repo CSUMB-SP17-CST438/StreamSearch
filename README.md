@@ -22,23 +22,41 @@ Some starter code for React on Flask.
 
 ## Edit a JS file
 
-Make a change to `scripts/Content.js`. Webpack should detect the change and 
+Make a change to `scripts/Content.js`. Webpack should detect the change and
 print a bunch of stuff.
 
 **Do not manually edit `static/script.js`!!**
 
-## Add new JS files
+## Run the web app
 
-Stuff that is added to `scripts/` and referenced somewhere else will 
-automatically be packaged into `static/script.js`.
+Run `app.py` and verify that the React renders. Click on "Send up a random
+number". What gets printed out in the logs?
 
-## Running the web server
+## Make the web page interactive!
 
-Click on the green button on `app.py`, or open up a new terminal and type:
+Your goal is to build an app that that will update live with a new random number whenever
+the you click on "Send up a random number". The client is completely done for you:
 
-```$ python app.py```
+* `Button.js` contains code for the button, generating a random number, and
+sending it up to the server.
 
-## Confused?
+* `Content.js` contains code for taking a list of numbers from the server, and
+rendering it as a list in React.
 
-I'll explain what all this does in a bit. For now, use it as a starter to
-write some React code.
+You'll need to fill out the server-side portion. I've left a TODO in the code
+starting point. You'll want to:
+
+* Keep track of the list of numbers you're getting
+* Update that list internally when clients send you a new number
+* Send the new list out to clients when you're done
+
+## Answer this conceputal question:
+
+How do I get the list to clear?
+
+## Finished?
+
+Try to add these:
+
+* Make the server send the list when the client connects
+* Add a button that clears the list

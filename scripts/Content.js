@@ -10,12 +10,13 @@ export class Content extends React.Component {
             'numbers': []
         };
     }
+
     componentDidMount() {
         Socket.on('all numbers', (data) => {
             this.setState({
                 'numbers': data['numbers']
             });
-        })        
+        })
     }
 
     render() {
