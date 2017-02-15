@@ -15,12 +15,15 @@ install from a package or `brew install` something.
 
 ## Installing `npm` dependencies from `package.json`
 
-This line looks inside `package.json`, gets a list of packages, and installs them
-to the `node_modules` folder inside your repository.
+This line starts up `npm`, which looks inside `package.json`, gets a list of
+packages, and installs them to the `node_modules` folder inside your repository.
 
 ```$ npm install```
 
 ## Compiling Javascript using Webpack
+
+This line starts up Webpack, which looks inside `webpack.config.js`, loads
+configuration options, and starts transpiling your JS code into `static/script.js`.
 
 ```$ webpack --watch```
 
