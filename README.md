@@ -6,11 +6,17 @@ Wiring Flask with Socket.io: a review
 
 ```$ nvm install 6```
 
-## Installing Webpack
+## Installing Webpack globally
+
+This line installs Webpack on your Cloud9 workspace, kind of like how you might
+install from a package or `brew install` something.
 
 ```$ npm install -g webpack```
 
 ## Installing `npm` dependencies from `package.json`
+
+This line looks inside `package.json`, gets a list of packages, and installs them
+to the `node_modules` folder inside your repository.
 
 ```$ npm install```
 
