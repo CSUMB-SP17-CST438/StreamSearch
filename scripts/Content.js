@@ -21,13 +21,13 @@ export class Content extends React.Component {
 
     render() {
         let numbers = this.state.numbers.map(
-            (n, index) => <li key={index}>{n}</li>
+            (n, index) => <li className="number-item" key={index}>{n}</li>
         );
         return (
             <div>
-                <h1>Random numbers so far!</h1>
-                <ul>{numbers}</ul>
+                <h1 className="heading">Random numbers so far!</h1>
                 <Button />
+                <ul>{numbers}</ul>
             </div>
         );
     }

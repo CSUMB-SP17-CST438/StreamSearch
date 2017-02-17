@@ -13143,7 +13143,7 @@ var Content = exports.Content = function (_React$Component) {
             var numbers = this.state.numbers.map(function (n, index) {
                 return React.createElement(
                     'li',
-                    { key: index },
+                    { className: 'number-item', key: index },
                     n
                 );
             });
@@ -13152,15 +13152,15 @@ var Content = exports.Content = function (_React$Component) {
                 null,
                 React.createElement(
                     'h1',
-                    null,
+                    { className: 'heading' },
                     'Random numbers so far!'
                 ),
+                React.createElement(_Button.Button, null),
                 React.createElement(
                     'ul',
                     null,
                     numbers
-                ),
-                React.createElement(_Button.Button, null)
+                )
             );
         }
     }]);

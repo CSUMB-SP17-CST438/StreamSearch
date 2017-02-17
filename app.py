@@ -17,10 +17,15 @@ def on_connect():
 def on_disconnect():
     print 'Someone disconnected!'
 
+all_mah_numbers = []
+
 @socketio.on('new number')
 def on_new_number(data):
     print "Got an event for new number with data:", data
-    # TODO: Fill me out!
+    all_mah_numbers.append(data['number'])
+    socketio.emit('all numbers', {
+        'numbers': all_mah_numbers
+    })
 
 socketio.run(
     app,
