@@ -1,9 +1,39 @@
 <html>
     <head>
+        
         <link rel="stylesheet" type="text/css" href="/static/style.css" />
     </head>
     <body>
-        <div id="content"></div>
-        <script type="text/javascript" src="/static/script.js"></script>
+            <meta
+                name="google-signin-scope"
+                content="profile email" />
+             <meta
+                name="google-signin-client_id"
+                content="323045963439-t7tf05lgae6orhj9l4djognefhfp3s3h.apps.googleusercontent.com" />
+            <script src="https://apis.google.com/js/platform.js" async defer>
+            </script>
+            <script>
+            
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId      : '380963615613103',
+                  cookie     : true,
+                  xfbml      : true,
+                  version    : 'v2.8'
+                });
+                FB.AppEvents.logPageView();   
+              };
+            
+              (function(d, s, id)
+                  {var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) {return;}
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js";fjs.parentNode.insertBefore(js, fjs);}
+                  (document, 'script', 'facebook-jssdk'));
+            </script>
+            <div id="content">
+            </div>
+            <script type="text/javascript" src="/static/script.js"></script>
+        </ul>
     </body>
 </html>

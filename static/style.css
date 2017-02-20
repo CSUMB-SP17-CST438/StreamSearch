@@ -1,9 +1,21 @@
 html {
     font-family: Helvetica, sans-serif;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
-
+.sub-menu li {
+    font-size: 1em;
+    padding: .25em 1em;
+    line-height: 1em;
+}
+.sub-menu {
+    padding: 0;
+    max-height: 4.5em; /* 1.5 x 3 */
+    overflow-y: auto;
+}
+.sub-menu li:hover {
+    background: #f1f1f1;
+}
 .heading {
     font-size: 3em;
     text-shadow: 0 0 2em red;
@@ -12,5 +24,37 @@ html {
 }
 
 .number-item {
-    background-color: green;
+    background-color: blue;
+}
+#myUL {
+    border: 1px solid black;
+    background-color: gray;
+    opacity :0.8;
+    width: 50vw;
+    height: 65vh;
+    overflow: visible;
+    overflow-y: auto;
+}
+#fullopac{
+    opacity: 1.0;
+}
+#left_side{
+    width: 210px;
+    height: 700px;
+    overflow:hidden; 
+    position:absolute;
+    font-size: 16px;
+}
+
+#content{
+     height: auto;
+     padding: 20px;
+     margin-left: 230px;
+     margin-right: 20px;
+    padding-bottom: 30px
+ }
+body{
+            background: url('http://i.imgur.com/d2qNxxm.jpg') no-repeat scroll;
+            background-size: 100% 100%;
+            min-height: 700px;
 }

@@ -13123,6 +13123,7 @@ var Content = exports.Content = function (_React$Component) {
         _this.state = {
             'numbers': []
         };
+
         return _this;
     }
 
@@ -13132,33 +13133,48 @@ var Content = exports.Content = function (_React$Component) {
             var _this2 = this;
 
             _Socket.Socket.on('all numbers', function (data) {
-                _this2.setState({
-                    'numbers': data['numbers']
-                });
+                _this2.setState({ 'numbers': data['numbers'] });
             });
         }
     }, {
         key: 'render',
         value: function render() {
+
             var numbers = this.state.numbers.map(function (n, index) {
                 return React.createElement(
                     'li',
-                    { className: 'number-item', key: index },
-                    n
+                    { key: index },
+                    React.createElement('img', { src: n.picture }),
+                    n.name,
+                    ': ',
+                    n.number
                 );
             });
+
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
                     'h1',
-                    { className: 'heading' },
-                    'Random numbers so far!'
+                    null,
+                    React.createElement('div', {
+                        className: 'fb-login-button',
+                        'data-max-rows': '1',
+                        'data-size': 'large',
+                        'data-show-faces': 'false',
+                        'data-auto-logout-link': 'true' }),
+                    React.createElement('div', { className: 'g-signin2', 'data-theme': 'dark' })
                 ),
+                React.createElement(
+                    'h2',
+                    { color: 'White' },
+                    'Chicken Chat!'
+                ),
+                React.createElement('input', { type: 'text', id: 'message_in' }),
                 React.createElement(_Button.Button, null),
                 React.createElement(
                     'ul',
-                    null,
+                    { id: 'myUL' },
                     numbers
                 )
             );
@@ -13296,14 +13312,25 @@ var Button = exports.Button = function (_React$Component) {
     _createClass(Button, [{
         key: 'handleSubmit',
         value: function handleSubmit(event) {
-            event.preventDefault();
 
-            var random = Math.floor(Math.random() * 100);
-            console.log('Generated a random number: ', random);
-            _Socket.Socket.emit('new number', {
-                'number': random
+            event.preventDefault();
+            var text = document.getElementById("message_in").value;
+            if (text == '') {
+                return;
+            }
+            document.getElementById("message_in").value = "";
+            FB.getLoginStatus(function (response) {
+                if (response.status == 'connected') {
+                    _Socket.Socket.emit('new number', { 'facebook_user_token': response.authResponse.accessToken, 'number': text });
+                } else {
+                    var auth = gapi.auth2.getAuthInstance();
+                    var user = auth.currentUser.get();
+
+                    if (user.isSignedIn()) {
+                        _Socket.Socket.emit('new number', { 'google_user_token': user.getAuthResponse().id_token, 'facebook_user_token': '', 'number': text });
+                    }
+                }
             });
-            console.log('Sent up the random number to server!');
         }
     }, {
         key: 'render',
@@ -13314,7 +13341,7 @@ var Button = exports.Button = function (_React$Component) {
                 React.createElement(
                     'button',
                     null,
-                    'Send up a random number!'
+                    'Send Message'
                 )
             );
         }
