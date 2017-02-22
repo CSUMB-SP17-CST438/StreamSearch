@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
      ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
     '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
@@ -44,3 +45,6 @@ Cloud9 > Preferences > Project Settings > Language Support.
 
 Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE.
 To watch some training videos, visit http://www.youtube.com/user/c9ide.
+=======
+#Documentation for Project 2 Elias Gomez
+>>>>>>> 24067ce1ae0fac8205beeb601d655e22906055fd
