@@ -1,20 +1,23 @@
 module.exports = {
-    entry: "./scripts/Main.js",
-    output: {
-        path: __dirname,
-        filename: "./static/script.js"
-    },
-    module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" },
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'react']
-                }
-            }
-        ]
-    }
+  entry: [
+    './src/index.js'
+  ],
+  output: {
+    path: __dirname,
+    publicPath: '/',
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [{
+      exclude: /node_modules/,
+      loader: 'babel'
+    }]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './'
+  }
 };
