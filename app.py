@@ -6,6 +6,15 @@ import requests
 app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 
+#Guidebox API Key c338d925a0672acf243133ddc1d5d66fb0191391
+@socketio.on('connect')
+def on_connect():
+    test()
+    
+def test():
+    socketio.emit('hello to client', {
+        'message': 'Hey there!'
+    })
     
 @app.route('/')
 def hello():
