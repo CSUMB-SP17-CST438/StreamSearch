@@ -1,12 +1,47 @@
 {
-  "dependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.22.0",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "socket.io-client": "^1.7.2"
+  "name": "movie-finder",
+  "version": "0.0.1",
+  "description": "Movie finder app using react + redux",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "node server.js",
+    "postinstall": "webpack -p --config webpack-production.config.js --define process.env.NODE_ENV='\"production\"'"
   },
-  "devDependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinsuh/movie-finder.git"
+  },
+  "author": "Kevin Suh",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "axios": "^0.15.2",
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-0": "^6.3.13",
+    "express": "^4.14.0",
+    "lodash": "^4.16.4",
+    "moment": "^2.15.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-redux": "^4.0.0",
+    "react-router": "^2.0.0-rc5",
+    "redux": "^3.0.4",
+    "redux-thunk": "^2.1.0",
+    "strip-loader": "^0.1.2",
+    "webpack": "^1.12.9"
+  },
+  "bugs": {
+    "url": "https://github.com/kevinsuh/movie-finder/issues"
+  },
+  "engines": {
+    "node": "5.10.1",
+    "npm": "3.8.3"
+  },
+  "homepage": "https://github.com/kevinsuh/movie-finder"
 }
