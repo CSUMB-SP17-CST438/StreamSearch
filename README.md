@@ -3,7 +3,7 @@ STREAM SEARCH(previously named OverLook)
 Description:
 Let us do the searching
 
-With Stream Serach it gives the ability to search for Movies and TV shows. When you find the movie you like. Simply click on the link and it will tell you a summary about the movie or show, when it was released, time duration of movie/show, and a movie trailer, which linked from YouTube.
+Stream Search gives someone the ability to search for Movies and TV shows. When you find the movie you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube.
 
 https://project-3-stream-searcher.herokuapp.com/ (Heroku) 
 
