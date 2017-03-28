@@ -1,4 +1,5 @@
 module.exports = {
+  debug: true,
   entry: [
     './src/index.js'
   ],
