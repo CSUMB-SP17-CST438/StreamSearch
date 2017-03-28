@@ -1,12 +1,10 @@
 module.exports = {
-  debug: true,
   entry: [
     './src/index.js'
   ],
   output: {
     path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+    filename: './static/script.js'
   },
   module: {
     loaders: [{
