@@ -1,0 +1,98 @@
+.header {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: white;
+}
+
+body {
+    background-image: url("http://holytrinity.academy/wp-content/uploads/2016/11/Blue-Background.jpg");
+    
+}
+
+.movie-item {
+	float: left;
+	padding: 15px 10px;
+	width: 100%;
+}
+
+.movies-list {
+	margin-bottom: 10px;
+}
+
+.movie-item-link .movie-item {
+	color: white;
+}
+.movie-item-link:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.movie-item:hover {
+	background-color: black !important;
+	color: white !important;
+}
+
+.movie-item .item-title {
+	margin: 0;
+	float: left;
+	font-size: 25px;
+	font-weight: 600;
+	max-width: 80%;
+}
+.movie-item .item-release-date {
+	margin: 0;
+	padding-top:5px;
+	font-style: italic;
+	float: right;
+	max-width: 20%;
+	text-align: right;
+}
+
+.inner-addon { 
+		position: relative; 
+}
+
+.search-bar .movie-search {
+	height: 50px;
+	font-size: 18px;
+	padding-left: 15px;
+}
+
+.tagline {
+	font-weight: 600;
+	font-style: italic;
+}
+
+.summary {
+	margin-top: 15px;
+}
+
+.review-detail {
+	padding: 15px 0;
+}
+
+.trailers {
+	margin: 15px 0;
+	padding: 10px 0;
+	text-align: center;
+}
+.trailer {
+	padding: 15px 0;
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+	position: absolute;
+	padding: 15px;
+	pointer-events: none;
+	font-size: 18px;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
