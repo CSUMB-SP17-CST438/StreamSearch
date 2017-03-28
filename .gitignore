@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+node_modules
+=======
 /node_modules
 bundle.js
 npm-debug.log
+>>>>>>> 585ca866c2d1657469e01e289747a5fb19610073
