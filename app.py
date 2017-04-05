@@ -9,8 +9,13 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 
 #Guidebox API Key c338d925a0672acf243133ddc1d5d66fb0191391
+#http://api-public.guidebox.com/v1.43/ {region} / {api key}
 @app.route('/')
 def hello():
+    response = requests.get('http://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391')
+    #response = requests.get('http://api-public.guidebox.com/v2/shows/6959/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
+    json_body = response.json()
+    print json_body
     return flask.render_template('index.html')
    
 @socketio.on('connect')
@@ -20,7 +25,11 @@ def on_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
-    
+
+@socketio.on('search1')
+def onSearch(data):
+    print data
+    print "here"
  
 if __name__ == '__main__':
     socketio.run(
