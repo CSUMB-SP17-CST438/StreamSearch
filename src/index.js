@@ -12,6 +12,8 @@ import routes from './routes';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
+console.log("index.js")
+
 ReactDOM.render(
 	<Provider store={createStoreWithMiddleware(reducers)}>
 		<Router history={browserHistory} routes={routes} />
