@@ -2,7 +2,7 @@ import React, {	Component } from 'react';
 import { connect } from 'react-redux';
 import Header from './header';
 
-console.log("app.js")
+console.log("app.js");
 
 export default class App extends Component {
 	
