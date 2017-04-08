@@ -3,13 +3,11 @@ import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MO
 const API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 const ROOT_URL = `https://api.themoviedb.org/3`;
 const LANGUAGE = `en-US`;
-const GB_API_KEY = 'c338d925a0672acf243133ddc1d5d66fb0191391';
-const GB_ROOT_URL = 'http://api-public.guidebox.com/v2'
 
 
 export function fetchPopularMovies() {
 
-	/*
+	
 	const request = axios.get(`${ROOT_URL}/movie/popular`, {
 		params: { api_key: API_KEY }
 	});
@@ -21,19 +19,7 @@ export function fetchPopularMovies() {
 			});
 		});
 	}
-	*/
-	console.log("inside fetchPopularMovies");
 	
-	const request = axios.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
-	
-	return (dispatch) => {
-		request.then((res) => {
-			dispatch({
-				type: FETCH_POPULAR_MOVIES,
-				payload: res.data.results
-			});
-		});
-	}
 
 }
 
