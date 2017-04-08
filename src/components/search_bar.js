@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { searchMovies } from '../actions';
+import { searchMovies, searchShows } from '../actions';
 import { Socket } from './Socket';
 
 class SearchBar extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { term: '', sendMovieQuery: _.debounce((term) => {this.props.searchMovies(term)}, 300)};
+		this.state = { term: '', sendMovieQuery: _.debounce((term) => {this.props.searchShows(term)}, 300)};
 	}
 
 	render() {
-		Socket.emit('search1', {
-                'text': "hi it works"
-            });
 		return (
 			// component state to handle input
 			// every 0.3 seconds, will search for movies based on query value
@@ -32,7 +29,7 @@ class SearchBar extends Component {
 		this.setState({ term: value });
 		this.state.sendMovieQuery(value);
 		Socket.emit('search1', {
-                'text': "hi it works"
+                'text': value
             });
 	}
 
@@ -44,4 +41,4 @@ function mapStateToProps({ movies }) {
 	}
 }
 
-export default connect(mapStateToProps, { searchMovies })(SearchBar);
+export default connect(mapStateToProps, { searchShows })(SearchBar);
