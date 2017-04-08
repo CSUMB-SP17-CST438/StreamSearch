@@ -6,8 +6,10 @@ const GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
 const GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391'
 const LANGUAGE = `en-US`;
 
+
 export function fetchPopularMovies() {
 
+	
 	const request = axios.get(`${ROOT_URL}/movie/popular`, {
 		params: { api_key: API_KEY }
 	});
@@ -19,6 +21,7 @@ export function fetchPopularMovies() {
 			});
 		});
 	}
+	
 
 }
 
