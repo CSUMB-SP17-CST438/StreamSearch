@@ -12,9 +12,12 @@ socketio = flask_socketio.SocketIO(app)
 #http://api-public.guidebox.com/v1.43/ {region} / {api key}
 @app.route('/')
 def hello():
-    #response = requests.get('http://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391')
+    response = requests.get('http://api-public.guidebox.com/v2/movies?api_key=c338d925a0672acf243133ddc1d5d66fb0191391')
     #response = requests.get('http://api-public.guidebox.com/v2/shows/6959/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
-    #json_body = response.json()
+    json_body = response.json()
+    total = json_body['total_results']
+    result1 = json_body['results'][1]
+    print result1
     #print json_body
     return flask.render_template('index.html')
    
