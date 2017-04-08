@@ -40,7 +40,7 @@ class ShowDetails extends Component {
 					{show.overview}
 				</p>
 				<select>
-				{seasons.length != 0 ? this.renderSeasons() : ''}
+				{seasons.length != 0 ? this.renderSeasons() : <option>None</option>}
 				</select>
 				{1==1 ? this.renderEpisodes() : ''}
 			</div>

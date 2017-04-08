@@ -21640,6 +21640,8 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
+	var _reactRouter = __webpack_require__(197);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21672,6 +21674,24 @@
 						'h2',
 						null,
 						'Let us do the Searching for you!'
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ key: '1', to: '/shows' },
+						_react2.default.createElement(
+							'h1',
+							null,
+							'Show'
+						)
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ key: '2', to: '/movies' },
+						_react2.default.createElement(
+							'h1',
+							null,
+							'Movies'
+						)
 					)
 				);
 			}
@@ -21753,6 +21773,13 @@
 						movie: initialState.movie
 					});
 				}
+
+			case _types.FETCH_POPULAR_SHOWS:
+				{
+					return _extends({}, state, {
+						list: action.payload
+					});
+				}
 			case _types.SEARCH_SHOWS:
 				{
 					return _extends({}, state, {
@@ -21808,6 +21835,7 @@
 	var FETCH_SHOW = exports.FETCH_SHOW = "FETCH_SHOW";
 	var FETCH_SEASONS = exports.FETCH_SEASONS = "FETCH_SEASONS";
 	var FETCH_EPISODES = exports.FETCH_EPISODES = "FETCH_EPISODES";
+	var FETCH_POPULAR_SHOWS = exports.FETCH_POPULAR_SHOWS = "FETCH_POPULAR_SHOWS";
 
 /***/ },
 /* 196 */
@@ -27524,6 +27552,10 @@
 
 	var _movies_list2 = _interopRequireDefault(_movies_list);
 
+	var _shows_list = __webpack_require__(460);
+
+	var _shows_list2 = _interopRequireDefault(_shows_list);
+
 	var _movies_show = __webpack_require__(457);
 
 	var _movies_show2 = _interopRequireDefault(_movies_show);
@@ -27534,14 +27566,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// mapping of URL's to routed components
 	exports.default = _react2.default.createElement(
 		_reactRouter.Route,
 		{ path: '/', component: _app2.default },
 		_react2.default.createElement(_reactRouter.IndexRoute, { component: _movies_list2.default }),
+		_react2.default.createElement(_reactRouter.Route, { component: _movies_list2.default, path: 'movies' }),
+		_react2.default.createElement(_reactRouter.Route, { component: _shows_list2.default, path: 'shows' }),
 		_react2.default.createElement(_reactRouter.Route, { component: _movies_show2.default, path: 'movies/:id' }),
 		_react2.default.createElement(_reactRouter.Route, { component: _show_details2.default, path: 'shows/:id' })
-	);
+	); // mapping of URL's to routed components
 
 /***/ },
 /* 261 */
@@ -27594,6 +27627,7 @@
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.props.fetchPopularMovies();
+				//this.props.fetchPopularShows();
 				this.props.clearMovie(); // reset fetched movie
 			}
 		}, {
@@ -27602,7 +27636,7 @@
 				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
 				return _react2.default.createElement(
 					_reactRouter.Link,
-					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
+					{ key: i, to: '/movies/' + movie.id, className: 'movie-item-link' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'movie-item' },
@@ -27619,19 +27653,29 @@
 					)
 				);
 			}
-
-			/*	renderShow(movie, i) {
-	  		const releaseDate = moment(movie.release_date).calendar();
-	  		return (
-	  			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
-	  				<div className="movie-item">
-	  					<p className="item-title">{movie.title}</p>
-	  					<p className="item-release-date">{releaseDate}</p>
-	  				</div>
-	  			</Link>
-	  		);
-	  	}*/
-
+		}, {
+			key: 'renderShow',
+			value: function renderShow(movie, i) {
+				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
+				return _react2.default.createElement(
+					_reactRouter.Link,
+					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'movie-item' },
+						_react2.default.createElement(
+							'p',
+							{ className: 'item-title' },
+							movie.title
+						),
+						_react2.default.createElement(
+							'p',
+							{ className: 'item-release-date' },
+							'Shows'
+						)
+					)
+				);
+			}
 		}, {
 			key: 'render',
 			value: function render() {
@@ -27661,7 +27705,7 @@
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchPopularMovies: _actions.fetchPopularMovies, clearMovie: _actions.clearMovie })(MoviesList);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchPopularMovies: _actions.fetchPopularMovies, clearMovie: _actions.clearMovie, fetchPopularShows: _actions.fetchPopularShows })(MoviesList);
 
 /***/ },
 /* 262 */
@@ -43478,6 +43522,7 @@
 	exports.clearMovie = clearMovie;
 	exports.fetchMovieTrailers = fetchMovieTrailers;
 	exports.fetchMovieReviews = fetchMovieReviews;
+	exports.fetchPopularShows = fetchPopularShows;
 	exports.searchShows = searchShows;
 	exports.fetchShow = fetchShow;
 	exports.fetchEpisodes = fetchEpisodes;
@@ -43493,7 +43538,7 @@
 
 	var API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 	var ROOT_URL = 'https://api.themoviedb.org/3';
-	var GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
+	var GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
 	var GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391';
 	var LANGUAGE = 'en-US';
 
@@ -43582,6 +43627,18 @@
 		};
 	}
 
+	function fetchPopularShows() {
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391');
+		return function (dispatch) {
+			request.then(function (res) {
+				dispatch({
+					type: _types.FETCH_POPULAR_SHOWS,
+					payload: res.data.results
+				});
+			});
+		};
+	}
+
 	function searchShows(term) {
 		//http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh
 		var request = void 0;
@@ -43593,9 +43650,7 @@
 			//console.log(request);
 		} else {
 			// when blank term, return popular movies again
-			request = _axios2.default.get(ROOT_URL + '/movie/popular', {
-				params: { api_key: API_KEY }
-			});
+			request = _axios2.default.get('https://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391');
 		}
 
 		return function (dispatch) {
@@ -45182,7 +45237,10 @@
 
 			var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
-			_this.state = { term: '', sendMovieQuery: _lodash2.default.debounce(function (term) {
+			_this.state = {
+				term: '',
+				select: '',
+				sendMovieQuery: _lodash2.default.debounce(function (term) {
 					_this.props.searchShows(term);
 				}, 300) };
 			return _this;
@@ -70648,7 +70706,11 @@
 					_react2.default.createElement(
 						'select',
 						null,
-						seasons.length != 0 ? this.renderSeasons() : ''
+						seasons.length != 0 ? this.renderSeasons() : _react2.default.createElement(
+							'option',
+							null,
+							'None'
+						)
 					),
 					 true ? this.renderEpisodes() : ''
 				);
@@ -70704,6 +70766,137 @@
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow, fetchSeasons: _actions.fetchSeasons, fetchEpisodes: _actions.fetchEpisodes })(ShowDetails);
+
+/***/ },
+/* 460 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _reactRouter = __webpack_require__(197);
+
+	var _moment = __webpack_require__(262);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _actions = __webpack_require__(379);
+
+	var _search_bar = __webpack_require__(405);
+
+	var _search_bar2 = _interopRequireDefault(_search_bar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ShowsList = function (_Component) {
+		_inherits(ShowsList, _Component);
+
+		function ShowsList(props) {
+			_classCallCheck(this, ShowsList);
+
+			return _possibleConstructorReturn(this, (ShowsList.__proto__ || Object.getPrototypeOf(ShowsList)).call(this, props));
+		}
+
+		_createClass(ShowsList, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				//this.props.fetchPopularMovies();
+				this.props.fetchPopularShows();
+				this.props.clearMovie(); // reset fetched movie
+			}
+		}, {
+			key: 'renderMovie',
+			value: function renderMovie(movie, i) {
+				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
+				return _react2.default.createElement(
+					_reactRouter.Link,
+					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'movie-item' },
+						_react2.default.createElement(
+							'p',
+							{ className: 'item-title' },
+							movie.title
+						),
+						_react2.default.createElement(
+							'p',
+							{ className: 'item-release-date' },
+							releaseDate
+						)
+					)
+				);
+			}
+		}, {
+			key: 'renderShow',
+			value: function renderShow(movie, i) {
+				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
+				return _react2.default.createElement(
+					_reactRouter.Link,
+					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'movie-item' },
+						_react2.default.createElement(
+							'p',
+							{ className: 'item-title' },
+							movie.title
+						),
+						_react2.default.createElement(
+							'p',
+							{ className: 'item-release-date' },
+							'Shows'
+						)
+					)
+				);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var movies = this.props.movies.list.map(this.renderShow);
+				//var shows = this.props.shows.list.map(this.renderShow);
+				return _react2.default.createElement(
+					'div',
+					{ className: 'movies-list' },
+					_react2.default.createElement(_search_bar2.default, null),
+					_react2.default.createElement(
+						'div',
+						{ id: 'movieList' },
+						movies
+					)
+				);
+			}
+		}]);
+
+		return ShowsList;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+		var movies = _ref.movies;
+
+		return {
+			movies: movies
+		};
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchPopularMovies: _actions.fetchPopularMovies, clearMovie: _actions.clearMovie, fetchPopularShows: _actions.fetchPopularShows })(ShowsList);
 
 /***/ }
 /******/ ]);
