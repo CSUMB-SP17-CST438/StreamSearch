@@ -43464,28 +43464,12 @@
 	var GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
 	var GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391';
 	var LANGUAGE = 'en-US';
-	var GB_API_KEY = 'c338d925a0672acf243133ddc1d5d66fb0191391';
-	var GB_ROOT_URL = 'http://api-public.guidebox.com/v2';
 
 	function fetchPopularMovies() {
 
-		/*
-	 const request = axios.get(`${ROOT_URL}/movie/popular`, {
-	 	params: { api_key: API_KEY }
-	 });
-	 return (dispatch) => {
-	 	request.then((res) => {
-	 		dispatch({
-	 			type: FETCH_POPULAR_MOVIES,
-	 			payload: res.data.results
-	 		});
-	 	});
-	 }
-	 */
-		console.log("inside fetchPopularMovies");
-
-		var request = _axios2.default.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
-
+		var request = _axios2.default.get(ROOT_URL + '/movie/popular', {
+			params: { api_key: API_KEY }
+		});
 		return function (dispatch) {
 			request.then(function (res) {
 				dispatch({
