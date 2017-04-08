@@ -12,9 +12,6 @@ class SearchBar extends Component {
 	}
 
 	render() {
-		Socket.emit('search1', {
-                'text': "hi it works"
-            });
 		return (
 			// component state to handle input
 			// every 0.3 seconds, will search for movies based on query value
@@ -32,7 +29,7 @@ class SearchBar extends Component {
 		this.setState({ term: value });
 		this.state.sendMovieQuery(value);
 		Socket.emit('search1', {
-                'text': "hi it works"
+                'text': value
             });
 	}
 

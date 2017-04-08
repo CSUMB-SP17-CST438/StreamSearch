@@ -45070,9 +45070,6 @@
 			value: function render() {
 				var _this2 = this;
 
-				_Socket.Socket.emit('search1', {
-					'text': "hi it works"
-				});
 				return (
 					// component state to handle input
 					// every 0.3 seconds, will search for movies based on query value
@@ -45095,7 +45092,7 @@
 				this.setState({ term: value });
 				this.state.sendMovieQuery(value);
 				_Socket.Socket.emit('search1', {
-					'text': "hi it works"
+					'text': value
 				});
 			}
 		}]);
