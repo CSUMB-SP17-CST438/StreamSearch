@@ -112,7 +112,7 @@ export function searchShows(term) {
 
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('shows - ', res.data.results)
+			console.log('search shows - ', res.data.results)
 			dispatch({
 				type: SEARCH_SHOWS,
 				payload: res.data.results
@@ -140,7 +140,7 @@ export function fetchEpisodes(id) {
 	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching show - ', res.data.results)
+			console.log('fetching episodes - ', res.data.results)
 			dispatch({
 				type: FETCH_EPISODES,
 				payload: res.data

@@ -23,7 +23,7 @@ class ShowDetails extends Component {
 	//	const runTime = convertMinutesToHoursString(movies.runtime);
 	//	const releaseDate = moment(movies.release_date).calendar();
 	//	const rating = movies.vote_average;
-    console.log("movies - ", show);
+    console.log("show - ", show);
     console.log("seasons - ", seasons);
     console.log("episodes - ", episodes);
 		return (
@@ -55,8 +55,10 @@ class ShowDetails extends Component {
 
 function mapStateToProps({ movies }) {
 	return {
-		show: movies.show
-	}
+		show: movies.show,
+		seasons: movies.seasons,
+		episodes: movies.episodes
+	};
 }
 
 export default connect(mapStateToProps, { fetchShow, fetchSeasons, fetchEpisodes })(ShowDetails);

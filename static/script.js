@@ -21770,14 +21770,14 @@
 			case _types.FETCH_SEASONS:
 				{
 					return _extends({}, state, {
-						show: action.payload
+						seasons: action.payload
 					});
 				}
 
 			case _types.FETCH_EPISODES:
 				{
 					return _extends({}, state, {
-						show: action.payload
+						episodes: action.payload
 					});
 				}
 		}
@@ -21787,7 +21787,7 @@
 
 	var _types = __webpack_require__(195);
 
-	var initialState = { list: [], movie: null, show: [], seasons: [] };
+	var initialState = { list: [], movie: null, show: [], seasons: [], episodes: [] };
 
 /***/ },
 /* 195 */
@@ -43600,7 +43600,7 @@
 
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('shows - ', res.data.results);
+				console.log('search shows - ', res.data.results);
 				dispatch({
 					type: _types.SEARCH_SHOWS,
 					payload: res.data.results
@@ -43628,7 +43628,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching show - ', res.data.results);
+				console.log('fetching episodes - ', res.data.results);
 				dispatch({
 					type: _types.FETCH_EPISODES,
 					payload: res.data
@@ -70615,7 +70615,7 @@
 				//	const releaseDate = moment(movies.release_date).calendar();
 				//	const rating = movies.vote_average;
 
-				console.log("movies - ", show);
+				console.log("show - ", show);
 				console.log("seasons - ", seasons);
 				console.log("episodes - ", episodes);
 				return _react2.default.createElement(
@@ -70668,7 +70668,9 @@
 		var movies = _ref.movies;
 
 		return {
-			show: movies.show
+			show: movies.show,
+			seasons: movies.seasons,
+			episodes: movies.episodes
 		};
 	}
 
