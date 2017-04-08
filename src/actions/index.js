@@ -123,10 +123,24 @@ export function searchShows(term) {
 
 export function fetchShow(id) {
 	// fetch movie through id using movie api
-	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
+	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
 	return (dispatch) => {
 		request.then((res) => {
 			console.log('fetching show - ', res.data.results)
+			dispatch({
+				type: FETCH_SHOW,
+				payload: res.data
+			})
+		})
+	}
+}
+
+export function fetchSeasons(id) {
+	//seasons
+	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/seasons?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching seasons - ', res.data.results)
 			dispatch({
 				type: FETCH_SHOW,
 				payload: res.data

@@ -21763,7 +21763,14 @@
 			case _types.FETCH_SHOW:
 				{
 					return _extends({}, state, {
-						show: initialState.show
+						show: action.payload
+					});
+				}
+
+			case _types.FETCH_SEASONS:
+				{
+					return _extends({}, state, {
+						seasons: action.payload
 					});
 				}
 		}
@@ -21773,7 +21780,7 @@
 
 	var _types = __webpack_require__(195);
 
-	var initialState = { list: [], movie: null, show: null };
+	var initialState = { list: [], movie: null, show: [], seasons: [] };
 
 /***/ },
 /* 195 */
@@ -21792,6 +21799,7 @@
 	var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = "FETCH_MOVIE_TRAILERS";
 	var SEARCH_SHOWS = exports.SEARCH_SHOWS = "SEARCH_SHOWS";
 	var FETCH_SHOW = exports.FETCH_SHOW = "FETCH_SHOW";
+	var FETCH_SEASONS = exports.FETCH_SEASONS = "FETCH_SEASONS";
 
 /***/ },
 /* 196 */
@@ -43464,6 +43472,7 @@
 	exports.fetchMovieReviews = fetchMovieReviews;
 	exports.searchShows = searchShows;
 	exports.fetchShow = fetchShow;
+	exports.fetchSeasons = fetchSeasons;
 
 	var _axios = __webpack_require__(380);
 
@@ -43593,10 +43602,24 @@
 
 	function fetchShow(id) {
 		// fetch movie through id using movie api
-		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ');
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
 		return function (dispatch) {
 			request.then(function (res) {
 				console.log('fetching show - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_SHOW,
+					payload: res.data
+				});
+			});
+		};
+	}
+
+	function fetchSeasons(id) {
+		//seasons
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/seasons?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ');
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching seasons - ', res.data.results);
 				dispatch({
 					type: _types.FETCH_SHOW,
 					payload: res.data
@@ -70554,21 +70577,20 @@
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.props.fetchShow(this.props.params.id);
+				this.props.fetchSeasons(this.props.params.id);
 			}
 		}, {
 			key: 'renderShow',
 			value: function renderShow() {
 				var _props = this.props,
-				    movies = _props.movies,
-				    movie_details = _props.movie_details;
+				    show = _props.show,
+				    seasons = _props.seasons;
+				//	const genres = movies.genres.map(genre => genre.name).join(", ");
+				//	const runTime = convertMinutesToHoursString(movies.runtime);
+				//	const releaseDate = moment(movies.release_date).calendar();
+				//	const rating = movies.vote_average;
 
-				var genres = movies.genres.map(function (genre) {
-					return genre.name;
-				}).join(", ");
-				var runTime = (0, _helpers.convertMinutesToHoursString)(movies.runtime);
-				var releaseDate = (0, _moment2.default)(movies.release_date).calendar();
-				var rating = movies.vote_average;
-
+				console.log("movies - ", show);
 				return _react2.default.createElement(
 					'div',
 					{ className: 'show-details' },
@@ -70580,34 +70602,22 @@
 					_react2.default.createElement(
 						'h2',
 						{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
-						movies.title
+						show.title
 					),
 					_react2.default.createElement(
 						'h6',
 						{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
-						movies.tagline
+						show.tagline
 					),
 					_react2.default.createElement(
 						'a',
-						{ href: movies.homepage, target: '_blank' },
-						movies.homepage
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'header-details' },
-						runTime,
-						' | ',
-						genres,
-						' | ',
-						releaseDate,
-						' | ',
-						rating,
-						'/10'
+						{ href: show.homepage, target: '_blank' },
+						show.homepage
 					),
 					_react2.default.createElement(
 						'p',
 						{ className: 'summary' },
-						movies.overview
+						show.overview
 					)
 				);
 			}
@@ -70635,7 +70645,7 @@
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow })(ShowDetails);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow, fetchSeasons: _actions.fetchSeasons })(ShowDetails);
 
 /***/ }
 /******/ ]);

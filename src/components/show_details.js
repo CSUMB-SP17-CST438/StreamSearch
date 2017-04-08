@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { fetchShow } from '../actions';
+import { fetchShow, fetchSeasons } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
 
 class ShowDetails extends Component {
@@ -13,28 +13,26 @@ class ShowDetails extends Component {
 
 	componentWillMount() {
 		this.props.fetchShow(this.props.params.id);
+		this.props.fetchSeasons(this.props.params.id);
 	}
 
 	renderShow() {
-		const { movies, movie_details } = this.props;
-		const genres = movies.genres.map(genre => genre.name).join(", ");
-		const runTime = convertMinutesToHoursString(movies.runtime);
-		const releaseDate = moment(movies.release_date).calendar();
-		const rating = movies.vote_average;
-
+		const { show, seasons } = this.props;
+	//	const genres = movies.genres.map(genre => genre.name).join(", ");
+	//	const runTime = convertMinutesToHoursString(movies.runtime);
+	//	const releaseDate = moment(movies.release_date).calendar();
+	//	const rating = movies.vote_average;
+    console.log("movies - ", show);
 		return (
 			<div className="show-details">
 				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
 					Back to List
 				</Link>
-				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movies.title}</h2>
-				<h6 className="tagline" style={{marginTop: "0px", fontSize:"14px"}}>{movies.tagline}</h6>
-				<a href={movies.homepage} target="_blank">{movies.homepage}</a>
-				<div className="header-details">
-					{runTime} | {genres} | {releaseDate} | {rating}/10
-				</div>
+				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{show.title}</h2>
+				<h6 className="tagline" style={{marginTop: "0px", fontSize:"14px"}}>{show.tagline}</h6>
+				<a href={show.homepage} target="_blank">{show.homepage}</a>
 				<p className="summary">
-					{movies.overview}
+					{show.overview}
 				</p>
 			</div>
 		);
@@ -58,4 +56,4 @@ function mapStateToProps({ movies }) {
 	}
 }
 
-export default connect(mapStateToProps, { fetchShow })(ShowDetails);
+export default connect(mapStateToProps, { fetchShow, fetchSeasons })(ShowDetails);
