@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, SEARCH_SHOWS } from './types';
+import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, SEARCH_SHOWS, FETCH_SHOW, FETCH_EPISODES, FETCH_SEASONS } from './types';
 const API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 const ROOT_URL = `https://api.themoviedb.org/3`;
 const GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
@@ -8,8 +8,6 @@ const LANGUAGE = `en-US`;
 
 
 export function fetchPopularMovies() {
-
-	
 	const request = axios.get(`${ROOT_URL}/movie/popular`, {
 		params: { api_key: API_KEY }
 	});
@@ -21,12 +19,9 @@ export function fetchPopularMovies() {
 			});
 		});
 	}
-	
-
 }
 
 export function searchMovies(term) {
-
 	let request;
 	if (term) {
 		request = axios.get(`${ROOT_URL}/search/movie`, {
@@ -38,7 +33,6 @@ export function searchMovies(term) {
 			params: { api_key: API_KEY }
 		});
 	}
-
 	return (dispatch) => {
 		request.then((res) => {
 			dispatch({
@@ -73,11 +67,9 @@ export function clearMovie() {
 
 
 export function fetchMovieTrailers(id) {
-
 	const request = axios.get(`${ROOT_URL}/movie/${id}/videos`, {
 		params: { api_key: API_KEY, language: LANGUAGE }
 	});
-
 	return (dispatch) => {
 		request.then((res) => {
 			dispatch({
@@ -89,11 +81,9 @@ export function fetchMovieTrailers(id) {
 }
 
 export function fetchMovieReviews(id) {
-
 	const request = axios.get(`${ROOT_URL}/movie/${id}/reviews`, {
 		params: { api_key: API_KEY, language: LANGUAGE }
 	});
-
 	return (dispatch) => {
 		request.then((res) => {
 			dispatch({
@@ -122,10 +112,52 @@ export function searchShows(term) {
 
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('shows - ', res.data.results)
+			console.log('search shows - ', res.data.results)
 			dispatch({
 				type: SEARCH_SHOWS,
 				payload: res.data.results
+			})
+		})
+	}
+}
+
+export function fetchShow(id) {
+	// fetch movie through id using movie api
+	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching show - ', res.data.results)
+			dispatch({
+				type: FETCH_SHOW,
+				payload: res.data
+			})
+		})
+	}
+}
+
+export function fetchEpisodes(id) {
+	// fetch movie through id using movie api
+	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching episodes - ', res.data.results)
+			dispatch({
+				type: FETCH_EPISODES,
+				payload: res.data
+			})
+		})
+	}
+}
+
+export function fetchSeasons(id) {
+	//seasons
+	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/seasons?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching seasons - ', res.data.results)
+			dispatch({
+				type: FETCH_SEASONS,
+				payload: res.data
 			})
 		})
 	}

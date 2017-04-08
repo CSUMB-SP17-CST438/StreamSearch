@@ -16,6 +16,8 @@ def hello():
     #response = requests.get('http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh');
     #response = requests.get('http://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391')
     #response = requests.get('http://api-public.guidebox.com/v2/shows/6959/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
+    #response = requests.get('http://api-public.guidebox.com/v2/shows/6959?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
+    
     #json_body = response.json()
     #total = json_body['total_results']
     #result1 = json_body['results'][1]
