@@ -19,7 +19,7 @@ class MoviesList extends Component {
 	renderMovie(movie, i) {
 		const releaseDate = moment(movie.release_date).calendar();
 		return (
-			<Link key={i} to={`/movies/${movie.id}`} className="movie-item-link">
+			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
 				<div className="movie-item">
 					<p className="item-title">{movie.title}</p>
 					<p className="item-release-date">{releaseDate}</p>
@@ -49,8 +49,7 @@ class MoviesList extends Component {
 				<div id="movieList">
 				{movies}
 				</div>
-				<div>
-				</div>
+				
 			</div>
 			
 		);

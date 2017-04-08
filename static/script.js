@@ -21759,6 +21759,13 @@
 						list: action.payload
 					});
 				}
+
+			case _types.FETCH_SHOW:
+				{
+					return _extends({}, state, {
+						show: initialState.show
+					});
+				}
 		}
 
 		return state;
@@ -21766,7 +21773,7 @@
 
 	var _types = __webpack_require__(195);
 
-	var initialState = { list: [], movie: null };
+	var initialState = { list: [], movie: null, show: null };
 
 /***/ },
 /* 195 */
@@ -21784,6 +21791,7 @@
 	var FETCH_MOVIE_REVIEWS = exports.FETCH_MOVIE_REVIEWS = "FETCH_MOVIE_REVIEWS";
 	var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = "FETCH_MOVIE_TRAILERS";
 	var SEARCH_SHOWS = exports.SEARCH_SHOWS = "SEARCH_SHOWS";
+	var FETCH_SHOW = exports.FETCH_SHOW = "FETCH_SHOW";
 
 /***/ },
 /* 196 */
@@ -27504,14 +27512,20 @@
 
 	var _movies_show2 = _interopRequireDefault(_movies_show);
 
+	var _show_details = __webpack_require__(459);
+
+	var _show_details2 = _interopRequireDefault(_show_details);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// mapping of URL's to routed components
 	exports.default = _react2.default.createElement(
 		_reactRouter.Route,
 		{ path: '/', component: _app2.default },
 		_react2.default.createElement(_reactRouter.IndexRoute, { component: _movies_list2.default }),
-		_react2.default.createElement(_reactRouter.Route, { component: _movies_show2.default, path: 'movies/:id' })
-	); // mapping of URL's to routed components
+		_react2.default.createElement(_reactRouter.Route, { component: _movies_show2.default, path: 'movies/:id' }),
+		_react2.default.createElement(_reactRouter.Route, { component: _show_details2.default, path: 'shows/:id' })
+	);
 
 /***/ },
 /* 261 */
@@ -27572,7 +27586,7 @@
 				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
 				return _react2.default.createElement(
 					_reactRouter.Link,
-					{ key: i, to: '/movies/' + movie.id, className: 'movie-item-link' },
+					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'movie-item' },
@@ -27615,8 +27629,7 @@
 						'div',
 						{ id: 'movieList' },
 						movies
-					),
-					_react2.default.createElement('div', null)
+					)
 				);
 			}
 		}]);
@@ -43450,6 +43463,7 @@
 	exports.fetchMovieTrailers = fetchMovieTrailers;
 	exports.fetchMovieReviews = fetchMovieReviews;
 	exports.searchShows = searchShows;
+	exports.fetchShow = fetchShow;
 
 	var _axios = __webpack_require__(380);
 
@@ -43466,7 +43480,6 @@
 	var LANGUAGE = 'en-US';
 
 	function fetchPopularMovies() {
-
 		var request = _axios2.default.get(ROOT_URL + '/movie/popular', {
 			params: { api_key: API_KEY }
 		});
@@ -43481,7 +43494,6 @@
 	}
 
 	function searchMovies(term) {
-
 		var request = void 0;
 		if (term) {
 			request = _axios2.default.get(ROOT_URL + '/search/movie', {
@@ -43493,7 +43505,6 @@
 				params: { api_key: API_KEY }
 			});
 		}
-
 		return function (dispatch) {
 			request.then(function (res) {
 				dispatch({
@@ -43526,11 +43537,9 @@
 	}
 
 	function fetchMovieTrailers(id) {
-
 		var request = _axios2.default.get(ROOT_URL + '/movie/' + id + '/videos', {
 			params: { api_key: API_KEY, language: LANGUAGE }
 		});
-
 		return function (dispatch) {
 			request.then(function (res) {
 				dispatch({
@@ -43542,11 +43551,9 @@
 	}
 
 	function fetchMovieReviews(id) {
-
 		var request = _axios2.default.get(ROOT_URL + '/movie/' + id + '/reviews', {
 			params: { api_key: API_KEY, language: LANGUAGE }
 		});
-
 		return function (dispatch) {
 			request.then(function (res) {
 				dispatch({
@@ -43579,6 +43586,20 @@
 				dispatch({
 					type: _types.SEARCH_SHOWS,
 					payload: res.data.results
+				});
+			});
+		};
+	}
+
+	function fetchShow(id) {
+		// fetch movie through id using movie api
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ');
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching show - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_SHOW,
+					payload: res.data
 				});
 			});
 		};
@@ -70483,6 +70504,138 @@
 
 		return content;
 	}
+
+/***/ },
+/* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(197);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _moment = __webpack_require__(262);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _actions = __webpack_require__(379);
+
+	var _helpers = __webpack_require__(458);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ShowDetails = function (_Component) {
+		_inherits(ShowDetails, _Component);
+
+		function ShowDetails(props) {
+			_classCallCheck(this, ShowDetails);
+
+			return _possibleConstructorReturn(this, (ShowDetails.__proto__ || Object.getPrototypeOf(ShowDetails)).call(this, props));
+		}
+
+		_createClass(ShowDetails, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				this.props.fetchShow(this.props.params.id);
+			}
+		}, {
+			key: 'renderShow',
+			value: function renderShow() {
+				var _props = this.props,
+				    movies = _props.movies,
+				    movie_details = _props.movie_details;
+
+				var genres = movies.genres.map(function (genre) {
+					return genre.name;
+				}).join(", ");
+				var runTime = (0, _helpers.convertMinutesToHoursString)(movies.runtime);
+				var releaseDate = (0, _moment2.default)(movies.release_date).calendar();
+				var rating = movies.vote_average;
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'show-details' },
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/', className: 'btn btn-primary', style: { float: "right" } },
+						'Back to List'
+					),
+					_react2.default.createElement(
+						'h2',
+						{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
+						movies.title
+					),
+					_react2.default.createElement(
+						'h6',
+						{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
+						movies.tagline
+					),
+					_react2.default.createElement(
+						'a',
+						{ href: movies.homepage, target: '_blank' },
+						movies.homepage
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'header-details' },
+						runTime,
+						' | ',
+						genres,
+						' | ',
+						releaseDate,
+						' | ',
+						rating,
+						'/10'
+					),
+					_react2.default.createElement(
+						'p',
+						{ className: 'summary' },
+						movies.overview
+					)
+				);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+
+				var show = this.props.show;
+				return _react2.default.createElement(
+					'div',
+					{ className: 'container show' },
+					show ? this.renderShow() : ''
+				);
+			}
+		}]);
+
+		return ShowDetails;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+		var movies = _ref.movies;
+
+		return {
+			show: movies.show
+		};
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow })(ShowDetails);
 
 /***/ }
 /******/ ]);
