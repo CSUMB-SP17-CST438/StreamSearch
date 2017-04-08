@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { fetchShow, fetchSeasons } from '../actions';
+import { fetchShow, fetchSeasons, fetchEpisodes } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
 
 class ShowDetails extends Component {
@@ -11,18 +11,21 @@ class ShowDetails extends Component {
 		super(props);
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchShow(this.props.params.id);
 		this.props.fetchSeasons(this.props.params.id);
+		this.props.fetchEpisodes(this.props.params.id);
 	}
 
 	renderShow() {
-		const { show, seasons } = this.props;
+		const { show, seasons, episodes } = this.props;
 	//	const genres = movies.genres.map(genre => genre.name).join(", ");
 	//	const runTime = convertMinutesToHoursString(movies.runtime);
 	//	const releaseDate = moment(movies.release_date).calendar();
 	//	const rating = movies.vote_average;
     console.log("movies - ", show);
+    console.log("seasons - ", seasons);
+    console.log("episodes - ", episodes);
 		return (
 			<div className="show-details">
 				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
@@ -56,4 +59,4 @@ function mapStateToProps({ movies }) {
 	}
 }
 
-export default connect(mapStateToProps, { fetchShow, fetchSeasons })(ShowDetails);
+export default connect(mapStateToProps, { fetchShow, fetchSeasons, fetchEpisodes })(ShowDetails);
