@@ -43644,7 +43644,7 @@
 			request.then(function (res) {
 				console.log('fetching seasons - ', res.data.results);
 				dispatch({
-					type: _types.FETCH_SHOW,
+					type: _types.FETCH_SEASONS,
 					payload: res.data
 				});
 			});
@@ -70597,8 +70597,8 @@
 		}
 
 		_createClass(ShowDetails, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
+			key: 'componentWillMount',
+			value: function componentWillMount() {
 				this.props.fetchShow(this.props.params.id);
 				this.props.fetchSeasons(this.props.params.id);
 				this.props.fetchEpisodes(this.props.params.id);
@@ -70608,8 +70608,7 @@
 			value: function renderShow() {
 				var _props = this.props,
 				    show = _props.show,
-				    seasons = _props.seasons,
-				    episodes = _props.episodes;
+				    seasons = _props.seasons;
 				//	const genres = movies.genres.map(genre => genre.name).join(", ");
 				//	const runTime = convertMinutesToHoursString(movies.runtime);
 				//	const releaseDate = moment(movies.release_date).calendar();
@@ -70617,7 +70616,6 @@
 
 				console.log("show - ", show);
 				console.log("seasons - ", seasons);
-				console.log("episodes - ", episodes);
 				return _react2.default.createElement(
 					'div',
 					{ className: 'show-details' },
@@ -70645,8 +70643,18 @@
 						'p',
 						{ className: 'summary' },
 						show.overview
-					)
+					),
+					 true ? this.renderEpisodes() : ''
 				);
+			}
+		}, {
+			key: 'renderEpisodes',
+			value: function renderEpisodes() {
+				var episodes = this.props.episodes;
+
+
+				console.log("episodes - ", episodes);
+				return _react2.default.createElement('div', { className: 'show-details' });
 			}
 		}, {
 			key: 'render',

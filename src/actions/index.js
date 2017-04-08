@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, SEARCH_SHOWS, FETCH_SHOW, FETCH_EPISODES } from './types';
+import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, SEARCH_SHOWS, FETCH_SHOW, FETCH_EPISODES, FETCH_SEASONS } from './types';
 const API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 const ROOT_URL = `https://api.themoviedb.org/3`;
 const GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
@@ -156,7 +156,7 @@ export function fetchSeasons(id) {
 		request.then((res) => {
 			console.log('fetching seasons - ', res.data.results)
 			dispatch({
-				type: FETCH_SHOW,
+				type: FETCH_SEASONS,
 				payload: res.data
 			})
 		})
