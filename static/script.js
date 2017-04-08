@@ -87,8 +87,6 @@
 
 	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
 
-	console.log("index.js");
-
 	_reactDom2.default.render(_react2.default.createElement(
 		_reactRedux.Provider,
 		{ store: createStoreWithMiddleware(_reducers2.default) },
@@ -21593,8 +21591,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	console.log("app.js");
 
 	var App = function (_Component) {
 		_inherits(App, _Component);
@@ -43333,12 +43329,28 @@
 	var API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 	var ROOT_URL = 'https://api.themoviedb.org/3';
 	var LANGUAGE = 'en-US';
+	var GB_API_KEY = 'c338d925a0672acf243133ddc1d5d66fb0191391';
+	var GB_ROOT_URL = 'http://api-public.guidebox.com/v2';
 
 	function fetchPopularMovies() {
 
-		var request = _axios2.default.get(ROOT_URL + '/movie/popular', {
-			params: { api_key: API_KEY }
-		});
+		/*
+	 const request = axios.get(`${ROOT_URL}/movie/popular`, {
+	 	params: { api_key: API_KEY }
+	 });
+	 return (dispatch) => {
+	 	request.then((res) => {
+	 		dispatch({
+	 			type: FETCH_POPULAR_MOVIES,
+	 			payload: res.data.results
+	 		});
+	 	});
+	 }
+	 */
+		console.log("inside fetchPopularMovies");
+
+		var request = _axios2.default.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
+
 		return function (dispatch) {
 			request.then(function (res) {
 				dispatch({

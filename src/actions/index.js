@@ -4,8 +4,10 @@ const API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 const ROOT_URL = `https://api.themoviedb.org/3`;
 const LANGUAGE = `en-US`;
 
+
 export function fetchPopularMovies() {
 
+	
 	const request = axios.get(`${ROOT_URL}/movie/popular`, {
 		params: { api_key: API_KEY }
 	});
@@ -17,6 +19,7 @@ export function fetchPopularMovies() {
 			});
 		});
 	}
+	
 
 }
 
