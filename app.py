@@ -23,6 +23,14 @@ def hello():
     #print json_body
     return flask.render_template('index.html')
    
+@app.route('/shows')
+def hello2():
+    return flask.render_template('index.html')
+
+@app.route('/movies')
+def hello3():
+    return flask.render_template('index.html')
+    
 @socketio.on('connect')
 def on_connect():
     print('Client connected')

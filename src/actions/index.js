@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, SEARCH_SHOWS, FETCH_SHOW, FETCH_EPISODES, FETCH_SEASONS } from './types';
+import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, SEARCH_SHOWS, FETCH_POPULAR_SHOWS, FETCH_SHOW, FETCH_EPISODES, FETCH_SEASONS } from './types';
 const API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 const ROOT_URL = `https://api.themoviedb.org/3`;
-const GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
+const GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
 const GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391'
 const LANGUAGE = `en-US`;
 
@@ -94,6 +94,18 @@ export function fetchMovieReviews(id) {
 	}
 }
 
+export function fetchPopularShows() {
+		const request = axios.get('https://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391');
+	return (dispatch) => {
+		request.then((res) => {
+			dispatch({
+				type: FETCH_POPULAR_SHOWS,
+				payload: res.data.results
+			});
+		});
+	}
+}
+
 export function searchShows(term) {
 	//http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh
 	let request;
@@ -105,9 +117,7 @@ export function searchShows(term) {
 		//console.log(request);
 	} else {
 		// when blank term, return popular movies again
-		request = axios.get(`${ROOT_URL}/movie/popular`, {
-			params: { api_key: API_KEY }
-		});
+		request = axios.get('https://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391');
 	}
 
 	return (dispatch) => {
