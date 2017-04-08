@@ -21777,6 +21777,7 @@
 	var CLEAR_MOVIE = exports.CLEAR_MOVIE = "CLEAR_MOVIE";
 	var FETCH_MOVIE_REVIEWS = exports.FETCH_MOVIE_REVIEWS = "FETCH_MOVIE_REVIEWS";
 	var FETCH_MOVIE_TRAILERS = exports.FETCH_MOVIE_TRAILERS = "FETCH_MOVIE_TRAILERS";
+	var SEARCH_SHOWS = exports.SEARCH_SHOWS = "SEARCH_SHOWS";
 
 /***/ },
 /* 196 */
@@ -43423,6 +43424,7 @@
 	exports.clearMovie = clearMovie;
 	exports.fetchMovieTrailers = fetchMovieTrailers;
 	exports.fetchMovieReviews = fetchMovieReviews;
+	exports.searchShows = searchShows;
 
 	var _axios = __webpack_require__(380);
 
@@ -43434,6 +43436,8 @@
 
 	var API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 	var ROOT_URL = 'https://api.themoviedb.org/3';
+	var GUIDEBOX_URL = 'http://api-public.guidebox.com/v2/search?';
+	var GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391';
 	var LANGUAGE = 'en-US';
 
 	function fetchPopularMovies() {
@@ -43522,6 +43526,32 @@
 			request.then(function (res) {
 				dispatch({
 					type: _types.FETCH_MOVIE_REVIEWS,
+					payload: res.data.results
+				});
+			});
+		};
+	}
+
+	function searchShows(term) {
+		//http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh
+		var request = void 0;
+		if (term) {
+			request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh');
+			//request = axios.get(`${GUIDEBOX_URL}`, {
+			//params: { api_key: GUIDEBOX_API, type: 'show', field: 'title', query: term }
+			//});
+			console.log(request);
+		} else {
+			// when blank term, return popular movies again
+			request = _axios2.default.get(ROOT_URL + '/movie/popular', {
+				params: { api_key: API_KEY }
+			});
+		}
+
+		return function (dispatch) {
+			request.then(function (res) {
+				dispatch({
+					type: _types.SEARCH_SHOWS,
 					payload: res.data.results
 				});
 			});
@@ -45060,7 +45090,7 @@
 			var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
 			_this.state = { term: '', sendMovieQuery: _lodash2.default.debounce(function (term) {
-					_this.props.searchMovies(term);
+					_this.props.searchShows(term);
 				}, 300) };
 			return _this;
 		}
@@ -45108,7 +45138,7 @@
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchMovies: _actions.searchMovies })(SearchBar);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchShows: _actions.searchShows })(SearchBar);
 
 /***/ },
 /* 406 */
