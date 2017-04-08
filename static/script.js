@@ -21753,6 +21753,12 @@
 						movie: initialState.movie
 					});
 				}
+			case _types.SEARCH_SHOWS:
+				{
+					return _extends({}, state, {
+						list: action.payload
+					});
+				}
 		}
 
 		return state;
@@ -27583,15 +27589,34 @@
 					)
 				);
 			}
+
+			/*	renderShow(movie, i) {
+	  		const releaseDate = moment(movie.release_date).calendar();
+	  		return (
+	  			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
+	  				<div className="movie-item">
+	  					<p className="item-title">{movie.title}</p>
+	  					<p className="item-release-date">{releaseDate}</p>
+	  				</div>
+	  			</Link>
+	  		);
+	  	}*/
+
 		}, {
 			key: 'render',
 			value: function render() {
 				var movies = this.props.movies.list.map(this.renderMovie);
+				//var shows = this.props.shows.list.map(this.renderShow);
 				return _react2.default.createElement(
 					'div',
 					{ className: 'movies-list' },
 					_react2.default.createElement(_search_bar2.default, null),
-					movies
+					_react2.default.createElement(
+						'div',
+						{ id: 'movieList' },
+						movies
+					),
+					_react2.default.createElement('div', null)
 				);
 			}
 		}]);
@@ -43536,11 +43561,11 @@
 		//http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh
 		var request = void 0;
 		if (term) {
-			request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh');
+			request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=' + encodeURI(term));
 			//request = axios.get(`${GUIDEBOX_URL}`, {
 			//params: { api_key: GUIDEBOX_API, type: 'show', field: 'title', query: term }
 			//});
-			console.log(request);
+			//console.log(request);
 		} else {
 			// when blank term, return popular movies again
 			request = _axios2.default.get(ROOT_URL + '/movie/popular', {
@@ -43550,6 +43575,7 @@
 
 		return function (dispatch) {
 			request.then(function (res) {
+				console.log('shows - ', res.data.results);
 				dispatch({
 					type: _types.SEARCH_SHOWS,
 					payload: res.data.results

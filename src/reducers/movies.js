@@ -1,4 +1,4 @@
-import { FETCH_POPULAR_MOVIES, SEARCH_MOVIES, FETCH_MOVIE, CLEAR_MOVIE, FETCH_MOVIE_REVIEWS, FETCH_MOVIE_TRAILERS } from '../actions/types';
+import { FETCH_POPULAR_MOVIES, SEARCH_MOVIES, FETCH_MOVIE, CLEAR_MOVIE, FETCH_MOVIE_REVIEWS, FETCH_MOVIE_TRAILERS, SEARCH_SHOWS } from '../actions/types';
 
 const initialState = { list: [], movie: null };
 export default function(state = initialState, action) {
@@ -22,6 +22,11 @@ export default function(state = initialState, action) {
 		case CLEAR_MOVIE: {
 			return { ...state,
 				movie: initialState.movie
+			}
+		}
+		case SEARCH_SHOWS: {
+			return { ...state,
+				list: action.payload
 			}
 		}
 	}

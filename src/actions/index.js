@@ -105,11 +105,11 @@ export function searchShows(term) {
 	//http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh
 	let request;
 	if (term) {
-		request = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=fresh');
+		request = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=' + encodeURI(term));
 		//request = axios.get(`${GUIDEBOX_URL}`, {
 			//params: { api_key: GUIDEBOX_API, type: 'show', field: 'title', query: term }
 		//});
-		console.log(request);
+		//console.log(request);
 	} else {
 		// when blank term, return popular movies again
 		request = axios.get(`${ROOT_URL}/movie/popular`, {
@@ -119,6 +119,7 @@ export function searchShows(term) {
 
 	return (dispatch) => {
 		request.then((res) => {
+			console.log('shows - ', res.data.results)
 			dispatch({
 				type: SEARCH_SHOWS,
 				payload: res.data.results
