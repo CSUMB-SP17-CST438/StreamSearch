@@ -18,13 +18,16 @@ class ShowDetails extends Component {
 	}
 
 	renderShow() {
-		const { show, seasons } = this.props;
+		const { show } = this.props;
+		const { seasons } = this.props;
+    	console.log("show - ", show);
+    	console.log("seasons - ", seasons);
+    	console.log("size of seasons - ", seasons.length)
 	//	const genres = movies.genres.map(genre => genre.name).join(", ");
 	//	const runTime = convertMinutesToHoursString(movies.runtime);
 	//	const releaseDate = moment(movies.release_date).calendar();
 	//	const rating = movies.vote_average;
-    console.log("show - ", show);
-    console.log("seasons - ", seasons);
+	
 		return (
 			<div className="show-details">
 				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
@@ -36,10 +39,25 @@ class ShowDetails extends Component {
 				<p className="summary">
 					{show.overview}
 				</p>
+				<select>
+				{seasons.length != 0 ? this.renderSeasons() : ''}
+				</select>
 				{1==1 ? this.renderEpisodes() : ''}
 			</div>
 		);
 	}
+	
+	renderSeasons() {
+		//for (var i = 0; i < 3; i++){}
+		const allSeasons = this.props.seasons.results.map((season, i) => {
+			//const { key } = season;
+			return (
+				<option key={i}>Season {i+1}</option>
+			);
+		});
+		return (allSeasons);
+	}
+	
 	
 	renderEpisodes() {
 		const { episodes } = this.props;

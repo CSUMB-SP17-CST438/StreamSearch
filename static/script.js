@@ -70606,16 +70606,17 @@
 		}, {
 			key: 'renderShow',
 			value: function renderShow() {
-				var _props = this.props,
-				    show = _props.show,
-				    seasons = _props.seasons;
+				var show = this.props.show;
+				var seasons = this.props.seasons;
+
+				console.log("show - ", show);
+				console.log("seasons - ", seasons);
+				console.log("size of seasons - ", seasons.length);
 				//	const genres = movies.genres.map(genre => genre.name).join(", ");
 				//	const runTime = convertMinutesToHoursString(movies.runtime);
 				//	const releaseDate = moment(movies.release_date).calendar();
 				//	const rating = movies.vote_average;
 
-				console.log("show - ", show);
-				console.log("seasons - ", seasons);
 				return _react2.default.createElement(
 					'div',
 					{ className: 'show-details' },
@@ -70644,8 +70645,28 @@
 						{ className: 'summary' },
 						show.overview
 					),
+					_react2.default.createElement(
+						'select',
+						null,
+						seasons.length != 0 ? this.renderSeasons() : ''
+					),
 					 true ? this.renderEpisodes() : ''
 				);
+			}
+		}, {
+			key: 'renderSeasons',
+			value: function renderSeasons() {
+				//for (var i = 0; i < 3; i++){}
+				var allSeasons = this.props.seasons.results.map(function (season, i) {
+					//const { key } = season;
+					return _react2.default.createElement(
+						'option',
+						{ key: i },
+						'Season ',
+						i + 1
+					);
+				});
+				return allSeasons;
 			}
 		}, {
 			key: 'renderEpisodes',
