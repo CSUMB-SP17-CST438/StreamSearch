@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import moment from 'moment';
-import { fetchShow, fetchSeasons, fetchEpisodes } from '../actions';
+import { fetchShow, fetchSeasons, fetchBySeason } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
 
 class ShowDetails extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+            'id': this.props.params.id,
+            'episodes': []
+        };
 	}
 
 	componentWillMount() {
 		this.props.fetchShow(this.props.params.id);
 		this.props.fetchSeasons(this.props.params.id);
-		this.props.fetchEpisodes(this.props.params.id);
+		this.props.fetchBySeason(this.props.params.id, 1);
 	}
 
 	renderShow() {
@@ -39,7 +44,7 @@ class ShowDetails extends Component {
 				<p className="summary">
 					{show.overview}
 				</p>
-				<select>
+				<select onChange={event => this.renderEpisodes(event.target.value)}>
 				{seasons.length != 0 ? this.renderSeasons() : <option>None</option>}
 				</select>
 				{1==1 ? this.renderEpisodes() : ''}
@@ -52,17 +57,19 @@ class ShowDetails extends Component {
 		const allSeasons = this.props.seasons.results.map((season, i) => {
 			//const { key } = season;
 			return (
-				<option key={i}>Season {i+1}</option>
+				<option key={i} value={i+1}>Season {i+1}</option>
 			);
 		});
 		return (allSeasons);
 	}
 	
 	
-	renderEpisodes() {
+	renderEpisodes(season) {
 		const { episodes } = this.props;
-		
-    console.log("episodes - ", episodes);
+		var id = this.state.id;
+		console.log(season);
+		//const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+    //console.log("request - ", request);
     return (
 			<div className="show-details">
 				
@@ -90,4 +97,4 @@ function mapStateToProps({ movies }) {
 	};
 }
 
-export default connect(mapStateToProps, { fetchShow, fetchSeasons, fetchEpisodes })(ShowDetails);
+export default connect(mapStateToProps, { fetchShow, fetchSeasons, fetchBySeason })(ShowDetails);
