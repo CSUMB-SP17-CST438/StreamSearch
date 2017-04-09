@@ -6,9 +6,13 @@
 }
 
 body {
-    background-image: url("http://holytrinity.academy/wp-content/uploads/2016/11/Blue-Background.jpg");
     
-}
+    background-image: url("http://wallpapercave.com/wp/o1OZNln.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
+    
+     }
 
 .movie-item {
 	float: left;
