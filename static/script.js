@@ -21640,8 +21640,6 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _reactRouter = __webpack_require__(193);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21680,25 +21678,7 @@
 						'data-max-rows': '1',
 						'data-size': 'medium',
 						'data-show-faces': 'false',
-						'data-auto-logout-link': 'true' }),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ key: '1', to: '/shows' },
-						_react2.default.createElement(
-							'h1',
-							null,
-							'Show'
-						)
-					),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ key: '2', to: '/movies' },
-						_react2.default.createElement(
-							'h1',
-							null,
-							'Movies'
-						)
-					)
+						'data-auto-logout-link': 'true' })
 				);
 			}
 		}]);
@@ -45227,6 +45207,8 @@
 
 	var _Socket = __webpack_require__(407);
 
+	var _reactRouter = __webpack_require__(193);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45245,7 +45227,7 @@
 
 			_this.state = {
 				term: '',
-				select: '',
+				select: 'movies',
 				sendMovieQuery: _lodash2.default.debounce(function (term) {
 					_this.props.searchShows(term);
 				}, 300) };
@@ -45263,6 +45245,24 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'search-bar inner-addon right-addon' },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ key: '1', to: '/shows' },
+							_react2.default.createElement(
+								'h1',
+								null,
+								'Show'
+							)
+						),
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ key: '2', to: '/movies' },
+							_react2.default.createElement(
+								'h1',
+								null,
+								'Movies'
+							)
+						),
 						_react2.default.createElement('i', { className: 'glyphicon glyphicon-search' }),
 						_react2.default.createElement('input', {
 							className: 'form-control movie-search',
@@ -45294,7 +45294,6 @@
 			query: movies.query
 		};
 	}
-
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchShows: _actions.searchShows })(SearchBar);
 
 /***/ },
