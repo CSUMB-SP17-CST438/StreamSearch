@@ -21640,8 +21640,6 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _reactRouter = __webpack_require__(193);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21680,25 +21678,7 @@
 						'data-max-rows': '1',
 						'data-size': 'medium',
 						'data-show-faces': 'false',
-						'data-auto-logout-link': 'true' }),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ key: '1', to: '/shows' },
-						_react2.default.createElement(
-							'h1',
-							null,
-							'Show'
-						)
-					),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ key: '2', to: '/movies' },
-						_react2.default.createElement(
-							'h1',
-							null,
-							'Movies'
-						)
-					)
+						'data-auto-logout-link': 'true' })
 				);
 			}
 		}]);
@@ -27452,6 +27432,12 @@
 					});
 				}
 
+			case _types.FETCH_BY_SEASON:
+				{
+					return _extends({}, state, {
+						episodes: action.payload
+					});
+				}
 			case _types.FETCH_SEASONS:
 				{
 					return _extends({}, state, {
@@ -27494,6 +27480,7 @@
 	var FETCH_SEASONS = exports.FETCH_SEASONS = "FETCH_SEASONS";
 	var FETCH_EPISODES = exports.FETCH_EPISODES = "FETCH_EPISODES";
 	var FETCH_POPULAR_SHOWS = exports.FETCH_POPULAR_SHOWS = "FETCH_POPULAR_SHOWS";
+	var FETCH_BY_SEASON = exports.FETCH_BY_SEASON = "FETCH_BY_SEASON";
 
 /***/ },
 /* 259 */
@@ -43532,6 +43519,7 @@
 	exports.searchShows = searchShows;
 	exports.fetchShow = fetchShow;
 	exports.fetchEpisodes = fetchEpisodes;
+	exports.fetchBySeason = fetchBySeason;
 	exports.fetchSeasons = fetchSeasons;
 
 	var _axios = __webpack_require__(380);
@@ -43692,6 +43680,20 @@
 				console.log('fetching episodes - ', res.data.results);
 				dispatch({
 					type: _types.FETCH_EPISODES,
+					payload: res.data
+				});
+			});
+		};
+	}
+
+	function fetchBySeason(id, season) {
+		// fetch movie through id using movie api
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web&season=' + season);
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching by season - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_BY_SEASON,
 					payload: res.data
 				});
 			});
@@ -45227,6 +45229,8 @@
 
 	var _Socket = __webpack_require__(407);
 
+	var _reactRouter = __webpack_require__(193);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45245,7 +45249,7 @@
 
 			_this.state = {
 				term: '',
-				select: '',
+				select: 'movies',
 				sendMovieQuery: _lodash2.default.debounce(function (term) {
 					_this.props.searchShows(term);
 				}, 300) };
@@ -45263,6 +45267,24 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'search-bar inner-addon right-addon' },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ key: '1', to: '/shows' },
+							_react2.default.createElement(
+								'h1',
+								null,
+								'Show'
+							)
+						),
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ key: '2', to: '/movies' },
+							_react2.default.createElement(
+								'h1',
+								null,
+								'Movies'
+							)
+						),
 						_react2.default.createElement('i', { className: 'glyphicon glyphicon-search' }),
 						_react2.default.createElement('input', {
 							className: 'form-control movie-search',
@@ -45294,7 +45316,6 @@
 			query: movies.query
 		};
 	}
-
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchShows: _actions.searchShows })(SearchBar);
 
 /***/ },
@@ -70766,6 +70787,10 @@
 
 	var _reactRedux = __webpack_require__(160);
 
+	var _axios = __webpack_require__(380);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	var _moment = __webpack_require__(262);
 
 	var _moment2 = _interopRequireDefault(_moment);
@@ -70788,7 +70813,13 @@
 		function ShowDetails(props) {
 			_classCallCheck(this, ShowDetails);
 
-			return _possibleConstructorReturn(this, (ShowDetails.__proto__ || Object.getPrototypeOf(ShowDetails)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (ShowDetails.__proto__ || Object.getPrototypeOf(ShowDetails)).call(this, props));
+
+			_this.state = {
+				'id': _this.props.params.id,
+				'episodes': []
+			};
+			return _this;
 		}
 
 		_createClass(ShowDetails, [{
@@ -70796,17 +70827,21 @@
 			value: function componentWillMount() {
 				this.props.fetchShow(this.props.params.id);
 				this.props.fetchSeasons(this.props.params.id);
-				this.props.fetchEpisodes(this.props.params.id);
+				this.props.fetchBySeason(this.props.params.id, 1);
 			}
 		}, {
 			key: 'renderShow',
 			value: function renderShow() {
+				var _this2 = this;
+
+				var fix = 0;
 				var show = this.props.show;
 				var seasons = this.props.seasons;
 
 				console.log("show - ", show);
 				console.log("seasons - ", seasons);
 				console.log("size of seasons - ", seasons.length);
+				console.log("fix == ", fix);
 				//	const genres = movies.genres.map(genre => genre.name).join(", ");
 				//	const runTime = convertMinutesToHoursString(movies.runtime);
 				//	const releaseDate = moment(movies.release_date).calendar();
@@ -70842,14 +70877,20 @@
 					),
 					_react2.default.createElement(
 						'select',
-						null,
+						{ onChange: function onChange(event) {
+								return _this2.props.fetchBySeason(_this2.state.id, event.target.value);
+							} },
 						seasons.length != 0 ? this.renderSeasons() : _react2.default.createElement(
 							'option',
 							null,
 							'None'
 						)
 					),
-					 true ? this.renderEpisodes() : ''
+					_react2.default.createElement(
+						'div',
+						{ id: 'episodes', style: { display: "table" } },
+						this.renderEpisodes()
+					)
 				);
 			}
 		}, {
@@ -70860,7 +70901,7 @@
 					//const { key } = season;
 					return _react2.default.createElement(
 						'option',
-						{ key: i },
+						{ key: i, value: i + 1 },
 						'Season ',
 						i + 1
 					);
@@ -70870,10 +70911,43 @@
 		}, {
 			key: 'renderEpisodes',
 			value: function renderEpisodes() {
-				var episodes = this.props.episodes;
-
-
-				console.log("episodes - ", episodes);
+				var episodes = this.props.episodes.results;
+				/*
+	   const episodes  = this.props.episodes.results.map((episode, i) => {
+	   	//const { key } = season;
+	   	return (
+	   		<option key={i} value={i+1}>episode {i+1}</option>
+	   	);
+	   });
+	   */
+				if (episodes != null) {
+					console.log("trying the map", episodes);
+					var list = episodes.map(function (episode, i) {
+						console.log("list = ", episode);
+						return _react2.default.createElement(
+							'div',
+							{ key: i, style: { display: 'table-cell' } },
+							_react2.default.createElement('img', { src: episode.thumbnail_400x225 }),
+							_react2.default.createElement(
+								'h2',
+								null,
+								episode.title
+							),
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Season ',
+								episode.season_number,
+								', Episode ',
+								episode.episode_number
+							)
+						);
+					});
+					return list;
+				}
+				var id = this.state.id;
+				console.log("these are the episodes being rendered == ", episodes);
+				//return episodes;
 				return _react2.default.createElement('div', { className: 'show-details' });
 			}
 		}, {
@@ -70902,7 +70976,7 @@
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow, fetchSeasons: _actions.fetchSeasons, fetchEpisodes: _actions.fetchEpisodes })(ShowDetails);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow, fetchSeasons: _actions.fetchSeasons, fetchBySeason: _actions.fetchBySeason })(ShowDetails);
 
 /***/ }
 /******/ ]);

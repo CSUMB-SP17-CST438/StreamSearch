@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { searchMovies, searchShows } from '../actions';
 import { Socket } from './Socket';
+import { Link } from 'react-router';
 
 class SearchBar extends Component {
 
@@ -10,15 +11,21 @@ class SearchBar extends Component {
 		super(props);
 		this.state = { 
 			term: '', 
-			select: '',
+			select: 'movies',
 			sendMovieQuery: _.debounce((term) => {this.props.searchShows(term)}, 300)};
 	}
-
+	
 	render() {
 		return (
 			// component state to handle input
 			// every 0.3 seconds, will search for movies based on query value
 			<div className="search-bar inner-addon right-addon">
+			<Link key='1' to={'/shows'}>
+					<h1>Show</h1>
+			</Link>
+			<Link key='2' to={'/movies'}>
+					<h1>Movies</h1>
+			</Link>
 				<i className="glyphicon glyphicon-search"></i>
 				<input 
 					className="form-control movie-search"
@@ -43,5 +50,4 @@ function mapStateToProps({ movies }) {
 		query: movies.query
 	}
 }
-
 export default connect(mapStateToProps, { searchShows })(SearchBar);
