@@ -38,6 +38,9 @@ def on_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
+@socketio.on('login')
+def get_token(data):
+    print(data['token'])
 
 @socketio.on('search1')
 def onSearch(data):

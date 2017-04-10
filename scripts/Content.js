@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Socket } from './Socket';
-
+import { Button } from 'react-bootstrap';
 
 export class Content extends React.Component {
     constructor(props){
@@ -18,16 +18,12 @@ export class Content extends React.Component {
     
     render() {
         return(
-            <div>
             
-			
-                <h1> Hello from React!</h1>
+            <div>
                 <div>
                     Data: {this.state.data}
                 </div>
             </div>
         );
-        //let my_animals = ['bumble bee', 'goat', 'llama'];
-        //return <MyFavoriteAnimalList animal={my_animals} />;
     }
 }
