@@ -49,8 +49,12 @@ class ShowDetails extends Component {
 				<select onChange={event => this.props.fetchBySeason(this.state.id, event.target.value)}>
 				{seasons.length != 0 ? this.renderSeasons() : <option>None</option>}
 				</select>
-				<div id="episodes" style={{display: "table"}}>
-				{this.renderEpisodes()}
+				<div style={{overflow: 'hidden', width: '100%'}}>
+					<div style={{'overflow-x': 'scroll', width: 'auto'}}>
+						<div style={{display: "table"}}>
+						{this.renderEpisodes()}
+						</div>
+					</div>
 				</div>
 			</div>
 		);
@@ -82,7 +86,7 @@ class ShowDetails extends Component {
 			const list = episodes.map((episode, i) => {
 				console.log("list = ", episode);
 				return (
-					<div key={i} style={{display: 'table-cell'}}>
+					<div key={i} style={{display: 'table-cell'}} id="episode">
 						<img src={episode.thumbnail_400x225} />
 						<h2>{episode.title}</h2>
 						<h3>Season {episode.season_number}, Episode {episode.episode_number}</h3>
