@@ -29,6 +29,10 @@ Some starter code for React on Flask.
 
 ```$ npm install -g webpack```
 
+## Install LightBox for popus iFrames
+
+```$ npm install react-lightbox-component```
+
 ## Installing `npm` dependencies from `package.json`
 
 ```$ npm install```
