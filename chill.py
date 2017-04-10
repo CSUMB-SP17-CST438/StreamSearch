@@ -11,10 +11,10 @@ def GetRecomendations_info(movie,key,n):
     response = requests.get(url)
     return response.json()
 def get_chatbot_response(data):
-    if(data[0] == "r"):
+    if(data[0] == ""):
         movie = data.replace(" ", "+")
         response = GetRecomendations(movie,key,5)
-    if(data[0:1] == "ri"):
+    if(data[0:1] == ""):
         movie = data.replace(" ", "+")
         response = GetRecomendations_info(movie,key,5)
     
