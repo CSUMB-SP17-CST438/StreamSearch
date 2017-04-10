@@ -70888,8 +70888,16 @@
 					),
 					_react2.default.createElement(
 						'div',
-						{ id: 'episodes', style: { display: "table" } },
-						this.renderEpisodes()
+						{ style: { overflow: 'hidden', width: '100%' } },
+						_react2.default.createElement(
+							'div',
+							{ style: { 'overflow-x': 'scroll', width: 'auto' } },
+							_react2.default.createElement(
+								'div',
+								{ id: 'episodes', style: { display: "table" } },
+								this.renderEpisodes()
+							)
+						)
 					)
 				);
 			}
