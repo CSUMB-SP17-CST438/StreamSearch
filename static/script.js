@@ -70834,12 +70834,14 @@
 			value: function renderShow() {
 				var _this2 = this;
 
+				var fix = 0;
 				var show = this.props.show;
 				var seasons = this.props.seasons;
 
 				console.log("show - ", show);
 				console.log("seasons - ", seasons);
 				console.log("size of seasons - ", seasons.length);
+				console.log("fix == ", fix);
 				//	const genres = movies.genres.map(genre => genre.name).join(", ");
 				//	const runTime = convertMinutesToHoursString(movies.runtime);
 				//	const releaseDate = moment(movies.release_date).calendar();
@@ -70876,7 +70878,7 @@
 					_react2.default.createElement(
 						'select',
 						{ onChange: function onChange(event) {
-								return _this2.renderEpisodes(event.target.value);
+								return _this2.props.fetchBySeason(_this2.state.id, event.target.value);
 							} },
 						seasons.length != 0 ? this.renderSeasons() : _react2.default.createElement(
 							'option',
@@ -70884,7 +70886,7 @@
 							'None'
 						)
 					),
-					 true ? this.renderEpisodes() : ''
+					this.renderEpisodes()
 				);
 			}
 		}, {
@@ -70904,13 +70906,44 @@
 			}
 		}, {
 			key: 'renderEpisodes',
-			value: function renderEpisodes(season) {
-				var episodes = this.props.episodes;
-
+			value: function renderEpisodes() {
+				var episodes = this.props.episodes.results;
+				/*
+	   const episodes  = this.props.episodes.results.map((episode, i) => {
+	   	//const { key } = season;
+	   	return (
+	   		<option key={i} value={i+1}>episode {i+1}</option>
+	   	);
+	   });
+	   */
+				if (episodes != null) {
+					console.log("trying the map", episodes);
+					var list = episodes.map(function (episode, i) {
+						console.log("list = ", episode);
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement('img', { src: episode.thumbnail_400x225 }),
+							_react2.default.createElement(
+								'h2',
+								null,
+								episode.title
+							),
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Season ',
+								episode.season_number,
+								', Episode ',
+								episode.episode_number
+							)
+						);
+					});
+					return list;
+				}
 				var id = this.state.id;
-				console.log(season);
-				//const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
-				//console.log("request - ", request);
+				console.log("these are the episodes being rendered == ", episodes);
+				//return episodes;
 				return _react2.default.createElement('div', { className: 'show-details' });
 			}
 		}, {

@@ -23,11 +23,13 @@ class ShowDetails extends Component {
 	}
 
 	renderShow() {
+		var fix = 0;
 		const { show } = this.props;
 		const { seasons } = this.props;
     	console.log("show - ", show);
     	console.log("seasons - ", seasons);
     	console.log("size of seasons - ", seasons.length)
+    	console.log("fix == ", fix);
 	//	const genres = movies.genres.map(genre => genre.name).join(", ");
 	//	const runTime = convertMinutesToHoursString(movies.runtime);
 	//	const releaseDate = moment(movies.release_date).calendar();
@@ -44,10 +46,10 @@ class ShowDetails extends Component {
 				<p className="summary">
 					{show.overview}
 				</p>
-				<select onChange={event => this.renderEpisodes(event.target.value)}>
+				<select onChange={event => this.props.fetchBySeason(this.state.id, event.target.value)}>
 				{seasons.length != 0 ? this.renderSeasons() : <option>None</option>}
 				</select>
-				{1==1 ? this.renderEpisodes() : ''}
+				{this.renderEpisodes()}
 			</div>
 		);
 	}
@@ -63,20 +65,40 @@ class ShowDetails extends Component {
 		return (allSeasons);
 	}
 	
-	
-	renderEpisodes(season) {
-		const { episodes } = this.props;
+	renderEpisodes() {
+		const episodes  = this.props.episodes.results;
+		/*
+		const episodes  = this.props.episodes.results.map((episode, i) => {
+			//const { key } = season;
+			return (
+				<option key={i} value={i+1}>episode {i+1}</option>
+			);
+		});
+		*/
+		if (episodes != null) {
+			console.log("trying the map", episodes);
+			const list = episodes.map((episode, i) => {
+				console.log("list = ", episode);
+				return (
+					<div key={i}>
+						<img src={episode.thumbnail_400x225} />
+						<h2>{episode.title}</h2>
+						<h3>Season {episode.season_number}, Episode {episode.episode_number}</h3>
+					</div>
+					);
+			});
+			return list;
+		}
 		var id = this.state.id;
-		console.log(season);
-		//const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
-    //console.log("request - ", request);
-    return (
-			<div className="show-details">
-				
-			</div>
-		);
-	}
-
+		console.log("these are the episodes being rendered == ", episodes);
+		//return episodes;
+	    return (
+				<div className="show-details">
+					
+				</div>
+			);
+		}
+	
 	render() {
 
 		const show = this.props.show;
