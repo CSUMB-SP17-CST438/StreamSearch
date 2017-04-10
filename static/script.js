@@ -70894,7 +70894,7 @@
 							{ style: { 'overflow-x': 'scroll', width: 'auto' } },
 							_react2.default.createElement(
 								'div',
-								{ id: 'episodes', style: { display: "table" } },
+								{ style: { display: "table" } },
 								this.renderEpisodes()
 							)
 						)
@@ -70934,7 +70934,7 @@
 						console.log("list = ", episode);
 						return _react2.default.createElement(
 							'div',
-							{ key: i, style: { display: 'table-cell' } },
+							{ key: i, style: { display: 'table-cell' }, id: 'episode' },
 							_react2.default.createElement('img', { src: episode.thumbnail_400x225 }),
 							_react2.default.createElement(
 								'h2',
