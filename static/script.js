@@ -43537,6 +43537,7 @@
 	var LANGUAGE = 'en-US';
 
 	function fetchPopularMovies() {
+
 		var request = _axios2.default.get(ROOT_URL + '/movie/popular', {
 			params: { api_key: API_KEY }
 		});
@@ -43548,6 +43549,20 @@
 				});
 			});
 		};
+
+		/*	console.log("inside fetchPopularMovies");
+	 	
+	 	const request = axios.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
+	 	
+	 	return (dispatch) => {
+	 		request.then((res) => {
+	 			dispatch({
+	 				type: FETCH_POPULAR_MOVIES,
+	 				payload: res.data.results
+	 			});
+	 		});
+	 	}
+	 */
 	}
 
 	function searchMovies(term) {

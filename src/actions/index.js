@@ -8,6 +8,8 @@ const LANGUAGE = `en-US`;
 
 
 export function fetchPopularMovies() {
+
+
 	const request = axios.get(`${ROOT_URL}/movie/popular`, {
 		params: { api_key: API_KEY }
 	});
@@ -19,6 +21,20 @@ export function fetchPopularMovies() {
 			});
 		});
 	}
+
+/*	console.log("inside fetchPopularMovies");
+	
+	const request = axios.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
+	
+	return (dispatch) => {
+		request.then((res) => {
+			dispatch({
+				type: FETCH_POPULAR_MOVIES,
+				payload: res.data.results
+			});
+		});
+	}
+*/
 }
 
 export function searchMovies(term) {
