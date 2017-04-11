@@ -12,7 +12,7 @@ List of changes made in Handin 2, 4/10:
 4. Added show details for TV shows that give a desciption summary what the show is about and its runtime.
 5. Implemented Horizontal scroll bar for scrolling through the movie lists of movies and TV shows that are being searched for.
 
-https://project-3-stream-searcher.herokuapp.com/ (Heroku) 
+https://overlook-stream-search.herokuapp.com/ (Heroku) 
 
 I've created an email to use to register for the API's
 
