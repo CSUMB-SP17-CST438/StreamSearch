@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { fetchShow, fetchSeasons, fetchBySeason } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
+import Lightbox from 'react-lightbox-component';
 
 class ShowDetails extends Component {
 
@@ -12,10 +13,18 @@ class ShowDetails extends Component {
 		super(props);
 		this.state = {
             'id': this.props.params.id,
-            'episodes': []
-        };
-	}
-
+            'num': 0,
+        	modalActive: false };
+	  }
+	
+	  openModal () {
+	    this.setState({ modalActive: true })
+	  }
+	
+	  closeModal () {
+	    this.setState({ modalActive: false })
+	  }
+	
 	componentWillMount() {
 		this.props.fetchShow(this.props.params.id);
 		this.props.fetchSeasons(this.props.params.id);
@@ -23,13 +32,10 @@ class ShowDetails extends Component {
 	}
 
 	renderShow() {
-		var fix = 0;
 		const { show } = this.props;
 		const { seasons } = this.props;
     	console.log("show - ", show);
     	console.log("seasons - ", seasons);
-    	console.log("size of seasons - ", seasons.length)
-    	console.log("fix == ", fix);
 	//	const genres = movies.genres.map(genre => genre.name).join(", ");
 	//	const runTime = convertMinutesToHoursString(movies.runtime);
 	//	const releaseDate = moment(movies.release_date).calendar();
@@ -50,7 +56,7 @@ class ShowDetails extends Component {
 				{seasons.length != 0 ? this.renderSeasons() : <option>None</option>}
 				</select>
 				<div style={{overflow: 'hidden', width: '100%'}}>
-					<div style={{'overflow-x': 'scroll', width: 'auto'}}>
+					<div style={{overflowX: 'scroll', width: 'auto'}}>
 						<div style={{display: "table"}}>
 						{this.renderEpisodes()}
 						</div>
@@ -61,9 +67,7 @@ class ShowDetails extends Component {
 	}
 	
 	renderSeasons() {
-		//for (var i = 0; i < 3; i++){}
 		const allSeasons = this.props.seasons.results.map((season, i) => {
-			//const { key } = season;
 			return (
 				<option key={i} value={i+1}>Season {i+1}</option>
 			);
@@ -73,37 +77,43 @@ class ShowDetails extends Component {
 	
 	renderEpisodes() {
 		const episodes  = this.props.episodes.results;
-		/*
-		const episodes  = this.props.episodes.results.map((episode, i) => {
-			//const { key } = season;
-			return (
-				<option key={i} value={i+1}>episode {i+1}</option>
-			);
-		});
-		*/
 		if (episodes != null) {
+			console.log("episode number = ", this.state.num)
 			console.log("trying the map", episodes);
 			const list = episodes.map((episode, i) => {
 				console.log("list = ", episode);
+				var id = i;
 				return (
 					<div key={i} style={{display: 'table-cell'}} id="episode">
+						<a href="#openModal" value={i} onClick={() => this.setState({num: {i}.i})}>
 						<img src={episode.thumbnail_400x225} />
 						<h2>{episode.title}</h2>
 						<h3>Season {episode.season_number}, Episode {episode.episode_number}</h3>
+						</a>
+					          <div id="openModal" className="modalDialog">
+									<div>
+										<a href="#close" title="Close" className="close">X</a>
+										<h2>{episodes[this.state.num].title}</h2>
+										<p>{episodes[this.state.num].first_aired}</p>
+										<p>{episodes[this.state.num].overview}</p>
+									</div>
+								</div>
 					</div>
 					);
 			});
 			return list;
 		}
-		var id = this.state.id;
-		console.log("these are the episodes being rendered == ", episodes);
-		//return episodes;
-	    return (
-				<div className="show-details">
-					
-				</div>
-			);
+	    return (<div className="show-details"></div>);
 		}
+		
+	renderEpisodeInfo() {
+		const episodes  = this.props.episodes.results;
+		return(
+			<div>
+		
+			</div>
+			);
+	}
 	
 	render() {
 
