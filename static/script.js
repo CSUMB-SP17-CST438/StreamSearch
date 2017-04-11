@@ -52335,20 +52335,6 @@
 				});
 			});
 		};
-
-		/*	console.log("inside fetchPopularMovies");
-	 	
-	 	const request = axios.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
-	 	
-	 	return (dispatch) => {
-	 		request.then((res) => {
-	 			dispatch({
-	 				type: FETCH_POPULAR_MOVIES,
-	 				payload: res.data.results
-	 			});
-	 		});
-	 	}
-	 */
 	}
 
 	function searchMovies(term) {
@@ -52439,10 +52425,6 @@
 		var request = void 0;
 		if (term) {
 			request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=' + encodeURI(term));
-			//request = axios.get(`${GUIDEBOX_URL}`, {
-			//params: { api_key: GUIDEBOX_API, type: 'show', field: 'title', query: term }
-			//});
-			//console.log(request);
 		} else {
 			// when blank term, return popular movies again
 			request = _axios2.default.get('https://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391');
@@ -54067,32 +54049,40 @@
 					// every 0.3 seconds, will search for movies based on query value
 					_react2.default.createElement(
 						'div',
-						{ className: 'search-bar inner-addon right-addon' },
+						null,
 						_react2.default.createElement(
-							_reactRouter.Link,
-							{ key: '1', to: '/shows' },
+							'div',
+							null,
 							_react2.default.createElement(
-								'h1',
-								null,
-								'Show'
+								_reactRouter.Link,
+								{ key: '1', to: '/shows' },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'search-key' },
+									'Show'
+								)
+							),
+							_react2.default.createElement(
+								_reactRouter.Link,
+								{ key: '2', to: '/movies' },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'search-key' },
+									'Movies'
+								)
 							)
 						),
 						_react2.default.createElement(
-							_reactRouter.Link,
-							{ key: '2', to: '/movies' },
-							_react2.default.createElement(
-								'h1',
-								null,
-								'Movies'
-							)
-						),
-						_react2.default.createElement('i', { className: 'glyphicon glyphicon-search' }),
-						_react2.default.createElement('input', {
-							className: 'form-control movie-search',
-							value: this.state.term,
-							onChange: function onChange(event) {
-								return _this2.onInputChange(event.target.value);
-							} })
+							'div',
+							{ className: 'search-bar inner-addon right-addon' },
+							_react2.default.createElement('i', { className: 'glyphicon glyphicon-search' }),
+							_react2.default.createElement('input', {
+								className: 'form-control movie-search',
+								value: this.state.term,
+								onChange: function onChange(event) {
+									return _this2.onInputChange(event.target.value);
+								} })
+						)
 					)
 				);
 			}

@@ -242,3 +242,20 @@ body {
 }
 
 .close:hover { background: #00d9ff; }
+
+.search-key {
+	color: black;
+	background-color: white;
+    padding:15px;
+    padding-bottom:4px;
+	border-top-left-radius:20px;
+    border-top-right-radius:20px;
+	display: inline-block;
+    transition: .5s;
+}
+
+.search-key:hover {
+	background-color: gray;
+	font-size: 2em;
+    transition: .5s;
+}
