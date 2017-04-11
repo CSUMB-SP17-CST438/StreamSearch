@@ -21,20 +21,6 @@ export function fetchPopularMovies() {
 			});
 		});
 	}
-
-/*	console.log("inside fetchPopularMovies");
-	
-	const request = axios.get('${GB_ROOT_URL}/movies?api_key=${GB_API_KEY}');
-	
-	return (dispatch) => {
-		request.then((res) => {
-			dispatch({
-				type: FETCH_POPULAR_MOVIES,
-				payload: res.data.results
-			});
-		});
-	}
-*/
 }
 
 export function searchMovies(term) {
@@ -127,10 +113,6 @@ export function searchShows(term) {
 	let request;
 	if (term) {
 		request = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=show&field=title&query=' + encodeURI(term));
-		//request = axios.get(`${GUIDEBOX_URL}`, {
-			//params: { api_key: GUIDEBOX_API, type: 'show', field: 'title', query: term }
-		//});
-		//console.log(request);
 	} else {
 		// when blank term, return popular movies again
 		request = axios.get('https://api-public.guidebox.com/v2/shows?api_key=c338d925a0672acf243133ddc1d5d66fb0191391');
