@@ -13,7 +13,7 @@ class ShowDetails extends Component {
 		super(props);
 		this.state = {
             'id': this.props.params.id,
-            episodeClick: [],
+            'num': 0,
         	modalActive: false };
 	  }
 	
@@ -74,31 +74,30 @@ class ShowDetails extends Component {
 		});
 		return (allSeasons);
 	}
-	clickEpisode (episode) {
-		this.setState({episodeClick: episode})
-	}
+	
 	renderEpisodes() {
 		const episodes  = this.props.episodes.results;
 		if (episodes != null) {
+			console.log("episode number = ", this.state.num)
 			console.log("trying the map", episodes);
 			const list = episodes.map((episode, i) => {
 				console.log("list = ", episode);
+				var id = i;
 				return (
 					<div key={i} style={{display: 'table-cell'}} id="episode">
-						<a href="#openModal" value={i}>
+						<a href="#openModal" value={i} onClick={() => this.setState({num: {i}.i})}>
 						<img src={episode.thumbnail_400x225} />
 						<h2>{episode.title}</h2>
 						<h3>Season {episode.season_number}, Episode {episode.episode_number}</h3>
 						</a>
-						
-				        <div id="openModal" className="modalDialog">
-							<div>
-								<a href="#close" title="Close" className="close">X</a>
-								<h2>{episode.title}</h2>
-								<p>{episode.first_aired}</p>
-								<p>{episode.overview}</p>
-							</div>
-						</div>
+					          <div id="openModal" className="modalDialog">
+									<div>
+										<a href="#close" title="Close" className="close">X</a>
+										<h2>{episodes[this.state.num].title}</h2>
+										<p>{episodes[this.state.num].first_aired}</p>
+										<p>{episodes[this.state.num].overview}</p>
+									</div>
+								</div>
 					</div>
 					);
 			});

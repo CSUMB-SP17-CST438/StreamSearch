@@ -70821,7 +70821,7 @@
 
 			_this.state = {
 				'id': _this.props.params.id,
-				episodeClick: [],
+				'num': 0,
 				modalActive: false };
 			return _this;
 		}
@@ -70926,24 +70926,25 @@
 				return allSeasons;
 			}
 		}, {
-			key: 'clickEpisode',
-			value: function clickEpisode(episode) {
-				this.setState({ episodeClick: episode });
-			}
-		}, {
 			key: 'renderEpisodes',
 			value: function renderEpisodes() {
+				var _this3 = this;
+
 				var episodes = this.props.episodes.results;
 				if (episodes != null) {
+					console.log("episode number = ", this.state.num);
 					console.log("trying the map", episodes);
 					var list = episodes.map(function (episode, i) {
 						console.log("list = ", episode);
+						var id = i;
 						return _react2.default.createElement(
 							'div',
 							{ key: i, style: { display: 'table-cell' }, id: 'episode' },
 							_react2.default.createElement(
 								'a',
-								{ href: '#openModal', value: i },
+								{ href: '#openModal', value: i, onClick: function onClick() {
+										return _this3.setState({ num: { i: i }.i });
+									} },
 								_react2.default.createElement('img', { src: episode.thumbnail_400x225 }),
 								_react2.default.createElement(
 									'h2',
@@ -70973,17 +70974,17 @@
 									_react2.default.createElement(
 										'h2',
 										null,
-										episode.title
+										episodes[_this3.state.num].title
 									),
 									_react2.default.createElement(
 										'p',
 										null,
-										episode.first_aired
+										episodes[_this3.state.num].first_aired
 									),
 									_react2.default.createElement(
 										'p',
 										null,
-										episode.overview
+										episodes[_this3.state.num].overview
 									)
 								)
 							)
