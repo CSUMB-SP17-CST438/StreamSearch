@@ -12,6 +12,20 @@ List of changes made in Handin 2, 4/10:
 4. Added show details for TV shows that give a desciption summary what the show is about and its runtime.
 5. Implemented Horizontal scroll bar for scrolling through the movie lists of movies and TV shows that are being searched for.
 
+List of known problems:
+
+1. When refreshing while on a shows page, it will get an error because information isnt stored. 
+2. Search bar only searched shows even on movies tab.
+3. Chatbot doesn't send messages.
+
+List of improvements over time:
+
+1. Chatbot will recommend shows.
+2. An active friends list with facebook api.
+3. Movies will be searchable, just like shows.
+4. More appealing website.
+5. Auto recommendations based on searches
+
 https://overlook-stream-search.herokuapp.com/ (Heroku) 
 
 I've created an email to use to register for the API's
