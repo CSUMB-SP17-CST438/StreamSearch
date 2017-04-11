@@ -95,6 +95,14 @@ class ShowDetails extends Component {
 										<h2>{episodes[this.state.num].title}</h2>
 										<p>{episodes[this.state.num].first_aired}</p>
 										<p>{episodes[this.state.num].overview}</p>
+										{episodes[this.state.num].free_web_sources.map((service,i) => {
+											return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+										{episodes[this.state.num].subscription_web_sources.map((service,i) => {
+											return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+										{episodes[this.state.num].tv_everywhere_web_sources.map((service,i) => {
+											return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+										
+										
 									</div>
 								</div>
 					</div>
