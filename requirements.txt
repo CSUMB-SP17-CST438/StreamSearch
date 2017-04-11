@@ -1,1 +1,7 @@
 Flask
+flask_sqlalchemy
+flask-socketio
+psycopg2
+gevent
+gevent-websocket
+requests
