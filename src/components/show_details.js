@@ -5,7 +5,6 @@ import axios from 'axios';
 import moment from 'moment';
 import { fetchShow, fetchSeasons, fetchBySeason } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
-import Lightbox from 'react-lightbox-component';
 
 class ShowDetails extends Component {
 
