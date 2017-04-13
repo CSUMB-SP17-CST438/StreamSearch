@@ -2,6 +2,7 @@
 
 exports.__esModule = true;
 exports["default"] = shallowEqual;
+
 function shallowEqual(objA, objB) {
   if (objA === objB) {
     return true;
@@ -24,3 +25,5 @@ function shallowEqual(objA, objB) {
 
   return true;
 }
+
+module.exports = exports["default"];

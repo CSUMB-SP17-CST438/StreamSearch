@@ -1,17 +1,13 @@
 'use strict';
 
 exports.__esModule = true;
-exports.connect = exports.Provider = undefined;
 
-var _Provider = require('./components/Provider');
+function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
 
-var _Provider2 = _interopRequireDefault(_Provider);
+var _componentsProvider = require('./components/Provider');
 
-var _connect = require('./components/connect');
+exports.Provider = _interopRequire(_componentsProvider);
 
-var _connect2 = _interopRequireDefault(_connect);
+var _componentsConnect = require('./components/connect');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-exports.Provider = _Provider2["default"];
-exports.connect = _connect2["default"];
+exports.connect = _interopRequire(_componentsConnect);
