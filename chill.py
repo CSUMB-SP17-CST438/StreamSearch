@@ -1,10 +1,8 @@
 import requests
 import certifi
-<<<<<<< HEAD
 
-=======
 #requests.packages.urllib3.disable_warnings()
->>>>>>> 658ed06bb9d1e15455e74b1d71722ddd7814c6b4
+
 key = '265287-CST438St-1TBZS5L9'
 
 def get_chatbot_response(data):
