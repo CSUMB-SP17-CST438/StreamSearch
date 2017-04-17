@@ -6,9 +6,11 @@ import requests
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 import chill
-import models
+
 
 app = flask.Flask(__name__)
+
+import models
 
 socketio = flask_socketio.SocketIO(app)
 
