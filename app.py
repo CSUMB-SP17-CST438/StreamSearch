@@ -52,7 +52,7 @@ def on_new_message(data):
                 })
     mes = chill.get_chatbot_response(data['message'])
     print mes
-    #messages.append(mes)
+    messages.append(str(mes))
     socketio.emit('all messages',{'messages': messages})
     print "done"
     
