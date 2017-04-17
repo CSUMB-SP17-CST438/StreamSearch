@@ -3,7 +3,7 @@ import certifi
 
 #requests.packages.urllib3.disable_warnings()
 
-key = '265287-CST438St-1TBZS5L9'
+key = '265287-CST438St-3WX060Y1'
 
 def get_chatbot_response(data):
     str1 = str.split(str(data))
@@ -19,7 +19,7 @@ def get_chatbot_response(data):
         m = response
         # print m
         message =  ({
-            'message': "dank2"
+            'message': str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'])
         })
     elif str1[0] == "Rec_show":
         spl = str.split(str(data))
@@ -29,7 +29,7 @@ def get_chatbot_response(data):
         m = response
         print m
         message =  ({
-            'message': "dank"
+            'message': str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'])
         })
     else:
             message = ({
@@ -39,22 +39,21 @@ def get_chatbot_response(data):
     return message
     
 def GetRecomendations(movie,key,n):
-    
-    url = 'http://www.tastekid.com/api/similar?q='+ movie+ '&type=movie&limit='+ n + '&k=' + key
+    url = 'https://www.tastekid.com/api/similar?q='+ movie+ '&type=movie&limit='+ n + '&k=' + key
     response = requests.get(url)
     return response.json()
     
 def GetRecomendations_shows( show,key,n):
     
-    url = 'http://www.tastekid.com/api/similar?q='+ show+ '&type=show&limit='+ n + '&k=' + key
-    response = requests.get(url,verify=False)
+    url = 'https://www.tastekid.com/api/similar?q='+ show+ '&type=show&limit='+ n + '&k=' + key
+    response = requests.get(url)
     return response.json()
 
 def GetRecomendations_info(movie,key,n):
-    url = 'http://www.tastekid.com/api/similar?q='+ movie+ '&type=movie&info=1&limit='+ n + '&k=' + key
-    response = requests.get(url,verify=False)
+    url = 'https://www.tastekid.com/api/similar?q='+ movie+ '&type=movie&info=1&limit='+ n + '&k=' + key
+    response = requests.get(url)
     return response.json()
     
 
-#r = GetRecomendations('spiderman',key,'3')
-#print str(r)
+r = GetRecomendations('spiderman',key,'3')
+print str(r)

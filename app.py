@@ -5,6 +5,9 @@ import requests
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 import chill
+import certifi
+
+
 import requests
 
 app = flask.Flask(__name__)
@@ -55,7 +58,7 @@ def on_new_message(data):
     mes = chill.get_chatbot_response(data['message'])
     print mes
     messages.append({
-                    'message': "ChillBot: " + mes['message']
+                    'message': "ChillBot: " + str(mes['message'])
                 })
     socketio.emit('all messages',{'messages': messages})
     print "done"
@@ -73,4 +76,3 @@ if __name__ == '__main__':
         port=int(os.getenv('PORT', 8080)),
         debug=True
     )
-
