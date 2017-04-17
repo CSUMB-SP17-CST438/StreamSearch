@@ -22456,6 +22456,34 @@
 		}
 
 		_createClass(App, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+
+				FB.getLoginStatus(function (response) {
+					if (response.status == 'connected') {
+						var uid = response.authResponse.userID;
+						console.log("user id: " + uid);
+						console.log("AccessToken: " + response.authResponse.accessToken);
+						//Socket.emit('token', {
+						//	'facebook_user_token': response.authResponse.accessToken
+						//});
+
+						FB.api("/" + uid + "/friends", function (response) {
+							if (response && !response.error) {
+								console.log("friends response no error");
+							}
+						});
+					}
+				});
+
+				/*Socket.on('login', (data) => {
+	   	this.setState({
+	   		'token': data['token']
+	   	});
+	   });
+	   */
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -22496,10 +22524,6 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _header = __webpack_require__(200);
-
-	var _header2 = _interopRequireDefault(_header);
-
 	var _reactRouter = __webpack_require__(201);
 
 	var _Socket = __webpack_require__(264);
@@ -22511,6 +22535,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	//import Header from './header';
+
 
 	var App = function (_Component) {
 		_inherits(App, _Component);
@@ -22531,7 +22557,7 @@
 				});
 				FB.getLoginStatus(function (response) {
 					if (response.status == 'connected') {
-						_Socket.Socket.emit('token', { 'facebook_user_token': response.authResponse.accessToken });
+						//Socket.emit('token', {'facebook_user_token':response.authResponse.accessToken});
 					}
 				});
 			}
