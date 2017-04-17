@@ -58,7 +58,7 @@ def on_new_message(data):
     mes = chill.get_chatbot_response(data['message'])
     print mes
     messages.append({
-                    'message': "ChillBot: " + str(mes['message'])
+                    'message': "ChillBot: I reccomend - " + str(mes['message'])
                 })
     socketio.emit('all messages',{'messages': messages})
     print "done"
