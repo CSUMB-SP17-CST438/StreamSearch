@@ -12,8 +12,8 @@ export default class App extends Component {
 		FB.getLoginStatus((response) => {
 			if (response.status == 'connected') {
 				var uid = response.authResponse.userID;
-				console.log("user id: " + uid);
-				console.log("AccessToken: " + response.authResponse.accessToken);
+				//console.log("user id: " + uid);
+				//console.log("AccessToken: " + response.authResponse.accessToken);
 				//Socket.emit('token', {
 				//	'facebook_user_token': response.authResponse.accessToken
 				//});
