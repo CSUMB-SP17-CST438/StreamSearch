@@ -93,7 +93,9 @@ body {
 	font-size: 18px;
 }
 .myUL {
-    overflow: visible;
+    width: 200px; 
+    height: 400px; 
+    overflow: visible ;
     overflow-y: auto;
 }
 .chat-box {
