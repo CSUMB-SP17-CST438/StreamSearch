@@ -1,6 +1,6 @@
 import requests
 import certifi
-requests.packages.urllib3.disable_warnings()
+#requests.packages.urllib3.disable_warnings()
 key = '265287-CST438St-1TBZS5L9'
 
 def get_chatbot_response(data):
@@ -47,5 +47,5 @@ def GetRecomendations_info(movie,key,n):
     return response.json()
     
 
-r = GetRecomendations('spiderman',key,'3')
-print str(r)
+#r = GetRecomendations('spiderman',key,'3')
+#print str(r)
