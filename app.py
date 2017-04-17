@@ -1,13 +1,23 @@
 import os
 import flask
 import flask_socketio
+import flask_sqlalchemy
 import requests
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 import chill
+import models
 
 app = flask.Flask(__name__)
+
 socketio = flask_socketio.SocketIO(app)
+
+# URI scheme:
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://streamsearch:password@localhost/postgres'
+
+db = flask_sqlalchemy.SQLAlchemy(app)
+
+
 messages = []
 #Guidebox API Key c338d925a0672acf243133ddc1d5d66fb0191391
 #http://api-public.guidebox.com/v1.43/ {region} / {api key}
