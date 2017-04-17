@@ -5,6 +5,7 @@ import requests
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 import chill
+import requests
 
 app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
@@ -48,8 +49,9 @@ def on_new_message(data):
     
     print data['message']
     messages.append({
-                    'message': "got your message: " + data['message']
+                    'message': "Me: " + data['message']
                 })
+    socketio.emit('all messages',{'messages': messages})
     mes = chill.get_chatbot_response(data['message'])
     print mes
     messages.append(str(mes))
