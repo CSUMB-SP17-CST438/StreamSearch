@@ -61,6 +61,19 @@ export function fetchMovie(id) {
 	}
 }
 
+export function fetchMovieGB(id) {
+	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching show - ', res.data.results)
+			dispatch({
+				type: FETCH_SHOW,
+				payload: res.data
+			})
+		})
+	}
+}
+
 export function clearMovie() {
 	return {
 		type: CLEAR_MOVIE
