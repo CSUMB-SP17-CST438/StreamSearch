@@ -22,7 +22,7 @@ class SearchBar extends Component {
 			<div>
 				<div>
 				<Link key='1' to={'/shows'}>
-						<h2 className="search-key">Show</h2>
+						<h2 className="search-key">ShowS</h2>
 				</Link>
 				<Link key='2' to={'/movies'}>
 						<h2 className="search-key">Movies</h2>
