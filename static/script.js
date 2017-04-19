@@ -51649,7 +51649,7 @@
 				console.log('fetching id - ', res.data.results);
 				dispatch({
 					type: _types.FETCH_MOVIE_FOR_GB,
-					payload: res.data
+					payload: res.data.id
 				});
 			});
 		};
@@ -70667,16 +70667,25 @@
 		function MoviesShow(props) {
 			_classCallCheck(this, MoviesShow);
 
-			return _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
+
+			_this.state = {
+				getID: false };
+			return _this;
 		}
 
 		_createClass(MoviesShow, [{
+			key: 'ifIdIsGot',
+			value: function ifIdIsGot() {
+				this.setState({ getID: true });
+			}
+		}, {
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.props.fetchMovie(this.props.params.id);
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
-				this.props.fetchMovieGB(this.props.params.id);
+				this.props.fetchMovieForGB(this.props.params.id);
 			}
 		}, {
 			key: 'renderTrailers',
@@ -70745,6 +70754,15 @@
 			key: 'renderLinks',
 			value: function renderLinks() {
 				var movieGB = this.props.movieGB;
+				var movieID = this.props.movieID;
+				if (movieID == null) {
+					return;
+				}
+				if (movieGB == null) {
+					console.log("this is the ID", movieID);
+					this.props.fetchMovieGB(movieID);
+					return;
+				}
 				console.log("heres the movie - ", movieGB);
 			}
 		}, {
@@ -70829,6 +70847,7 @@
 
 		return {
 			movie: movies.movie,
+			movieID: movies.movieID,
 			movieGB: movies.movieGB,
 			movie_details: movie_details
 		};

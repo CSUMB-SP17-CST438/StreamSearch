@@ -68,7 +68,7 @@ export function fetchMovieForGB(id) {
 			console.log('fetching id - ', res.data.results)
 			dispatch({
 				type: FETCH_MOVIE_FOR_GB,
-				payload: res.data
+				payload: res.data.id
 			})
 		})
 	}

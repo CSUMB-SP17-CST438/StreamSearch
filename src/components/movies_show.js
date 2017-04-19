@@ -9,13 +9,19 @@ class MoviesShow extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+        	getID: false };
 	}
+	
+	ifIdIsGot () {
+	    this.setState({ getID: true });
+	  }
 
 	componentWillMount() {
 		this.props.fetchMovie(this.props.params.id);
 		this.props.fetchMovieReviews(this.props.params.id);
 		this.props.fetchMovieTrailers(this.props.params.id);
-		this.props.fetchMovieGB(this.props.params.id);
+		this.props.fetchMovieForGB(this.props.params.id);
 	}
 
 	renderTrailers() {
@@ -68,6 +74,15 @@ class MoviesShow extends Component {
 	
 	renderLinks() {
 		const movieGB = this.props.movieGB;
+		const movieID = this.props.movieID;
+		if (movieID == null) {
+			return;
+		}
+		if (movieGB == null) {
+			console.log("this is the ID", movieID);
+			this.props.fetchMovieGB(movieID);
+			return;
+		}
 		console.log("heres the movie - ", movieGB);
 	}
 
@@ -115,6 +130,7 @@ class MoviesShow extends Component {
 function mapStateToProps({ movies, movie_details }) {
 	return {
 		movie: movies.movie,
+		movieID: movies.movieID,
 		movieGB: movies.movieGB,
 		movie_details
 	}
