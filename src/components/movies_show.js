@@ -89,19 +89,19 @@ class MoviesShow extends Component {
 					<h2>Links: </h2>
 					{movieGB.free_web_sources.length ? <h6>Free:</h6> : ''}
 					{movieGB.free_web_sources.map((service,i) => {
-						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
 						
 					{movieGB.subscription_web_sources.length ? <h6>Subscription:</h6> : ''}
 					{movieGB.subscription_web_sources.map((service,i) => {
-						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
 						
 					{movieGB.tv_everywhere_web_sources.length ? <h6>TV Everywhere:</h6> : ''}
 					{movieGB.tv_everywhere_web_sources.map((service,i) => {
-						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
 						
 					{movieGB.purchase_web_sources.length ? <h6>Purchase:</h6> : ''}
 					{movieGB.purchase_web_sources.map((service,i) => {
-						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
 					</div>
 					);
 		return list;

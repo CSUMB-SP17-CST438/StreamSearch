@@ -70780,7 +70780,7 @@
 					movieGB.free_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
-							null,
+							{ key: i },
 							_react2.default.createElement(
 								'a',
 								{ href: service.link },
@@ -70799,7 +70799,7 @@
 					movieGB.subscription_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
-							null,
+							{ key: i },
 							_react2.default.createElement(
 								'a',
 								{ href: service.link },
@@ -70818,7 +70818,7 @@
 					movieGB.tv_everywhere_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
-							null,
+							{ key: i },
 							_react2.default.createElement(
 								'a',
 								{ href: service.link },
@@ -70837,7 +70837,7 @@
 					movieGB.purchase_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
-							null,
+							{ key: i },
 							_react2.default.createElement(
 								'a',
 								{ href: service.link },
