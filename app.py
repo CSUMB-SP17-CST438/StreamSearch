@@ -4,7 +4,7 @@ import flask_socketio
 import requests
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-import chill
+#import chill
 import certifi
 
 
@@ -55,11 +55,11 @@ def on_new_message(data):
                     'message': "Me: " + data['message']
                 })
     socketio.emit('all messages',{'messages': messages})
-    mes = chill.get_chatbot_response(data['message'])
-    print mes
-    messages.append({
-                    'message': "ChillBot: " + str(mes['message'])
-                })
+    #mes = chill.get_chatbot_response(data['message'])
+    #print mes
+   # messages.append({
+    #                'message': "ChillBot: " + str(mes['message'])
+    #            })
     socketio.emit('all messages',{'messages': messages})
     print "done"
     

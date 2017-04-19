@@ -35442,6 +35442,18 @@
 						movie: action.payload
 					});
 				}
+			case _types.FETCH_MOVIE_FOR_GB:
+				{
+					return _extends({}, state, {
+						movieID: action.payload
+					});
+				}
+			case _types.FETCH_MOVIE_GB:
+				{
+					return _extends({}, state, {
+						movieGB: action.payload
+					});
+				}
 			case _types.CLEAR_MOVIE:
 				{
 					return _extends({}, state, {
@@ -35488,6 +35500,7 @@
 						episodes: action.payload
 					});
 				}
+
 		}
 
 		return state;
@@ -35495,7 +35508,7 @@
 
 	var _types = __webpack_require__(310);
 
-	var initialState = { list: [], movie: null, show: [], seasons: [], episodes: [] };
+	var initialState = { list: [], movie: null, movieGB: null, movieID: null, show: [], seasons: [], episodes: [] };
 
 /***/ },
 /* 310 */
@@ -35518,6 +35531,8 @@
 	var FETCH_EPISODES = exports.FETCH_EPISODES = "FETCH_EPISODES";
 	var FETCH_POPULAR_SHOWS = exports.FETCH_POPULAR_SHOWS = "FETCH_POPULAR_SHOWS";
 	var FETCH_BY_SEASON = exports.FETCH_BY_SEASON = "FETCH_BY_SEASON";
+	var FETCH_MOVIE_GB = exports.FETCH_MOVIE_GB = "FETCH_MOVIE_GB";
+	var FETCH_MOVIE_FOR_GB = exports.FETCH_MOVIE_FOR_GB = "FETCH_MOVIE_FOR_GB";
 
 /***/ },
 /* 311 */
@@ -51549,6 +51564,8 @@
 	exports.fetchPopularMovies = fetchPopularMovies;
 	exports.searchMovies = searchMovies;
 	exports.fetchMovie = fetchMovie;
+	exports.fetchMovieForGB = fetchMovieForGB;
+	exports.fetchMovieGB = fetchMovieGB;
 	exports.clearMovie = clearMovie;
 	exports.fetchMovieTrailers = fetchMovieTrailers;
 	exports.fetchMovieReviews = fetchMovieReviews;
@@ -51619,6 +51636,32 @@
 			request.then(function (res) {
 				dispatch({
 					type: _types.FETCH_MOVIE,
+					payload: res.data
+				});
+			});
+		};
+	}
+
+	function fetchMovieForGB(id) {
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching id - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_MOVIE_FOR_GB,
+					payload: res.data.id
+				});
+			});
+		};
+	}
+
+	function fetchMovieGB(id) {
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/movies/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching show - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_MOVIE_GB,
 					payload: res.data
 				});
 			});
@@ -70624,15 +70667,25 @@
 		function MoviesShow(props) {
 			_classCallCheck(this, MoviesShow);
 
-			return _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
+
+			_this.state = {
+				getID: false };
+			return _this;
 		}
 
 		_createClass(MoviesShow, [{
+			key: 'ifIdIsGot',
+			value: function ifIdIsGot() {
+				this.setState({ getID: true });
+			}
+		}, {
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.props.fetchMovie(this.props.params.id);
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
+				this.props.fetchMovieForGB(this.props.params.id);
 			}
 		}, {
 			key: 'renderTrailers',
@@ -70698,6 +70751,107 @@
 				);
 			}
 		}, {
+			key: 'renderLinks',
+			value: function renderLinks() {
+				var movieGB = this.props.movieGB;
+				var movieID = this.props.movieID;
+				if (movieID == null) {
+					return;
+				}
+				if (movieGB == null) {
+					console.log("this is the ID", movieID);
+					this.props.fetchMovieGB(movieID);
+					return;
+				}
+				console.log("heres the movie - ", movieGB);
+				var list = _react2.default.createElement(
+					'div',
+					{ id: 'movieLinks' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Links: '
+					),
+					movieGB.free_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Free:'
+					) : '',
+					movieGB.free_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.subscription_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Subscription:'
+					) : '',
+					movieGB.subscription_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.tv_everywhere_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'TV Everywhere:'
+					) : '',
+					movieGB.tv_everywhere_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.purchase_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Purchase:'
+					) : '',
+					movieGB.purchase_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					})
+				);
+				return list;
+			}
+		}, {
 			key: 'renderMovie',
 			value: function renderMovie() {
 				var _props = this.props,
@@ -70754,13 +70908,13 @@
 						movie.overview
 					),
 					trailers.length > 0 ? this.renderTrailers() : '',
-					reviews.length > 0 ? this.renderReviews() : ''
+					reviews.length > 0 ? this.renderReviews() : '',
+					this.renderLinks()
 				);
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-
 				var movie = this.props.movie;
 				return _react2.default.createElement(
 					'div',
@@ -70779,11 +70933,13 @@
 
 		return {
 			movie: movies.movie,
+			movieID: movies.movieID,
+			movieGB: movies.movieGB,
 			movie_details: movie_details
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews })(MoviesShow);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews, fetchMovieForGB: _actions.fetchMovieForGB, fetchMovieGB: _actions.fetchMovieGB })(MoviesShow);
 
 /***/ },
 /* 461 */
@@ -71048,10 +71204,15 @@
 										null,
 										episodes[_this3.state.num].overview
 									),
+									episodes[_this3.state.num].free_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Free:'
+									) : '',
 									episodes[_this3.state.num].free_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
-											null,
+											{ key: i },
 											_react2.default.createElement(
 												'a',
 												{ href: service.link },
@@ -71062,10 +71223,15 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].subscription_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Subscription:'
+									) : '',
 									episodes[_this3.state.num].subscription_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
-											null,
+											{ key: i },
 											_react2.default.createElement(
 												'a',
 												{ href: service.link },
@@ -71076,10 +71242,34 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].tv_everywhere_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Tv Everywhere:'
+									) : '',
 									episodes[_this3.state.num].tv_everywhere_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
-											null,
+											{ key: i },
+											_react2.default.createElement(
+												'a',
+												{ href: service.link },
+												' ',
+												service.display_name,
+												' '
+											),
+											_react2.default.createElement('br', null)
+										);
+									}),
+									episodes[_this3.state.num].purchase_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Purchase:'
+									) : '',
+									episodes[_this3.state.num].purchase_web_sources.map(function (service, i) {
+										return _react2.default.createElement(
+											'div',
+											{ key: i },
 											_react2.default.createElement(
 												'a',
 												{ href: service.link },

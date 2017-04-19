@@ -2,19 +2,26 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { fetchMovie, fetchMovieReviews, fetchMovieTrailers } from '../actions';
+import { fetchMovie, fetchMovieReviews, fetchMovieTrailers, fetchMovieForGB, fetchMovieGB } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
 
 class MoviesShow extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+        	getID: false };
 	}
+	
+	ifIdIsGot () {
+	    this.setState({ getID: true });
+	  }
 
 	componentWillMount() {
 		this.props.fetchMovie(this.props.params.id);
 		this.props.fetchMovieReviews(this.props.params.id);
 		this.props.fetchMovieTrailers(this.props.params.id);
+		this.props.fetchMovieForGB(this.props.params.id);
 	}
 
 	renderTrailers() {
@@ -40,7 +47,6 @@ class MoviesShow extends Component {
 	}
 
 	renderReviews() {
-
 		const { reviews } = this.props.movie_details;
 
 		const reviewsView = reviews.map((review, i) => {
@@ -64,6 +70,41 @@ class MoviesShow extends Component {
 			</div>
 		);
 
+	}
+	
+	renderLinks() {
+		const movieGB = this.props.movieGB;
+		const movieID = this.props.movieID;
+		if (movieID == null) {
+			return;
+		}
+		if (movieGB == null) {
+			console.log("this is the ID", movieID);
+			this.props.fetchMovieGB(movieID);
+			return;
+		}
+		console.log("heres the movie - ", movieGB);
+		const list = (
+					<div id="movieLinks">
+					<h2>Links: </h2>
+					{movieGB.free_web_sources.length ? <h6>Free:</h6> : ''}
+					{movieGB.free_web_sources.map((service,i) => {
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						
+					{movieGB.subscription_web_sources.length ? <h6>Subscription:</h6> : ''}
+					{movieGB.subscription_web_sources.map((service,i) => {
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						
+					{movieGB.tv_everywhere_web_sources.length ? <h6>TV Everywhere:</h6> : ''}
+					{movieGB.tv_everywhere_web_sources.map((service,i) => {
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
+						
+					{movieGB.purchase_web_sources.length ? <h6>Purchase:</h6> : ''}
+					{movieGB.purchase_web_sources.map((service,i) => {
+						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
+					</div>
+					);
+		return list;
 	}
 
 	renderMovie() {
@@ -90,16 +131,17 @@ class MoviesShow extends Component {
 				</p>
 				{trailers.length > 0 ? this.renderTrailers() : ''}
 				{reviews.length > 0 ? this.renderReviews() : ''}
+				{this.renderLinks()}
 			</div>
 		);
 	}
 
 	render() {
-
 		const movie = this.props.movie;
 		return (
 			<div className="container movie">
 				{movie ? this.renderMovie() : ''}
+				
 			</div>
 		);
 
@@ -109,8 +151,10 @@ class MoviesShow extends Component {
 function mapStateToProps({ movies, movie_details }) {
 	return {
 		movie: movies.movie,
+		movieID: movies.movieID,
+		movieGB: movies.movieGB,
 		movie_details
 	}
 }
 
-export default connect(mapStateToProps, { fetchMovie, fetchMovieTrailers, fetchMovieReviews })(MoviesShow);
+export default connect(mapStateToProps, { fetchMovie, fetchMovieTrailers, fetchMovieReviews, fetchMovieForGB, fetchMovieGB})(MoviesShow);
