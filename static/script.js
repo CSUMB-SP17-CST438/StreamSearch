@@ -70772,6 +70772,11 @@
 						null,
 						'Links: '
 					),
+					movieGB.free_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Free:'
+					) : '',
 					movieGB.free_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
@@ -70786,6 +70791,11 @@
 							_react2.default.createElement('br', null)
 						);
 					}),
+					movieGB.subscription_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Subscription:'
+					) : '',
 					movieGB.subscription_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
@@ -70800,6 +70810,11 @@
 							_react2.default.createElement('br', null)
 						);
 					}),
+					movieGB.tv_everywhere_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'TV Everywhere:'
+					) : '',
 					movieGB.tv_everywhere_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
@@ -70814,6 +70829,11 @@
 							_react2.default.createElement('br', null)
 						);
 					}),
+					movieGB.purchase_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Purchase:'
+					) : '',
 					movieGB.purchase_web_sources.map(function (service, i) {
 						return _react2.default.createElement(
 							'div',
