@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { fetchMovie, fetchMovieReviews, fetchMovieTrailers } from '../actions';
+import { fetchMovie, fetchMovieReviews, fetchMovieTrailers, fetchMovieGB } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
 
 class MoviesShow extends Component {
@@ -15,6 +15,7 @@ class MoviesShow extends Component {
 		this.props.fetchMovie(this.props.params.id);
 		this.props.fetchMovieReviews(this.props.params.id);
 		this.props.fetchMovieTrailers(this.props.params.id);
+		this.props.fetchMovieGB(this.props.params.id);
 	}
 
 	renderTrailers() {
@@ -109,8 +110,9 @@ class MoviesShow extends Component {
 function mapStateToProps({ movies, movie_details }) {
 	return {
 		movie: movies.movie,
+		movieGB: movies.movieGB,
 		movie_details
 	}
 }
 
-export default connect(mapStateToProps, { fetchMovie, fetchMovieTrailers, fetchMovieReviews })(MoviesShow);
+export default connect(mapStateToProps, { fetchMovie, fetchMovieTrailers, fetchMovieReviews, fetchMovieGB})(MoviesShow);
