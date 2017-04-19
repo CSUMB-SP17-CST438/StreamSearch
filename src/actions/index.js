@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, FETCH_MOVIE_GB, SEARCH_SHOWS, FETCH_POPULAR_SHOWS, FETCH_BY_SEASON, FETCH_SHOW, FETCH_EPISODES, FETCH_SEASONS } from './types';
+import { FETCH_POPULAR_MOVIES, FETCH_MOVIE, SEARCH_MOVIES, CLEAR_MOVIE, FETCH_MOVIE_TRAILERS, FETCH_MOVIE_REVIEWS, FETCH_MOVIE_FOR_GB, FETCH_MOVIE_GB, SEARCH_SHOWS, FETCH_POPULAR_SHOWS, FETCH_BY_SEASON, FETCH_SHOW, FETCH_EPISODES, FETCH_SEASONS } from './types';
 const API_KEY = '163c193e3f58f163c783eb87f2b002b5';
 const ROOT_URL = `https://api.themoviedb.org/3`;
 const GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
@@ -61,20 +61,30 @@ export function fetchMovie(id) {
 	}
 }
 
+export function fetchMovieForGB(id) {
+	const request = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching id - ', res.data.results)
+			dispatch({
+				type: FETCH_MOVIE_FOR_GB,
+				payload: res.data
+			})
+		})
+	}
+}
+
 export function fetchMovieGB(id) {
-	console.log("here");
-	const getMovie = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
-	console.log("this is the movie id = ", getMovie)
-//	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + getMovie.data.id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
-//	return (dispatch) => {
-//		request.then((res) => {
-//			console.log('fetching show - ', res.data.results)
-//			dispatch({
-//				type: FETCH_MOVIE_GB,
-//				payload: res.data
-//			})
-//		})
-//	}
+	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+	return (dispatch) => {
+		request.then((res) => {
+			console.log('fetching show - ', res.data.results)
+			dispatch({
+				type: FETCH_MOVIE_GB,
+				payload: res.data
+			})
+		})
+	}
 }
 
 export function clearMovie() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { fetchMovie, fetchMovieReviews, fetchMovieTrailers, fetchMovieGB } from '../actions';
+import { fetchMovie, fetchMovieReviews, fetchMovieTrailers, fetchMovieForGB, fetchMovieGB } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
 
 class MoviesShow extends Component {
@@ -41,8 +41,6 @@ class MoviesShow extends Component {
 	}
 
 	renderReviews() {
-
-		console.log("rendering the links");
 		const { reviews } = this.props.movie_details;
 
 		const reviewsView = reviews.map((review, i) => {
@@ -69,13 +67,11 @@ class MoviesShow extends Component {
 	}
 	
 	renderLinks() {
-		console.log("rendering the links");
-		const movieGB = this.props;
+		const movieGB = this.props.movieGB;
 		console.log("heres the movie - ", movieGB);
 	}
 
 	renderMovie() {
-		console.log("something");
 		const { movie, movie_details } = this.props;
 		const { trailers, reviews } = movie_details;
 		const genres = movie.genres.map(genre => genre.name).join(", ");
@@ -105,7 +101,6 @@ class MoviesShow extends Component {
 	}
 
 	render() {
-		console.log("rendering the links");
 		const movie = this.props.movie;
 		return (
 			<div className="container movie">
@@ -125,4 +120,4 @@ function mapStateToProps({ movies, movie_details }) {
 	}
 }
 
-export default connect(mapStateToProps, { fetchMovie, fetchMovieTrailers, fetchMovieReviews, fetchMovieGB})(MoviesShow);
+export default connect(mapStateToProps, { fetchMovie, fetchMovieTrailers, fetchMovieReviews, fetchMovieForGB, fetchMovieGB})(MoviesShow);

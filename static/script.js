@@ -35442,6 +35442,12 @@
 						movie: action.payload
 					});
 				}
+			case _types.FETCH_MOVIE_FOR_GB:
+				{
+					return _extends({}, state, {
+						movieID: action.payload
+					});
+				}
 			case _types.FETCH_MOVIE_GB:
 				{
 					return _extends({}, state, {
@@ -35502,7 +35508,7 @@
 
 	var _types = __webpack_require__(310);
 
-	var initialState = { list: [], movie: null, movieGB: null, show: [], seasons: [], episodes: [] };
+	var initialState = { list: [], movie: null, movieGB: null, movieID: null, show: [], seasons: [], episodes: [] };
 
 /***/ },
 /* 310 */
@@ -35526,6 +35532,7 @@
 	var FETCH_POPULAR_SHOWS = exports.FETCH_POPULAR_SHOWS = "FETCH_POPULAR_SHOWS";
 	var FETCH_BY_SEASON = exports.FETCH_BY_SEASON = "FETCH_BY_SEASON";
 	var FETCH_MOVIE_GB = exports.FETCH_MOVIE_GB = "FETCH_MOVIE_GB";
+	var FETCH_MOVIE_FOR_GB = exports.FETCH_MOVIE_FOR_GB = "FETCH_MOVIE_FOR_GB";
 
 /***/ },
 /* 311 */
@@ -51557,6 +51564,7 @@
 	exports.fetchPopularMovies = fetchPopularMovies;
 	exports.searchMovies = searchMovies;
 	exports.fetchMovie = fetchMovie;
+	exports.fetchMovieForGB = fetchMovieForGB;
 	exports.fetchMovieGB = fetchMovieGB;
 	exports.clearMovie = clearMovie;
 	exports.fetchMovieTrailers = fetchMovieTrailers;
@@ -51634,20 +51642,30 @@
 		};
 	}
 
+	function fetchMovieForGB(id) {
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching id - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_MOVIE_FOR_GB,
+					payload: res.data
+				});
+			});
+		};
+	}
+
 	function fetchMovieGB(id) {
-		console.log("here");
-		var getMovie = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
-		console.log("this is the movie id = ", getMovie);
-		//	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + getMovie.data.id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
-		//	return (dispatch) => {
-		//		request.then((res) => {
-		//			console.log('fetching show - ', res.data.results)
-		//			dispatch({
-		//				type: FETCH_MOVIE_GB,
-		//				payload: res.data
-		//			})
-		//		})
-		//	}
+		var request = _axios2.default.get('https://api-public.guidebox.com/v2/movies/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
+		return function (dispatch) {
+			request.then(function (res) {
+				console.log('fetching show - ', res.data.results);
+				dispatch({
+					type: _types.FETCH_MOVIE_GB,
+					payload: res.data
+				});
+			});
+		};
 	}
 
 	function clearMovie() {
@@ -70686,8 +70704,6 @@
 		}, {
 			key: 'renderReviews',
 			value: function renderReviews() {
-
-				console.log("rendering the links");
 				var reviews = this.props.movie_details.reviews;
 
 
@@ -70728,14 +70744,12 @@
 		}, {
 			key: 'renderLinks',
 			value: function renderLinks() {
-				console.log("rendering the links");
-				var movieGB = this.props;
+				var movieGB = this.props.movieGB;
 				console.log("heres the movie - ", movieGB);
 			}
 		}, {
 			key: 'renderMovie',
 			value: function renderMovie() {
-				console.log("something");
 				var _props = this.props,
 				    movie = _props.movie,
 				    movie_details = _props.movie_details;
@@ -70797,7 +70811,6 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				console.log("rendering the links");
 				var movie = this.props.movie;
 				return _react2.default.createElement(
 					'div',
@@ -70821,7 +70834,7 @@
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews, fetchMovieGB: _actions.fetchMovieGB })(MoviesShow);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews, fetchMovieForGB: _actions.fetchMovieForGB, fetchMovieGB: _actions.fetchMovieGB })(MoviesShow);
 
 /***/ },
 /* 461 */
