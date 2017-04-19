@@ -70764,6 +70764,72 @@
 					return;
 				}
 				console.log("heres the movie - ", movieGB);
+				var list = _react2.default.createElement(
+					'div',
+					{ id: 'movieLinks' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Links: '
+					),
+					movieGB.free_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.subscription_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.tv_everywhere_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.purchase_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					})
+				);
+				return list;
 			}
 		}, {
 			key: 'renderMovie',
@@ -70821,9 +70887,9 @@
 						{ className: 'summary' },
 						movie.overview
 					),
-					this.renderLinks(),
 					trailers.length > 0 ? this.renderTrailers() : '',
-					reviews.length > 0 ? this.renderReviews() : ''
+					reviews.length > 0 ? this.renderReviews() : '',
+					this.renderLinks()
 				);
 			}
 		}, {

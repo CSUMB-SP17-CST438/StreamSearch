@@ -84,6 +84,20 @@ class MoviesShow extends Component {
 			return;
 		}
 		console.log("heres the movie - ", movieGB);
+		const list = (
+					<div id="movieLinks">
+					<h2>Links: </h2>
+					{movieGB.free_web_sources.map((service,i) => {
+						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+					{movieGB.subscription_web_sources.map((service,i) => {
+						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+					{movieGB.tv_everywhere_web_sources.map((service,i) => {
+						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+					{movieGB.purchase_web_sources.map((service,i) => {
+						return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+					</div>
+					);
+		return list;
 	}
 
 	renderMovie() {
@@ -108,9 +122,9 @@ class MoviesShow extends Component {
 				<p className="summary">
 					{movie.overview}
 				</p>
-				{this.renderLinks()}
 				{trailers.length > 0 ? this.renderTrailers() : ''}
 				{reviews.length > 0 ? this.renderReviews() : ''}
+				{this.renderLinks()}
 			</div>
 		);
 	}
