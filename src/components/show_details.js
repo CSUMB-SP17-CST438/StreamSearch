@@ -101,6 +101,8 @@ class ShowDetails extends Component {
 											return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
 										{episodes[this.state.num].tv_everywhere_web_sources.map((service,i) => {
 											return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
+										{episodes[this.state.num].purchase_web_sources.map((service,i) => {
+											return(<div><a href={service.link} > {service.display_name} </a><br /></div>);})}
 										
 										
 									</div>

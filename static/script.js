@@ -71225,6 +71225,20 @@
 											),
 											_react2.default.createElement('br', null)
 										);
+									}),
+									episodes[_this3.state.num].purchase_web_sources.map(function (service, i) {
+										return _react2.default.createElement(
+											'div',
+											null,
+											_react2.default.createElement(
+												'a',
+												{ href: service.link },
+												' ',
+												service.display_name,
+												' '
+											),
+											_react2.default.createElement('br', null)
+										);
 									})
 								)
 							)
