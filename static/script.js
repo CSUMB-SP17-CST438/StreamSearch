@@ -71184,6 +71184,11 @@
 										null,
 										episodes[_this3.state.num].overview
 									),
+									episodes[_this3.state.num].free_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Free:'
+									) : '',
 									episodes[_this3.state.num].free_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
@@ -71198,6 +71203,11 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].subscription_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Subscription:'
+									) : '',
 									episodes[_this3.state.num].subscription_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
@@ -71212,6 +71222,11 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].tv_everywhere_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Tv Everywhere:'
+									) : '',
 									episodes[_this3.state.num].tv_everywhere_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
@@ -71226,6 +71241,11 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].purchase_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Purchase:'
+									) : '',
 									episodes[_this3.state.num].purchase_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
