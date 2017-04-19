@@ -35442,6 +35442,12 @@
 						movie: action.payload
 					});
 				}
+			case _types.FETCH_MOVIE_GB:
+				{
+					return _extends({}, state, {
+						movieGB: action.payload
+					});
+				}
 			case _types.CLEAR_MOVIE:
 				{
 					return _extends({}, state, {
@@ -35488,6 +35494,7 @@
 						episodes: action.payload
 					});
 				}
+
 		}
 
 		return state;
@@ -35495,7 +35502,7 @@
 
 	var _types = __webpack_require__(310);
 
-	var initialState = { list: [], movie: null, show: [], seasons: [], episodes: [] };
+	var initialState = { list: [], movie: null, movieGB: null, show: [], seasons: [], episodes: [] };
 
 /***/ },
 /* 310 */
@@ -35518,6 +35525,7 @@
 	var FETCH_EPISODES = exports.FETCH_EPISODES = "FETCH_EPISODES";
 	var FETCH_POPULAR_SHOWS = exports.FETCH_POPULAR_SHOWS = "FETCH_POPULAR_SHOWS";
 	var FETCH_BY_SEASON = exports.FETCH_BY_SEASON = "FETCH_BY_SEASON";
+	var FETCH_MOVIE_GB = exports.FETCH_MOVIE_GB = "FETCH_MOVIE_GB";
 
 /***/ },
 /* 311 */
@@ -51627,16 +51635,19 @@
 	}
 
 	function fetchMovieGB(id) {
-		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
-		return function (dispatch) {
-			request.then(function (res) {
-				console.log('fetching show - ', res.data.results);
-				dispatch({
-					type: _types.FETCH_SHOW,
-					payload: res.data
-				});
-			});
-		};
+		console.log("here");
+		var getMovie = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
+		console.log("this is the movie id = ", getMovie);
+		//	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + getMovie.data.id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+		//	return (dispatch) => {
+		//		request.then((res) => {
+		//			console.log('fetching show - ', res.data.results)
+		//			dispatch({
+		//				type: FETCH_MOVIE_GB,
+		//				payload: res.data
+		//			})
+		//		})
+		//	}
 	}
 
 	function clearMovie() {
@@ -70647,6 +70658,7 @@
 				this.props.fetchMovie(this.props.params.id);
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
+				this.props.fetchMovieGB(this.props.params.id);
 			}
 		}, {
 			key: 'renderTrailers',
@@ -70674,6 +70686,8 @@
 		}, {
 			key: 'renderReviews',
 			value: function renderReviews() {
+
+				console.log("rendering the links");
 				var reviews = this.props.movie_details.reviews;
 
 
@@ -70712,8 +70726,16 @@
 				);
 			}
 		}, {
+			key: 'renderLinks',
+			value: function renderLinks() {
+				console.log("rendering the links");
+				var movieGB = this.props;
+				console.log("heres the movie - ", movieGB);
+			}
+		}, {
 			key: 'renderMovie',
 			value: function renderMovie() {
+				console.log("something");
 				var _props = this.props,
 				    movie = _props.movie,
 				    movie_details = _props.movie_details;
@@ -70767,6 +70789,7 @@
 						{ className: 'summary' },
 						movie.overview
 					),
+					this.renderLinks(),
 					trailers.length > 0 ? this.renderTrailers() : '',
 					reviews.length > 0 ? this.renderReviews() : ''
 				);
@@ -70774,7 +70797,7 @@
 		}, {
 			key: 'render',
 			value: function render() {
-
+				console.log("rendering the links");
 				var movie = this.props.movie;
 				return _react2.default.createElement(
 					'div',
@@ -70793,11 +70816,12 @@
 
 		return {
 			movie: movies.movie,
+			movieGB: movies.movieGB,
 			movie_details: movie_details
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews })(MoviesShow);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews, fetchMovieGB: _actions.fetchMovieGB })(MoviesShow);
 
 /***/ },
 /* 461 */

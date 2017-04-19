@@ -42,6 +42,7 @@ class MoviesShow extends Component {
 
 	renderReviews() {
 
+		console.log("rendering the links");
 		const { reviews } = this.props.movie_details;
 
 		const reviewsView = reviews.map((review, i) => {
@@ -66,8 +67,15 @@ class MoviesShow extends Component {
 		);
 
 	}
+	
+	renderLinks() {
+		console.log("rendering the links");
+		const movieGB = this.props;
+		console.log("heres the movie - ", movieGB);
+	}
 
 	renderMovie() {
+		console.log("something");
 		const { movie, movie_details } = this.props;
 		const { trailers, reviews } = movie_details;
 		const genres = movie.genres.map(genre => genre.name).join(", ");
@@ -89,6 +97,7 @@ class MoviesShow extends Component {
 				<p className="summary">
 					{movie.overview}
 				</p>
+				{this.renderLinks()}
 				{trailers.length > 0 ? this.renderTrailers() : ''}
 				{reviews.length > 0 ? this.renderReviews() : ''}
 			</div>
@@ -96,11 +105,12 @@ class MoviesShow extends Component {
 	}
 
 	render() {
-
+		console.log("rendering the links");
 		const movie = this.props.movie;
 		return (
 			<div className="container movie">
 				{movie ? this.renderMovie() : ''}
+				
 			</div>
 		);
 

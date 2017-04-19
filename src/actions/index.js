@@ -62,18 +62,19 @@ export function fetchMovie(id) {
 }
 
 export function fetchMovieGB(id) {
-	const getMovie = axios.get('http://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
-	console.log("this is the movie id = ", getMovie.data.id)
-	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + getMovie.data.id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
-	return (dispatch) => {
-		request.then((res) => {
-			console.log('fetching show - ', res.data.results)
-			dispatch({
-				type: FETCH_MOVIE_GB,
-				payload: res.data
-			})
-		})
-	}
+	console.log("here");
+	const getMovie = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
+	console.log("this is the movie id = ", getMovie)
+//	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + getMovie.data.id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
+//	return (dispatch) => {
+//		request.then((res) => {
+//			console.log('fetching show - ', res.data.results)
+//			dispatch({
+//				type: FETCH_MOVIE_GB,
+//				payload: res.data
+//			})
+//		})
+//	}
 }
 
 export function clearMovie() {
