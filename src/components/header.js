@@ -6,6 +6,7 @@ import { Socket } from './Socket';
 
 
 export default class App extends Component {
+	
 	componentDidMount(){
 		Socket.on('login', (data) => {this.setState({'token': data['token']});});
        FB.getLoginStatus((response) => {if (response.status == 'connected') 
@@ -15,7 +16,6 @@ export default class App extends Component {
        });
     }
 	
-
 	render() {
 		return (
 			
