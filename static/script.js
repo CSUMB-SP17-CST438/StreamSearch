@@ -53310,7 +53310,7 @@
 								_react2.default.createElement(
 									'h2',
 									{ className: 'search-key' },
-									'ShowS'
+									'Shows'
 								)
 							),
 							_react2.default.createElement(
