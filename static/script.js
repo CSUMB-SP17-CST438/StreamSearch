@@ -69,7 +69,7 @@
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _app = __webpack_require__(191);
+	var _app = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/app\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _app2 = _interopRequireDefault(_app);
 
@@ -21429,159 +21429,8 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(160);
-
-	var _header = __webpack_require__(192);
-
-	var _header2 = _interopRequireDefault(_header);
-
-	var _Button = __webpack_require__(306);
-
-	var _Chat = __webpack_require__(307);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var App = function (_Component) {
-		_inherits(App, _Component);
-
-		function App() {
-			_classCallCheck(this, App);
-
-			return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-		}
-
-		_createClass(App, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'app container' },
-					_react2.default.createElement('div', {
-						className: 'fb-login-button',
-						'data-max-rows': '1',
-						'data-size': 'medium',
-						'data-show-faces': 'true',
-						'data-auto-logout-link': 'true' }),
-					_react2.default.createElement(_header2.default, null),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_Chat.Chat, null)
-					),
-					this.props.children
-				);
-			}
-		}]);
-
-		return App;
-	}(_react.Component);
-
-	exports.default = App;
-
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(160);
-
-	var _header = __webpack_require__(192);
-
-	var _header2 = _interopRequireDefault(_header);
-
-	var _reactRouter = __webpack_require__(193);
-
-	var _Socket = __webpack_require__(256);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var App = function (_Component) {
-		_inherits(App, _Component);
-
-		function App() {
-			_classCallCheck(this, App);
-
-			return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-		}
-
-		_createClass(App, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-
-				_Socket.Socket.on('login', function (data) {
-					_this2.setState({ 'token': data['token'] });
-				});
-				FB.getLoginStatus(function (response) {
-					if (response.status == 'connected') {
-						_Socket.Socket.emit('token', { 'facebook_user_token': response.authResponse.accessToken });
-					}
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'header',
-					{ className: 'header' },
-					_react2.default.createElement(
-						'h1',
-						null,
-						'STREAM SEARCH'
-					),
-					_react2.default.createElement(
-						'h2',
-						null,
-						'Let us do the Searching for you!'
-					)
-				);
-			}
-		}]);
-
-		return App;
-	}(_react.Component);
-
-	exports.default = App;
-
-/***/ },
+/* 191 */,
+/* 192 */,
 /* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -35210,174 +35059,8 @@
 
 
 /***/ },
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Button = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var React = _interopRequireWildcard(_react);
-
-	var _Socket = __webpack_require__(256);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Button = exports.Button = function (_React$Component) {
-	    _inherits(Button, _React$Component);
-
-	    function Button() {
-	        _classCallCheck(this, Button);
-
-	        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
-	    }
-
-	    _createClass(Button, [{
-	        key: 'handleSubmit',
-	        value: function handleSubmit(event) {
-
-	            event.preventDefault();
-	            var text = document.getElementById("message_in").value;
-	            if (text == '') {
-	                return;
-	            }
-	            document.getElementById("message_in").value = "";
-	            _Socket.Socket.emit('new message', { 'message': text });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement(
-	                'form',
-	                { onSubmit: this.handleSubmit },
-	                React.createElement(
-	                    'button',
-	                    null,
-	                    'Send Message'
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Button;
-	}(React.Component);
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Chat = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(160);
-
-	var _Button = __webpack_require__(306);
-
-	var _Socket = __webpack_require__(256);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Chat = exports.Chat = function (_Component) {
-	    _inherits(Chat, _Component);
-
-	    function Chat(props) {
-	        _classCallCheck(this, Chat);
-
-	        var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
-
-	        _this.state = {
-	            'messages': []
-	        };
-	        return _this;
-	    }
-
-	    _createClass(Chat, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this2 = this;
-
-	            _Socket.Socket.on('all messages', function (data) {
-	                _this2.setState({ 'messages': data['messages'] });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            var messages = this.state.messages.map(function (n, index) {
-	                return _react2.default.createElement(
-	                    'li',
-	                    { key: index },
-	                    n.message
-	                );
-	            });
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'chat-box' },
-	                _react2.default.createElement('input', { type: 'checkbox' }),
-	                _react2.default.createElement('label', { 'data-expanded': 'Close Chatbox', 'data-collapsed': 'Open Chatbox' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'chat-box-content' },
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: 'myUL' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'p',
-	                                { align: 'left' },
-	                                'Welcome to StreamSearch! I am chillbot! I can reccomend content to you based on shows and movies you like! for a full commmand list type "Help"'
-	                            )
-	                        ),
-	                        messages
-	                    ),
-	                    _react2.default.createElement('input', { type: 'text', id: 'message_in' }),
-	                    ' ',
-	                    _react2.default.createElement(
-	                        _Button.Button,
-	                        null,
-	                        'Send'
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Chat;
-	}(_react.Component);
-
-/***/ },
+/* 306 */,
+/* 307 */,
 /* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -35442,6 +35125,18 @@
 						movie: action.payload
 					});
 				}
+			case _types.FETCH_MOVIE_FOR_GB:
+				{
+					return _extends({}, state, {
+						movieID: action.payload
+					});
+				}
+			case _types.FETCH_MOVIE_GB:
+				{
+					return _extends({}, state, {
+						movieGB: action.payload
+					});
+				}
 			case _types.CLEAR_MOVIE:
 				{
 					return _extends({}, state, {
@@ -35488,6 +35183,7 @@
 						episodes: action.payload
 					});
 				}
+
 		}
 
 		return state;
@@ -35495,7 +35191,7 @@
 
 	var _types = __webpack_require__(310);
 
-	var initialState = { list: [], movie: null, show: [], seasons: [], episodes: [] };
+	var initialState = { list: [], movie: null, movieGB: null, movieID: null, show: [], seasons: [], episodes: [] };
 
 /***/ },
 /* 310 */
@@ -35518,6 +35214,8 @@
 	var FETCH_EPISODES = exports.FETCH_EPISODES = "FETCH_EPISODES";
 	var FETCH_POPULAR_SHOWS = exports.FETCH_POPULAR_SHOWS = "FETCH_POPULAR_SHOWS";
 	var FETCH_BY_SEASON = exports.FETCH_BY_SEASON = "FETCH_BY_SEASON";
+	var FETCH_MOVIE_GB = exports.FETCH_MOVIE_GB = "FETCH_MOVIE_GB";
+	var FETCH_MOVIE_FOR_GB = exports.FETCH_MOVIE_FOR_GB = "FETCH_MOVIE_FOR_GB";
 
 /***/ },
 /* 311 */
@@ -35574,7 +35272,7 @@
 
 	var _reactRouter = __webpack_require__(193);
 
-	var _app = __webpack_require__(191);
+	var _app = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/app\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _app2 = _interopRequireDefault(_app);
 
@@ -70624,15 +70322,25 @@
 		function MoviesShow(props) {
 			_classCallCheck(this, MoviesShow);
 
-			return _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
+
+			_this.state = {
+				getID: false };
+			return _this;
 		}
 
 		_createClass(MoviesShow, [{
+			key: 'ifIdIsGot',
+			value: function ifIdIsGot() {
+				this.setState({ getID: true });
+			}
+		}, {
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				this.props.fetchMovie(this.props.params.id);
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
+				this.props.fetchMovieForGB(this.props.params.id);
 			}
 		}, {
 			key: 'renderTrailers',
@@ -70698,6 +70406,107 @@
 				);
 			}
 		}, {
+			key: 'renderLinks',
+			value: function renderLinks() {
+				var movieGB = this.props.movieGB;
+				var movieID = this.props.movieID;
+				if (movieID == null) {
+					return;
+				}
+				if (movieGB == null) {
+					console.log("this is the ID", movieID);
+					this.props.fetchMovieGB(movieID);
+					return;
+				}
+				console.log("heres the movie - ", movieGB);
+				var list = _react2.default.createElement(
+					'div',
+					{ id: 'movieLinks' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Links: '
+					),
+					movieGB.free_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Free:'
+					) : '',
+					movieGB.free_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.subscription_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Subscription:'
+					) : '',
+					movieGB.subscription_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.tv_everywhere_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'TV Everywhere:'
+					) : '',
+					movieGB.tv_everywhere_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					}),
+					movieGB.purchase_web_sources.length ? _react2.default.createElement(
+						'h6',
+						null,
+						'Purchase:'
+					) : '',
+					movieGB.purchase_web_sources.map(function (service, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: service.link },
+								' ',
+								service.display_name,
+								' '
+							),
+							_react2.default.createElement('br', null)
+						);
+					})
+				);
+				return list;
+			}
+		}, {
 			key: 'renderMovie',
 			value: function renderMovie() {
 				var _props = this.props,
@@ -70754,13 +70563,13 @@
 						movie.overview
 					),
 					trailers.length > 0 ? this.renderTrailers() : '',
-					reviews.length > 0 ? this.renderReviews() : ''
+					reviews.length > 0 ? this.renderReviews() : '',
+					this.renderLinks()
 				);
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-
 				var movie = this.props.movie;
 				return _react2.default.createElement(
 					'div',
@@ -70779,11 +70588,13 @@
 
 		return {
 			movie: movies.movie,
+			movieID: movies.movieID,
+			movieGB: movies.movieGB,
 			movie_details: movie_details
 		};
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews })(MoviesShow);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchMovie: _actions.fetchMovie, fetchMovieTrailers: _actions.fetchMovieTrailers, fetchMovieReviews: _actions.fetchMovieReviews, fetchMovieForGB: _actions.fetchMovieForGB, fetchMovieGB: _actions.fetchMovieGB })(MoviesShow);
 
 /***/ },
 /* 461 */
@@ -71048,10 +70859,15 @@
 										null,
 										episodes[_this3.state.num].overview
 									),
+									episodes[_this3.state.num].free_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Free:'
+									) : '',
 									episodes[_this3.state.num].free_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
-											null,
+											{ key: i },
 											_react2.default.createElement(
 												'a',
 												{ href: service.link },
@@ -71062,10 +70878,15 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].subscription_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Subscription:'
+									) : '',
 									episodes[_this3.state.num].subscription_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
-											null,
+											{ key: i },
 											_react2.default.createElement(
 												'a',
 												{ href: service.link },
@@ -71076,10 +70897,34 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
+									episodes[_this3.state.num].tv_everywhere_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Tv Everywhere:'
+									) : '',
 									episodes[_this3.state.num].tv_everywhere_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
-											null,
+											{ key: i },
+											_react2.default.createElement(
+												'a',
+												{ href: service.link },
+												' ',
+												service.display_name,
+												' '
+											),
+											_react2.default.createElement('br', null)
+										);
+									}),
+									episodes[_this3.state.num].purchase_web_sources.length ? _react2.default.createElement(
+										'h6',
+										null,
+										'Purchase:'
+									) : '',
+									episodes[_this3.state.num].purchase_web_sources.map(function (service, i) {
+										return _react2.default.createElement(
+											'div',
+											{ key: i },
 											_react2.default.createElement(
 												'a',
 												{ href: service.link },

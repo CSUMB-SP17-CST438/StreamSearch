@@ -11,7 +11,11 @@ export default class App extends Component {
 	render() {
 		return (
 			<div className="app container">
+<<<<<<< HEAD
 			
+=======
+				
+>>>>>>> 0ea14dfdc7e59819404006eb54d13f23fd76acb7
 				<div                  
                     className="fb-login-button"     
                     data-max-rows="1"
@@ -19,10 +23,15 @@ export default class App extends Component {
                     data-show-faces="true" 
                     data-auto-logout-link="true">
                 </div>
+<<<<<<< HEAD
+=======
+				
+>>>>>>> 0ea14dfdc7e59819404006eb54d13f23fd76acb7
 				<Header />
 				<div>
 					<Chat />
 				</div>
+				
 				{this.props.children}
 			</div>
 		);
