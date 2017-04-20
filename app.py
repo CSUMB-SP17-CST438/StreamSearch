@@ -60,6 +60,7 @@ def on_new_message(data):
     messages.append({
                     'message': "ChillBot: I reccomend - " + str(mes['message'])
                 })
+
     socketio.emit('all messages',{'messages': messages})
     print "done"
     
