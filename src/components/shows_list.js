@@ -30,12 +30,12 @@ class ShowsList extends Component {
 	}
 	
 	renderShow(movie, i) {
-		const releaseDate = moment(movie.release_date).calendar();
+		const releaseDate = moment(movie.first_aired).calendar();
 		return (
 			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
 				<div className="movie-item">
 					<p className="item-title">{movie.title}</p>
-					<p className="item-release-date">Shows</p>
+					<p className="item-release-date">{releaseDate}</p>
 				</div>
 			</Link>
 		);
