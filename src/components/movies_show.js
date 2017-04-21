@@ -122,7 +122,7 @@ class MoviesShow extends Component {
 
 		return (
 			<div className="movie-details">
-				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
+				<Link to="/movies" className="btn btn-primary" style={{ float: "right" }}>
 					Back to List
 				</Link>
 				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movie.title}</h2>

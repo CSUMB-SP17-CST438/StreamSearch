@@ -70574,7 +70574,7 @@
 		}, {
 			key: 'renderShow',
 			value: function renderShow(movie, i) {
-				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
+				var releaseDate = (0, _moment2.default)(movie.first_aired).calendar();
 				return _react2.default.createElement(
 					_reactRouter.Link,
 					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
@@ -70589,7 +70589,7 @@
 						_react2.default.createElement(
 							'p',
 							{ className: 'item-release-date' },
-							'Shows'
+							releaseDate
 						)
 					)
 				);
@@ -70877,7 +70877,7 @@
 					{ className: 'movie-details' },
 					_react2.default.createElement(
 						_reactRouter.Link,
-						{ to: '/', className: 'btn btn-primary', style: { float: "right" } },
+						{ to: '/movies', className: 'btn btn-primary', style: { float: "right" } },
 						'Back to List'
 					),
 					_react2.default.createElement(
@@ -71086,7 +71086,7 @@
 					{ className: 'show-details' },
 					_react2.default.createElement(
 						_reactRouter.Link,
-						{ to: '/', className: 'btn btn-primary', style: { float: "right" } },
+						{ to: '/shows', className: 'btn btn-primary', style: { float: "right" } },
 						'Back to List'
 					),
 					_react2.default.createElement(

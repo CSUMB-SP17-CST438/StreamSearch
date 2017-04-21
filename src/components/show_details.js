@@ -42,7 +42,7 @@ class ShowDetails extends Component {
 	
 		return (
 			<div className="show-details">
-				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
+				<Link to="/shows" className="btn btn-primary" style={{ float: "right" }}>
 					Back to List
 				</Link>
 				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{show.title}</h2>
