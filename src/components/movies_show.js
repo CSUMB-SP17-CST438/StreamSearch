@@ -83,6 +83,11 @@ class MoviesShow extends Component {
 			this.props.fetchMovieGB(movieID);
 			return;
 		}
+		if (movieGB.id != movieID) {
+			console.log("this is the ID", movieID);
+			this.props.fetchMovieGB(movieID);
+			return;
+		}
 		console.log("heres the movie - ", movieGB);
 		const list = (
 					<div id="movieLinks">
