@@ -83,11 +83,6 @@ class MoviesShow extends Component {
 			this.props.fetchMovieGB(movieID);
 			return;
 		}
-		if (movieGB.id != movieID) {
-			console.log("this is the ID", movieID);
-			this.props.fetchMovieGB(movieID);
-			return;
-		}
 		console.log("heres the movie - ", movieGB);
 		const list = (
 					<div id="movieLinks">
@@ -122,7 +117,7 @@ class MoviesShow extends Component {
 
 		return (
 			<div className="movie-details">
-				<Link to="/movies" className="btn btn-primary" style={{ float: "right" }}>
+				<Link to="/" className="btn btn-primary" style={{ float: "right" }}>
 					Back to List
 				</Link>
 				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movie.title}</h2>
@@ -134,7 +129,7 @@ class MoviesShow extends Component {
 				<p className="summary">
 					{movie.overview}
 				</p>
-				{trailers.length > 0 ? this.renderTrailers() : ''}
+				{trailers.length > 0? this.renderTrailers() : ''}
 				{reviews.length > 0 ? this.renderReviews() : ''}
 				{this.renderLinks()}
 			</div>
