@@ -67,8 +67,9 @@ def on_new_message(data):
     
 @socketio.on('search1')
 def onSearch(data):
-    print data
-    print "here"
+    #print data
+    #print "here"
+    print ""
  
 if __name__ == '__main__':
     socketio.run(
