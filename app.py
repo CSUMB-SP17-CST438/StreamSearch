@@ -15,8 +15,9 @@ socketio = flask_socketio.SocketIO(app)
 messages = []
 #Guidebox API Key c338d925a0672acf243133ddc1d5d66fb0191391
 #http://api-public.guidebox.com/v1.43/ {region} / {api key}
-@app.route('/')
-def hello():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
     return flask.render_template('index.html')
    
 @app.route('/shows')
