@@ -19,7 +19,7 @@ def get_chatbot_response(data):
         m = response
         # print m
         message =  ({
-            'message': str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'] + "," + str(response['Similar']['Results'][3]['Name']) + "," + str(response['Similar']['Results'][4]['Name']))
+            'message': "ChillBot: I reccomend - " + str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'] + "," + str(response['Similar']['Results'][3]['Name']) + "," + str(response['Similar']['Results'][4]['Name']))
         })
     elif str1[0] == "!show":
         spl = str.split(str(data))
@@ -29,7 +29,7 @@ def get_chatbot_response(data):
         m = response
         print m
         message =  ({
-            'message': str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'] + "," + str(response['Similar']['Results'][3]['Name']) + "," + str(response['Similar']['Results'][4]['Name']))
+            'message': "ChillBot: I reccomend - " + str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'] + "," + str(response['Similar']['Results'][3]['Name']) + "," + str(response['Similar']['Results'][4]['Name']))
         })
     else:
             message = ({

@@ -40,8 +40,8 @@ export function searchMovies(term) {
 			dispatch({
 				type: SEARCH_MOVIES,
 				payload: res.data.results
-			})
-		})
+			});
+		});
 	}
 
 }
