@@ -100,6 +100,7 @@ export function fetchMovieTrailers(id) {
 	});
 	return (dispatch) => {
 		request.then((res) => {
+			console.log('fetching trailers - ', res.data.results)
 			dispatch({
 				type: FETCH_MOVIE_TRAILERS,
 				payload: res.data.results

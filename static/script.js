@@ -51680,6 +51680,7 @@
 		});
 		return function (dispatch) {
 			request.then(function (res) {
+				console.log('fetching trailers - ', res.data.results);
 				dispatch({
 					type: _types.FETCH_MOVIE_TRAILERS,
 					payload: res.data.results
