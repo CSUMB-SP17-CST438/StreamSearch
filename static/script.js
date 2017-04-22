@@ -51680,6 +51680,7 @@
 		});
 		return function (dispatch) {
 			request.then(function (res) {
+				console.log('fetching trailers - ', res.data.results);
 				dispatch({
 					type: _types.FETCH_MOVIE_TRAILERS,
 					payload: res.data.results
@@ -70763,6 +70764,11 @@
 					this.props.fetchMovieGB(movieID);
 					return;
 				}
+				if (movieGB.id != movieID) {
+					console.log("this is the ID", movieID);
+					this.props.fetchMovieGB(movieID);
+					return;
+				}
 				console.log("heres the movie - ", movieGB);
 				var list = _react2.default.createElement(
 					'div',
@@ -70872,7 +70878,7 @@
 					{ className: 'movie-details' },
 					_react2.default.createElement(
 						_reactRouter.Link,
-						{ to: '/', className: 'btn btn-primary', style: { float: "right" } },
+						{ to: '/movies', className: 'btn btn-primary', style: { float: "right" } },
 						'Back to List'
 					),
 					_react2.default.createElement(
