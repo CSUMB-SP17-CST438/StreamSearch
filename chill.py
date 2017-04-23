@@ -9,27 +9,27 @@ def get_chatbot_response(data):
     str1 = str.split(str(data))
     if data == "Help":
          message = ({
-            'message': 'To get reccomeneded a movie similar to a movie you have seen before type "Rec_movie <movie title> \n To get Reccomended a TV Show Similar to a show you have watched type "Rec_Show <show title> \n '
+            'message': 'To get reccomeneded a movie similar to a movie you have seen before type "!movie <movie title>" \n To get Reccomended a TV Show Similar to a show you have watched type "!show <show title>" \n '
         })
-    elif str1[0] == "Rec_movie":
+    elif str1[0] == "!movie":
         spl = str.split(str(data))
         str2 = "+".join(str(item) for item in spl[1:])
-        response = GetRecomendations(str2,key,'3')
+        response = GetRecomendations(str2,key,'5')
         # print response
         m = response
         # print m
         message =  ({
-            'message': str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'])
+            'message': "ChillBot: I reccomend - " + str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'] + "," + str(response['Similar']['Results'][3]['Name']) + "," + str(response['Similar']['Results'][4]['Name']))
         })
-    elif str1[0] == "Rec_show":
+    elif str1[0] == "!show":
         spl = str.split(str(data))
         str2 = "+".join(str(item) for item in spl[1:])
-        response = GetRecomendations_shows(str2,key,'3')
+        response = GetRecomendations_shows(str2,key,'5')
         print response
         m = response
         print m
         message =  ({
-            'message': str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'])
+            'message': "ChillBot: I reccomend - " + str(response['Similar']['Results'][0]['Name']) + ", " + str(response['Similar']['Results'][1]['Name']) + ", " + str(response['Similar']['Results'][2]['Name'] + "," + str(response['Similar']['Results'][3]['Name']) + "," + str(response['Similar']['Results'][4]['Name']))
         })
     else:
             message = ({
