@@ -4,6 +4,13 @@ Description: Let us do the searching
 
 Stream Search gives someone the ability to search for Movies and TV shows. When you find the movie you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube.
 
+List of changes made in Handin 3, 4/24:
+1.
+2.
+3.
+4.
+5.
+
 List of changes made in Handin 2, 4/10:
 
 1. Added facebook log-in option.
@@ -41,6 +48,8 @@ API Key c338d925a0672acf243133ddc1d5d66fb0191391
 https://api.guidebox.com/docs
 
 Some starter code for React on Flask.
+
+Python SDK for Facebook's Graph API https://facebook-sdk.readthedocs.io/
   
 ## Upgrade Node version to 6
 
