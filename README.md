@@ -5,10 +5,15 @@ Description: Let us do the searching
 Stream Search gives someone the ability to search for Movies and TV shows. When you find the movie you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube.
 
 List of changes made in Handin 3, 4/24:
+
 1.
+
 2.
+
 3.
+
 4.
+
 5.
 
 List of changes made in Handin 2, 4/10:
