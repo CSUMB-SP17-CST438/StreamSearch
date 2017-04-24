@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {	Component }from 'react';
 import { connect } from 'react-redux';
+import Facebook from './facebook';
 import Header from './header';
 import { Button } from './Button';
-import {Chat} from './Chat';
-
+import { Chat } from './Chat';
 
 export default class App extends Component {
 
@@ -12,14 +12,7 @@ export default class App extends Component {
 		return (
 			<div className="app container">
 				
-				<div                  
-                    className="fb-login-button"     
-                    data-max-rows="1"
-                    data-size="medium"
-                    data-show-faces="true" 
-                    data-auto-logout-link="true">
-                </div>
-				
+				<Facebook />
 				<Header />
 				<div>
 					<Chat />
