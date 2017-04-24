@@ -6,9 +6,9 @@ Stream Search gives someone the ability to search for Movies and TV shows. When 
 
 List of changes made in Handin 3, 4/24:
 
-1.
+1. Added recommendations in Chatbot
 
-2.
+2. Added Facebook friends invite
 
 3.
 
