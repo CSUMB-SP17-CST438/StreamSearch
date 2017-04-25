@@ -2,7 +2,9 @@ STREAM SEARCH(previously named OverLook)
 
 Description: Let us do the searching
 
-Stream Search gives you the ability to search for Movies and TV shows on netflix, Hulu, Amazon Prime, and HBO GO all-in-one place. When you find the movie or TV show you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube. For TV shows you can view the available seasons, a summary plot of the episodes, and a link to the Streaming services where that Show or Movie is avilable to watch.
+Stream Search gives you the ability to search for Movies and TV shows on Netflix, Hulu, Amazon Prime, and HBO GO all-in-one place. When you find the movie or TV show you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube. For TV shows you can view the available seasons, a summary plot of the episodes, and a link to the Streaming services where that Show or Movie is available to watch.
+
+Link to Demo: https://overlook-stream-search.herokuapp.com/
 
 List of changes made in Handin 3, 4/24:
 
@@ -31,8 +33,6 @@ List of improvements over time:
 3. Movies will be searchable, just like shows.
 4. More appealing website.
 5. Auto recommendations based on searches
-
-https://overlook-stream-search.herokuapp.com/ (Heroku) 
 
 I've created an email to use to register for the API's
 
