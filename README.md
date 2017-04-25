@@ -9,8 +9,8 @@ Link to Demo: https://overlook-stream-search.herokuapp.com/
 List of changes made in Handin 3, 4/24:
 
 1. Added recommendations in Chatbot
-
 2. Added Facebook friends invite
+3. Integrated tmdb and Guidebox apis for movies
 
 List of changes made in Handin 2, 4/10:
 
