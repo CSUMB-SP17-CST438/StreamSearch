@@ -55,5 +55,5 @@ def GetRecomendations_info(movie,key,n):
     return response.json()
     
 
-r = GetRecomendations('spiderman',key,'3')
-print str(r)
+#r = GetRecomendations('spiderman',key,'3')
+#print str(r)

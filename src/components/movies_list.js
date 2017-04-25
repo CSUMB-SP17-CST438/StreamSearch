@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import moment from 'moment';
 import { fetchPopularMovies, fetchPopularShows, clearMovie } from '../actions';
-import SearchBar from './search_bar';
+import SearchBar from './search_bar_movies';
 
 class MoviesList extends Component {
 
@@ -19,23 +19,13 @@ class MoviesList extends Component {
 
 	renderMovie(movie, i) {
 		const releaseDate = moment(movie.release_date).calendar();
+		console.log(movie)
+		//<p className="item-title"><img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} />{movie.title}</p>
 		return (
 			<Link key={i} to={`/movies/${movie.id}`} className="movie-item-link">
 				<div className="movie-item">
 					<p className="item-title">{movie.title}</p>
 					<p className="item-release-date">{releaseDate}</p>
-				</div>
-			</Link>
-		);
-	}
-	
-	renderShow(movie, i) {
-		const releaseDate = moment(movie.release_date).calendar();
-		return (
-			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
-				<div className="movie-item">
-					<p className="item-title">{movie.title}</p>
-					<p className="item-release-date">Shows</p>
 				</div>
 			</Link>
 		);

@@ -35647,9 +35647,9 @@
 
 	var _actions = __webpack_require__(431);
 
-	var _search_bar = __webpack_require__(457);
+	var _search_bar_movies = __webpack_require__(463);
 
-	var _search_bar2 = _interopRequireDefault(_search_bar);
+	var _search_bar_movies2 = _interopRequireDefault(_search_bar_movies);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35679,6 +35679,8 @@
 			key: 'renderMovie',
 			value: function renderMovie(movie, i) {
 				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
+				console.log(movie);
+				//<p className="item-title"><img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} />{movie.title}</p>
 				return _react2.default.createElement(
 					_reactRouter.Link,
 					{ key: i, to: '/movies/' + movie.id, className: 'movie-item-link' },
@@ -35699,29 +35701,6 @@
 				);
 			}
 		}, {
-			key: 'renderShow',
-			value: function renderShow(movie, i) {
-				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
-				return _react2.default.createElement(
-					_reactRouter.Link,
-					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'movie-item' },
-						_react2.default.createElement(
-							'p',
-							{ className: 'item-title' },
-							movie.title
-						),
-						_react2.default.createElement(
-							'p',
-							{ className: 'item-release-date' },
-							'Shows'
-						)
-					)
-				);
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				var movies = this.props.movies.list.map(this.renderMovie);
@@ -35729,7 +35708,7 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'movies-list' },
-					_react2.default.createElement(_search_bar2.default, null),
+					_react2.default.createElement(_search_bar_movies2.default, null),
 					_react2.default.createElement(
 						'div',
 						{ id: 'movieList' },
@@ -53327,10 +53306,14 @@
 
 			_this.state = {
 				term: '',
-				select: 'movies',
+				select: 'shows',
 				sendMovieQuery: _lodash2.default.debounce(function (term) {
+					_this.props.searchMovies(term);
+				}, 300),
+				sendShowQuery: _lodash2.default.debounce(function (term) {
 					_this.props.searchShows(term);
-				}, 300) };
+				}, 300)
+			};
 			return _this;
 		}
 
@@ -53350,7 +53333,9 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ key: '1', to: '/shows' },
+								{ key: '1', to: '/shows', onClick: function onClick() {
+										return _this2.setShow();
+									} },
 								_react2.default.createElement(
 									'h2',
 									{ className: 'search-key' },
@@ -53359,7 +53344,9 @@
 							),
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ key: '2', to: '/movies' },
+								{ key: '2', to: '/movies', onClick: function onClick() {
+										return _this2.setMovie();
+									} },
 								_react2.default.createElement(
 									'h2',
 									{ className: 'search-key' },
@@ -53385,7 +53372,7 @@
 			key: 'onInputChange',
 			value: function onInputChange(value) {
 				this.setState({ term: value });
-				this.state.sendMovieQuery(value);
+				if (this.state.select == "movies") this.state.sendMovieQuery(value);else this.state.sendShowQuery(value);
 				_Socket.Socket.emit('search1', {
 					'text': value
 				});
@@ -53402,7 +53389,7 @@
 			query: movies.query
 		};
 	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchShows: _actions.searchShows })(SearchBar);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchMovies: _actions.searchMovies, searchShows: _actions.searchShows })(SearchBar);
 
 /***/ },
 /* 458 */
@@ -70576,6 +70563,7 @@
 			key: 'renderShow',
 			value: function renderShow(movie, i) {
 				var releaseDate = (0, _moment2.default)(movie.first_aired).calendar();
+				//<p className="item-title"><img src={movie.artwork_208x117} />{movie.title}</p>
 				return _react2.default.createElement(
 					_reactRouter.Link,
 					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
@@ -71327,6 +71315,137 @@
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow, fetchSeasons: _actions.fetchSeasons, fetchBySeason: _actions.fetchBySeason })(ShowDetails);
+
+/***/ },
+/* 463 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(458);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _actions = __webpack_require__(431);
+
+	var _Socket = __webpack_require__(256);
+
+	var _reactRouter = __webpack_require__(193);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SearchBar = function (_Component) {
+		_inherits(SearchBar, _Component);
+
+		function SearchBar(props) {
+			_classCallCheck(this, SearchBar);
+
+			var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+
+			_this.state = {
+				term: '',
+				select: 'movies',
+				sendMovieQuery: _lodash2.default.debounce(function (term) {
+					_this.props.searchMovies(term);
+				}, 300),
+				sendShowQuery: _lodash2.default.debounce(function (term) {
+					_this.props.searchShows(term);
+				}, 300)
+			};
+			return _this;
+		}
+
+		_createClass(SearchBar, [{
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return (
+					// component state to handle input
+					// every 0.3 seconds, will search for movies based on query value
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+								_reactRouter.Link,
+								{ key: '1', to: '/shows', onClick: function onClick() {
+										return _this2.setShow();
+									} },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'search-key' },
+									'Show'
+								)
+							),
+							_react2.default.createElement(
+								_reactRouter.Link,
+								{ key: '2', to: '/movies', onClick: function onClick() {
+										return _this2.setMovie();
+									} },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'search-key' },
+									'Movies'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'search-bar inner-addon right-addon' },
+							_react2.default.createElement('i', { className: 'glyphicon glyphicon-search' }),
+							_react2.default.createElement('input', {
+								className: 'form-control movie-search',
+								value: this.state.term,
+								onChange: function onChange(event) {
+									return _this2.onInputChange(event.target.value);
+								} })
+						)
+					)
+				);
+			}
+		}, {
+			key: 'onInputChange',
+			value: function onInputChange(value) {
+				this.setState({ term: value });
+				if (this.state.select == "movies") this.state.sendMovieQuery(value);else this.state.sendShowQuery(value);
+				_Socket.Socket.emit('search1', {
+					'text': value
+				});
+			}
+		}]);
+
+		return SearchBar;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+		var movies = _ref.movies;
+
+		return {
+			query: movies.query
+		};
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchMovies: _actions.searchMovies, searchShows: _actions.searchShows })(SearchBar);
 
 /***/ }
 /******/ ]);
