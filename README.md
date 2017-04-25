@@ -11,6 +11,7 @@ List of changes made in Handin 3, 4/24:
 1. Added recommendations in Chatbot
 2. Added Facebook friends invite
 3. Integrated tmdb and Guidebox apis for movies
+4. Catch-all for page refreshes that would result in errors
 
 List of changes made in Handin 2, 4/10:
 
@@ -22,15 +23,13 @@ List of changes made in Handin 2, 4/10:
 
 List of known problems:
 
-1. When refreshing while on a shows page, it will get an error because information isnt stored. 
-2. Search bar only searched shows even on movies tab.
-3. Chatbot doesn't send messages.
+1. Recommendations doesn't work on some of our workspaces, but works well on heroku.
+2. Errors with facebook API in inspector.
 
 List of improvements over time:
 
 1. Chatbot will recommend shows.
 2. An active friends list with facebook api.
-3. Movies will be searchable, just like shows.
 4. More appealing website.
 5. Auto recommendations based on searches
 
