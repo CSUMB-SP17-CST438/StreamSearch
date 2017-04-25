@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import moment from 'moment';
 import { fetchPopularMovies, fetchPopularShows, clearMovie } from '../actions';
-import SearchBar from './search_bar';
+import SearchBar from './search_bar_movies';
 
 class MoviesList extends Component {
 

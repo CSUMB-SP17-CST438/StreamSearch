@@ -11,7 +11,7 @@ class SearchBar extends Component {
 		super(props);
 		this.state = { 
 			term: '', 
-			select: 'shows',
+			select: 'movies',
 			sendMovieQuery: _.debounce((term) => {this.props.searchMovies(term)}, 300),
 			sendShowQuery: _.debounce((term) => {this.props.searchShows(term)}, 300)
 		};
