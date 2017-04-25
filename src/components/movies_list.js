@@ -19,6 +19,8 @@ class MoviesList extends Component {
 
 	renderMovie(movie, i) {
 		const releaseDate = moment(movie.release_date).calendar();
+		console.log(movie)
+		//<p className="item-title"><img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} />{movie.title}</p>
 		return (
 			<Link key={i} to={`/movies/${movie.id}`} className="movie-item-link">
 				<div className="movie-item">

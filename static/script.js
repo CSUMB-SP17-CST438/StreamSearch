@@ -35679,6 +35679,8 @@
 			key: 'renderMovie',
 			value: function renderMovie(movie, i) {
 				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
+				console.log(movie);
+				//<p className="item-title"><img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} />{movie.title}</p>
 				return _react2.default.createElement(
 					_reactRouter.Link,
 					{ key: i, to: '/movies/' + movie.id, className: 'movie-item-link' },
