@@ -34,7 +34,7 @@ class ShowsList extends Component {
 		return (
 			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
 				<div className="movie-item">
-					<p className="item-title">{movie.title}</p>
+					<p className="item-title"><img src={movie.artwork_208x117} />{movie.title}</p>
 					<p className="item-release-date">{releaseDate}</p>
 				</div>
 			</Link>

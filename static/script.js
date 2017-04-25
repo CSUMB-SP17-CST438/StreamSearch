@@ -70585,6 +70585,7 @@
 						_react2.default.createElement(
 							'p',
 							{ className: 'item-title' },
+							_react2.default.createElement('img', { src: movie.artwork_208x117 }),
 							movie.title
 						),
 						_react2.default.createElement(
