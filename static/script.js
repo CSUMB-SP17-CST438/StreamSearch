@@ -35699,29 +35699,6 @@
 				);
 			}
 		}, {
-			key: 'renderShow',
-			value: function renderShow(movie, i) {
-				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
-				return _react2.default.createElement(
-					_reactRouter.Link,
-					{ key: i, to: '/shows/' + movie.id, className: 'movie-item-link' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'movie-item' },
-						_react2.default.createElement(
-							'p',
-							{ className: 'item-title' },
-							movie.title
-						),
-						_react2.default.createElement(
-							'p',
-							{ className: 'item-release-date' },
-							'Shows'
-						)
-					)
-				);
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				var movies = this.props.movies.list.map(this.renderMovie);

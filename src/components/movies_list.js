@@ -28,18 +28,6 @@ class MoviesList extends Component {
 			</Link>
 		);
 	}
-	
-	renderShow(movie, i) {
-		const releaseDate = moment(movie.release_date).calendar();
-		return (
-			<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
-				<div className="movie-item">
-					<p className="item-title">{movie.title}</p>
-					<p className="item-release-date">Shows</p>
-				</div>
-			</Link>
-		);
-	}
 
 	render() {
 		var movies = this.props.movies.list.map(this.renderMovie);
