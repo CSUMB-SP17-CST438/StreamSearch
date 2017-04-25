@@ -2,19 +2,13 @@ STREAM SEARCH(previously named OverLook)
 
 Description: Let us do the searching
 
-Stream Search gives someone the ability to search for Movies and TV shows. When you find the movie you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube.
+Stream Search gives you the ability to search for Movies and TV shows on netflix, Hulu, Amazon Prime, and HBO GO all-in-one place. When you find the movie or TV show you like simply click on the link; and it will tell you a summary about the movie/show, when it was released, time duration of movie/show, and a movie trailer linked from YouTube. For TV shows you can view the available seasons, a summary plot of the episodes, and a link to the Streaming services where that Show or Movie is avilable to watch.
 
 List of changes made in Handin 3, 4/24:
 
 1. Added recommendations in Chatbot
 
 2. Added Facebook friends invite
-
-3.
-
-4.
-
-5.
 
 List of changes made in Handin 2, 4/10:
 
