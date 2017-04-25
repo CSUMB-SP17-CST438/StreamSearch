@@ -35,9 +35,16 @@
 		function FacebookInviteFriends()
 		{
 		FB.ui({
-		method: 'apprequests',
-		message: 'Stop Searching and Start Streaming'
+		  method: 'send',
+		  link: 'https://overlook-stream-search.herokuapp.com/',
 		});
+		/**
+		 FB.ui({
+		  method: 'share',
+		  mobile_iframe: true,
+		  href: 'https://developers.facebook.com/docs/',
+		}, function(response){});
+		*/
 		}
 		</script>
 
