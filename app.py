@@ -73,13 +73,21 @@ def get_friends(data):
         records = cur.fetchall();
         all_movies = {friend['id']: []};
         movies = [];
+        movie_ids = [];
+        types = [];
+        array = []
+        movies.append("test");
+        movies.append("test");
+        types.append("shows");
+        types.append("movies");
+        movie_ids.append("43403");
+        movie_ids.append("321612");
+        array.append({'types': types[0], 'movies': movies[0], 'movie_ids': movie_ids[0]})
+        array.append({'types': types[1], 'movies': movies[1], 'movie_ids': movie_ids[1]})
         for row in records:
-            movies.append(row[3])
+            array.append({'types': row[2], 'movies': row[3], 'movie_ids': row[4]})
             print "   ", row[1], "   ", row[2]
-        movies.append("test");
-        movies.append("test");
-        movies.append("test");
-        all_movies = {friend['id']: movies}
+        all_movies = {friend['id']: array}
         active_friends.append("{0}".format(friend['name'].encode('utf-8')))
         active_IDs.append(friend['id'])
         all_friends.append({'names': active_friends, 'IDs': active_IDs})
@@ -91,6 +99,8 @@ def get_friends(data):
     
 @socketio.on('onClick')
 def get_Click(data):
+    if (data['title'] is None):
+        return
     print ""
     print str(data['user_id']) + " is clicking " + str(data['title'])
     print ""

@@ -71545,6 +71545,8 @@
 
 	var _Socket = __webpack_require__(256);
 
+	var _reactRouter = __webpack_require__(193);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71583,11 +71585,17 @@
 	        key: 'renderClicks',
 	        value: function renderClicks(n) {
 	            //console.log("all movies", this.state.all_movies);
+	            //<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
 	            var movies = this.state.all_movies[n].map(function (n, index) {
 	                return _react2.default.createElement(
 	                    'li',
 	                    { key: index },
-	                    n
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/" + n.types + "/" + n.movie_ids + "", className: 'movie-item-link' },
+	                        n.movies
+	                    ),
+	                    console.log(n)
 	                );
 	            });
 	            return _react2.default.createElement(
