@@ -8,18 +8,20 @@ Link to Demo: https://overlook-stream-search.herokuapp.com/
 
 List of changes made in Handin 3, 4/24:
 
-1. Added recommendations in Chatbot
-2. Added Facebook friends invite
-3. Integrated tmdb and Guidebox apis for movies
-4. Catch-all for page refreshes that would result in errors
+1. Added recommendations in Chatbot - Elias
+2. Added Facebook friends invite - Elias, Brandon
+3. Integrated tmdb and Guidebox apis for movies - Brandon
+4. Catch-all for page refreshes that would result in errors - Miguel
+5. Styling for Website - Michael
+6. Facebook API for friendslist(still being worked on) - Michael, Miguel
 
 List of changes made in Handin 2, 4/10:
 
-1. Added facebook log-in option.
-2. Added chat window for front end chatbot.
-3. Implemented the Guidebox API so TV Shows now populate when typing in the search bar.
-4. Added show details for TV shows that give a desciption summary what the show is about and its runtime.
-5. Implemented Horizontal scroll bar for scrolling through the movie lists of movies and TV shows that are being searched for.
+1. Added facebook log-in option. - Miguel
+2. Added chat window for front end chatbot. - Elias
+3. Implemented the Guidebox API so TV Shows now populate when typing in the search bar. - Brandon
+4. Added show details for TV shows that give a desciption summary what the show is about and its runtime. - Brandon
+5. Implemented Horizontal scroll bar for scrolling through the movie lists of movies and TV shows that are being searched for. - Brandon
 
 List of known problems:
 
