@@ -5,6 +5,7 @@ const ROOT_URL = `https://api.themoviedb.org/3`;
 const GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
 const GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391'
 const LANGUAGE = `en-US`;
+import { Socket } from '../components/Socket';
 
 
 export function fetchPopularMovies() {
@@ -66,6 +67,7 @@ export function fetchMovieForGB(id) {
 	return (dispatch) => {
 		request.then((res) => {
 			//console.log('fetching id - ', res.data.results)
+			Socket.emit("movie Id", "");
 			dispatch({
 				type: FETCH_MOVIE_FOR_GB,
 				payload: res.data.id

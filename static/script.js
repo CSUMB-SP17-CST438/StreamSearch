@@ -51567,6 +51567,8 @@
 
 	var _types = __webpack_require__(310);
 
+	var _Socket = __webpack_require__(256);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var API_KEY = '163c193e3f58f163c783eb87f2b002b5';
@@ -51574,7 +51576,6 @@
 	var GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
 	var GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391';
 	var LANGUAGE = 'en-US';
-
 	function fetchPopularMovies() {
 
 		var request = _axios2.default.get(ROOT_URL + '/movie/popular', {
@@ -51632,6 +51633,7 @@
 		return function (dispatch) {
 			request.then(function (res) {
 				//console.log('fetching id - ', res.data.results)
+				_Socket.Socket.emit("movie Id", "");
 				dispatch({
 					type: _types.FETCH_MOVIE_FOR_GB,
 					payload: res.data.id
@@ -70684,21 +70686,31 @@
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
 				this.props.fetchMovieForGB(this.props.params.id);
+				console.log("will mount");
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				_Socket.Socket.on("movie Id2", function (data) {
+					_this2.sendClick(), console.log("movie id2");
+				});
 			}
 		}, {
 			key: 'sendClick',
 			value: function sendClick() {
-				var _this2 = this;
+				var _this3 = this;
 
 				if (this.props.movie != null && this.state.sentClick == false) {
 					FB.getLoginStatus(function (response) {
 						if (response.status == 'connected') {
-							console.log("this is where im at", response);
+							console.log("this is where im at", _this3.props.movie);
 							_Socket.Socket.emit('onClick', { 'fb_access_token': response.authResponse.accessToken,
 								'user_id': response.authResponse.userID,
 								'type': "movies",
-								'title_id': _this2.props.movieID,
-								'title': _this2.props.movie.title
+								'title_id': _this3.props.movieID,
+								'title': _this3.props.movie.title
 							});
 						}
 					});
@@ -70786,7 +70798,8 @@
 					this.props.fetchMovieGB(movieID);
 					return;
 				}
-				if (!this.state.sentClick) this.sendClick();
+				//if (!this.state.sentClick)
+				//this.sendClick();
 				console.log("heres the movie - ", movieGB);
 				var list = _react2.default.createElement(
 					'div',
@@ -71539,7 +71552,7 @@
 	    }, {
 	        key: 'renderClicks',
 	        value: function renderClicks(n) {
-	            console.log("all movies", this.state.all_movies);
+	            //console.log("all movies", this.state.all_movies);
 	            var movies = this.state.all_movies[n].map(function (n, index) {
 	                return _react2.default.createElement(
 	                    'li',
@@ -71562,7 +71575,6 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { key: index },
-	                    console.log(n.IDs),
 	                    n.names[0],
 	                    _react2.default.createElement(
 	                        'ul',

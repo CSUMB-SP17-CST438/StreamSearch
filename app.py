@@ -124,6 +124,9 @@ def on_new_message(data):
     socketio.emit('all messages',{'messages': messages})
     print "done"
     
+@socketio.on('movie Id')
+def whatever(data):
+    socketio.emit('movie Id2')
     
 @socketio.on('search1')
 def onSearch(data):

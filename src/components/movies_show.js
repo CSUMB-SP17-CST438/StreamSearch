@@ -24,14 +24,18 @@ class MoviesShow extends Component {
 		this.props.fetchMovieReviews(this.props.params.id);
 		this.props.fetchMovieTrailers(this.props.params.id);
 		this.props.fetchMovieForGB(this.props.params.id);
+		console.log("will mount");
 		
+	}
+	componentDidMount() {
+		Socket.on("movie Id2", (data) => {this.sendClick(), console.log("movie id2")});
 	}
 	
 	sendClick() {
 		if (this.props.movie != null && this.state.sentClick == false) {
 			FB.getLoginStatus((response) => {if (response.status == 'connected') 
 	            {
-	            	console.log("this is where im at", response);
+	            	console.log("this is where im at", this.props.movie);
 	                Socket.emit('onClick', {'fb_access_token':response.authResponse.accessToken,
 	                						'user_id':response.authResponse.userID,
 	                						'type': "movies",
@@ -109,8 +113,8 @@ class MoviesShow extends Component {
 			this.props.fetchMovieGB(movieID);
 			return;
 		}
-		if (!this.state.sentClick)
-			this.sendClick();
+		//if (!this.state.sentClick)
+			//this.sendClick();
 		console.log("heres the movie - ", movieGB);
 		const list = (
 					<div id="movieLinks">

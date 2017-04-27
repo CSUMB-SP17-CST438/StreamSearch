@@ -19,7 +19,7 @@ export class FriendsList extends Component {
  }
  
  renderClicks(n) {
-     console.log("all movies", this.state.all_movies);
+     //console.log("all movies", this.state.all_movies);
      let movies = this.state.all_movies[n].map((n, index) =>
         <li key={index}>{n}</li>
      );
@@ -35,7 +35,6 @@ render() {
         let friends = this.state.friends.map((n, index) =>
         
             <div key={index}>
-            {console.log(n.IDs)}
                 {n.names[0]}
                 <ul>
                     {this.renderClicks(n.IDs[0])}
