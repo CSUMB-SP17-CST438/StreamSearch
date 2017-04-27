@@ -16,7 +16,7 @@ export class FriendsList extends Component {
  componentDidMount() {
         Socket.on('friendsList', (data) => {this.setState({'friends': data['friends'],
                                                            'all_movies': data['all_movies']
-                                            });});
+                                          });});
  }
  
  renderClicks(n) {
