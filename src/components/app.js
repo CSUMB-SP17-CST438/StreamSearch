@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from './header';
 import { Button } from './Button';
 import {Chat} from './Chat';
-
+import {FriendsList} from './FriendsList';
 
 export default class App extends Component {
 
@@ -22,6 +22,7 @@ export default class App extends Component {
 				
 				<Header />
 				<div>
+					<FriendsList />
 					<Chat />
 				</div>
 				

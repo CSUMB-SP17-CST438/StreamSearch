@@ -6,6 +6,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import chill
 import certifi
+import facebook
 
 
 import requests
@@ -35,9 +36,24 @@ def on_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
+    
 @socketio.on('login')
 def get_token(data):
-    print(data['token'])
+    print("user = " + data['token'])
+    
+@socketio.on('token')
+def get_token1(data):
+    print("user = " + data['facebook_user_token'])
+    
+@socketio.on('friends')
+def get_friends(data):
+    graph = facebook.GraphAPI(data['fb_access_token'])
+    friends = graph.get_object("me/friends")
+    active_friends = []
+    for friend in friends['data']:
+        active_friends.append("{0}".format(friend['name'].encode('utf-8')))
+    print active_friends
+    socketio.emit('friendsList', {'friends': active_friends})
     
 @socketio.on('new message')
 def on_new_message(data):
