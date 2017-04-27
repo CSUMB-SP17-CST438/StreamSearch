@@ -71511,7 +71511,7 @@
 
 	            var friends = this.state.friends.map(function (n, index) {
 	                return _react2.default.createElement(
-	                    'li',
+	                    'div',
 	                    { key: index },
 	                    n
 	                );
@@ -71520,24 +71520,12 @@
 	                'div',
 	                { className: 'friend-box' },
 	                _react2.default.createElement('input', { type: 'checkbox' }),
-	                _react2.default.createElement('label', { 'data-expanded': 'Close Chatbox', 'data-collapsed': 'Friends' }),
+	                _react2.default.createElement('label', { 'data-expanded': 'Close Friends List', 'data-collapsed': 'Friends List' }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'friend-box-content' },
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: 'myFL' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'p',
-	                                { align: 'left' },
-	                                'You have no friends'
-	                            )
-	                        ),
-	                        friends
-	                    ),
+	                    this.state.friends.length > 0 ? friends : "You have no friends",
+	                    _react2.default.createElement('ul', { className: 'myFL' }),
 	                    _react2.default.createElement('input', { type: 'text', id: 'message_in' }),
 	                    ' ',
 	                    _react2.default.createElement(
