@@ -21454,6 +21454,8 @@
 
 	var _Chat = __webpack_require__(307);
 
+	var _FriendsList = __webpack_require__(464);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21487,6 +21489,7 @@
 					_react2.default.createElement(
 						'div',
 						null,
+						_react2.default.createElement(_FriendsList.FriendsList, null),
 						_react2.default.createElement(_Chat.Chat, null)
 					),
 					this.props.children
@@ -21552,7 +21555,8 @@
 				});
 				FB.getLoginStatus(function (response) {
 					if (response.status == 'connected') {
-						_Socket.Socket.emit('token', { 'facebook_user_token': response.authResponse.accessToken });
+						console.log(response);
+						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken });
 					}
 				});
 			}
@@ -35679,7 +35683,7 @@
 			key: 'renderMovie',
 			value: function renderMovie(movie, i) {
 				var releaseDate = (0, _moment2.default)(movie.release_date).calendar();
-				console.log(movie);
+				//console.log(movie)
 				//<p className="item-title"><img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} />{movie.title}</p>
 				return _react2.default.createElement(
 					_reactRouter.Link,
@@ -51625,7 +51629,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching id - ', res.data.results);
+				//console.log('fetching id - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_MOVIE_FOR_GB,
 					payload: res.data.id
@@ -51638,7 +51642,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/movies/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching show - ', res.data.results);
+				//console.log('fetching show - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_MOVIE_GB,
 					payload: res.data
@@ -51659,7 +51663,7 @@
 		});
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching trailers - ', res.data.results);
+				//console.log('fetching trailers - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_MOVIE_TRAILERS,
 					payload: res.data.results
@@ -51706,7 +51710,7 @@
 
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('search shows - ', res.data.results);
+				//console.log('search shows - ', res.data.results)
 				dispatch({
 					type: _types.SEARCH_SHOWS,
 					payload: res.data.results
@@ -51720,7 +51724,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching show - ', res.data.results);
+				//console.log('fetching show - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_SHOW,
 					payload: res.data
@@ -51734,7 +51738,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web');
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching episodes - ', res.data.results);
+				//console.log('fetching episodes - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_EPISODES,
 					payload: res.data
@@ -51748,7 +51752,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web&season=' + season);
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching by season - ', res.data.results);
+				//console.log('fetching by season - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_BY_SEASON,
 					payload: res.data
@@ -51762,7 +51766,7 @@
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/seasons?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ');
 		return function (dispatch) {
 			request.then(function (res) {
-				console.log('fetching seasons - ', res.data.results);
+				//console.log('fetching seasons - ', res.data.results)
 				dispatch({
 					type: _types.FETCH_SEASONS,
 					payload: res.data
@@ -71446,6 +71450,96 @@
 		};
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchMovies: _actions.searchMovies, searchShows: _actions.searchShows })(SearchBar);
+
+/***/ },
+/* 464 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.FriendsList = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _Button = __webpack_require__(306);
+
+	var _Socket = __webpack_require__(256);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FriendsList = exports.FriendsList = function (_Component) {
+	    _inherits(FriendsList, _Component);
+
+	    function FriendsList(props) {
+	        _classCallCheck(this, FriendsList);
+
+	        var _this = _possibleConstructorReturn(this, (FriendsList.__proto__ || Object.getPrototypeOf(FriendsList)).call(this, props));
+
+	        _this.state = {
+	            'friends': []
+	        };
+	        return _this;
+	    }
+
+	    _createClass(FriendsList, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _Socket.Socket.on('friendsList', function (data) {
+	                _this2.setState({ 'friends': data['friends'] });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            var friends = this.state.friends.map(function (n, index) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { key: index },
+	                    n
+	                );
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'friend-box' },
+	                _react2.default.createElement('input', { type: 'checkbox' }),
+	                _react2.default.createElement('label', { 'data-expanded': 'Close Friends List', 'data-collapsed': 'Friends List' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'friend-box-content' },
+	                    this.state.friends.length > 0 ? friends : "You have no friends",
+	                    _react2.default.createElement('ul', { className: 'myFL' }),
+	                    _react2.default.createElement('input', { type: 'text', id: 'message_in' }),
+	                    ' ',
+	                    _react2.default.createElement(
+	                        _Button.Button,
+	                        null,
+	                        'Send'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return FriendsList;
+	}(_react.Component);
 
 /***/ }
 /******/ ]);

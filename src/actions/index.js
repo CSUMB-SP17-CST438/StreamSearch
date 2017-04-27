@@ -65,7 +65,7 @@ export function fetchMovieForGB(id) {
 	const request = axios.get('https://api-public.guidebox.com/v2/search?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&type=movie&field=id&id_type=themoviedb&query=' + id);
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching id - ', res.data.results)
+			//console.log('fetching id - ', res.data.results)
 			dispatch({
 				type: FETCH_MOVIE_FOR_GB,
 				payload: res.data.id
@@ -78,7 +78,7 @@ export function fetchMovieGB(id) {
 	const request = axios.get('https://api-public.guidebox.com/v2/movies/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching show - ', res.data.results)
+			//console.log('fetching show - ', res.data.results)
 			dispatch({
 				type: FETCH_MOVIE_GB,
 				payload: res.data
@@ -100,7 +100,7 @@ export function fetchMovieTrailers(id) {
 	});
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching trailers - ', res.data.results)
+			//console.log('fetching trailers - ', res.data.results)
 			dispatch({
 				type: FETCH_MOVIE_TRAILERS,
 				payload: res.data.results
@@ -147,7 +147,7 @@ export function searchShows(term) {
 
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('search shows - ', res.data.results)
+			//console.log('search shows - ', res.data.results)
 			dispatch({
 				type: SEARCH_SHOWS,
 				payload: res.data.results
@@ -161,7 +161,7 @@ export function fetchShow(id) {
 	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching show - ', res.data.results)
+			//console.log('fetching show - ', res.data.results)
 			dispatch({
 				type: FETCH_SHOW,
 				payload: res.data
@@ -175,7 +175,7 @@ export function fetchEpisodes(id) {
 	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web')
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching episodes - ', res.data.results)
+			//console.log('fetching episodes - ', res.data.results)
 			dispatch({
 				type: FETCH_EPISODES,
 				payload: res.data
@@ -189,7 +189,7 @@ export function fetchBySeason(id, season) {
 	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web&season=' + season)
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching by season - ', res.data.results)
+			//console.log('fetching by season - ', res.data.results)
 			dispatch({
 				type: FETCH_BY_SEASON,
 				payload: res.data
@@ -203,7 +203,7 @@ export function fetchSeasons(id) {
 	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/seasons?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true ')
 	return (dispatch) => {
 		request.then((res) => {
-			console.log('fetching seasons - ', res.data.results)
+			//console.log('fetching seasons - ', res.data.results)
 			dispatch({
 				type: FETCH_SEASONS,
 				payload: res.data
