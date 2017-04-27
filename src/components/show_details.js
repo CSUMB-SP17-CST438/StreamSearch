@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { fetchShow, fetchSeasons, fetchBySeason } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
+import { Socket } from './Socket';
 
 class ShowDetails extends Component {
 
@@ -13,7 +14,8 @@ class ShowDetails extends Component {
 		this.state = {
             'id': this.props.params.id,
             'num': 0,
-        	modalActive: false };
+        	modalActive: false,
+        	sentClick: false};
 	  }
 	
 	  openModal () {
@@ -29,12 +31,32 @@ class ShowDetails extends Component {
 		this.props.fetchSeasons(this.props.params.id);
 		this.props.fetchBySeason(this.props.params.id, 1);
 	}
+	componentDidMount() {
+		Socket.on("show Id2", (data) => {this.sendClick(), console.log("show id2")});
+	}
+	
+	sendClick() {
+		if (this.props.show != null && this.state.sentClick == false) {
+			FB.getLoginStatus((response) => {if (response.status == 'connected') 
+	            {
+	            	//console.log("this is where im at", this.props.show);
+	                Socket.emit('onClick', {'fb_access_token':response.authResponse.accessToken,
+	                						'user_id':response.authResponse.userID,
+	                						'type': "shows",
+	                						'title_id': this.props.show.id,
+	                						'title': this.props.show.title
+	                });
+	            }
+	       });
+	       this.setState({sentClick: true})
+		}
+	}
 
 	renderShow() {
 		const { show } = this.props;
 		const { seasons } = this.props;
-    	console.log("show - ", show);
-    	console.log("seasons - ", seasons);
+    	//console.log("show - ", show);
+    	//console.log("seasons - ", seasons);
 	//	const genres = movies.genres.map(genre => genre.name).join(", ");
 	//	const runTime = convertMinutesToHoursString(movies.runtime);
 	//	const releaseDate = moment(movies.release_date).calendar();
@@ -77,10 +99,10 @@ class ShowDetails extends Component {
 	renderEpisodes() {
 		const episodes  = this.props.episodes.results;
 		if (episodes != null) {
-			console.log("episode number = ", this.state.num)
-			console.log("trying the map", episodes);
+			//console.log("episode number = ", this.state.num)
+			//console.log("trying the map", episodes);
 			const list = episodes.map((episode, i) => {
-				console.log("list = ", episode);
+				//console.log("list = ", episode);
 				var id = i;
 				return (
 					<div key={i} style={{display: 'table-cell'}} id="episode">

@@ -5,6 +5,7 @@ const ROOT_URL = `https://api.themoviedb.org/3`;
 const GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
 const GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391'
 const LANGUAGE = `en-US`;
+import { Socket } from '../components/Socket';
 
 
 export function fetchPopularMovies() {
@@ -66,6 +67,7 @@ export function fetchMovieForGB(id) {
 	return (dispatch) => {
 		request.then((res) => {
 			//console.log('fetching id - ', res.data.results)
+			Socket.emit("movie Id", "");
 			dispatch({
 				type: FETCH_MOVIE_FOR_GB,
 				payload: res.data.id
@@ -188,6 +190,7 @@ export function fetchBySeason(id, season) {
 	// fetch movie through id using movie api
 	const request = axios.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web&season=' + season)
 	return (dispatch) => {
+		Socket.emit("show Id", "");
 		request.then((res) => {
 			//console.log('fetching by season - ', res.data.results)
 			dispatch({

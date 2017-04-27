@@ -11,8 +11,10 @@ export default class App extends Component {
 		Socket.on('login', (data) => {this.setState({'token': data['token']});});
        FB.getLoginStatus((response) => {if (response.status == 'connected') 
             {
-            	console.log(response);
-                Socket.emit('friends', {'fb_access_token':response.authResponse.accessToken});
+            	//console.log(response);
+                Socket.emit('friends', {'fb_access_token':response.authResponse.accessToken,
+                						'user_id':response.authResponse.userID
+                });
             }
        });
     }

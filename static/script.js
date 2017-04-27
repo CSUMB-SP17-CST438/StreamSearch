@@ -21555,8 +21555,10 @@
 				});
 				FB.getLoginStatus(function (response) {
 					if (response.status == 'connected') {
-						console.log(response);
-						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken });
+						//console.log(response);
+						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken,
+							'user_id': response.authResponse.userID
+						});
 					}
 				});
 			}
@@ -51565,6 +51567,8 @@
 
 	var _types = __webpack_require__(310);
 
+	var _Socket = __webpack_require__(256);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var API_KEY = '163c193e3f58f163c783eb87f2b002b5';
@@ -51572,7 +51576,6 @@
 	var GUIDEBOX_URL = 'https://api-public.guidebox.com/v2/search?';
 	var GUIDEBOX_API = 'c338d925a0672acf243133ddc1d5d66fb0191391';
 	var LANGUAGE = 'en-US';
-
 	function fetchPopularMovies() {
 
 		var request = _axios2.default.get(ROOT_URL + '/movie/popular', {
@@ -51630,6 +51633,7 @@
 		return function (dispatch) {
 			request.then(function (res) {
 				//console.log('fetching id - ', res.data.results)
+				_Socket.Socket.emit("movie Id", "");
 				dispatch({
 					type: _types.FETCH_MOVIE_FOR_GB,
 					payload: res.data.id
@@ -51751,6 +51755,7 @@
 		// fetch movie through id using movie api
 		var request = _axios2.default.get('https://api-public.guidebox.com/v2/shows/' + id + '/episodes?api_key=c338d925a0672acf243133ddc1d5d66fb0191391&include_links=true&platform=web&season=' + season);
 		return function (dispatch) {
+			_Socket.Socket.emit("show Id", "");
 			request.then(function (res) {
 				//console.log('fetching by season - ', res.data.results)
 				dispatch({
@@ -70646,6 +70651,8 @@
 
 	var _helpers = __webpack_require__(461);
 
+	var _Socket = __webpack_require__(256);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70663,7 +70670,8 @@
 			var _this = _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
 
 			_this.state = {
-				getID: false };
+				getID: false,
+				sentClick: false };
 			return _this;
 		}
 
@@ -70679,6 +70687,36 @@
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
 				this.props.fetchMovieForGB(this.props.params.id);
+				console.log("will mount");
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				_Socket.Socket.on("movie Id2", function (data) {
+					_this2.sendClick(), console.log("movie id2");
+				});
+			}
+		}, {
+			key: 'sendClick',
+			value: function sendClick() {
+				var _this3 = this;
+
+				if (this.props.movie != null && this.state.sentClick == false) {
+					FB.getLoginStatus(function (response) {
+						if (response.status == 'connected') {
+							console.log("this is where im at", _this3.props.movie);
+							_Socket.Socket.emit('onClick', { 'fb_access_token': response.authResponse.accessToken,
+								'user_id': response.authResponse.userID,
+								'type': "movies",
+								'title_id': _this3.props.movieID,
+								'title': _this3.props.movie.title
+							});
+						}
+					});
+					this.setState({ sentClick: true });
+				}
 			}
 		}, {
 			key: 'renderTrailers',
@@ -70761,6 +70799,8 @@
 					this.props.fetchMovieGB(movieID);
 					return;
 				}
+				//if (!this.state.sentClick)
+				//this.sendClick();
 				console.log("heres the movie - ", movieGB);
 				var list = _react2.default.createElement(
 					'div',
@@ -71019,6 +71059,8 @@
 
 	var _helpers = __webpack_require__(461);
 
+	var _Socket = __webpack_require__(256);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71038,7 +71080,8 @@
 			_this.state = {
 				'id': _this.props.params.id,
 				'num': 0,
-				modalActive: false };
+				modalActive: false,
+				sentClick: false };
 			return _this;
 		}
 
@@ -71060,15 +71103,43 @@
 				this.props.fetchBySeason(this.props.params.id, 1);
 			}
 		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				_Socket.Socket.on("show Id2", function (data) {
+					_this2.sendClick(), console.log("show id2");
+				});
+			}
+		}, {
+			key: 'sendClick',
+			value: function sendClick() {
+				var _this3 = this;
+
+				if (this.props.show != null && this.state.sentClick == false) {
+					FB.getLoginStatus(function (response) {
+						if (response.status == 'connected') {
+							//console.log("this is where im at", this.props.show);
+							_Socket.Socket.emit('onClick', { 'fb_access_token': response.authResponse.accessToken,
+								'user_id': response.authResponse.userID,
+								'type': "shows",
+								'title_id': _this3.props.show.id,
+								'title': _this3.props.show.title
+							});
+						}
+					});
+					this.setState({ sentClick: true });
+				}
+			}
+		}, {
 			key: 'renderShow',
 			value: function renderShow() {
-				var _this2 = this;
+				var _this4 = this;
 
 				var show = this.props.show;
 				var seasons = this.props.seasons;
-
-				console.log("show - ", show);
-				console.log("seasons - ", seasons);
+				//console.log("show - ", show);
+				//console.log("seasons - ", seasons);
 				//	const genres = movies.genres.map(genre => genre.name).join(", ");
 				//	const runTime = convertMinutesToHoursString(movies.runtime);
 				//	const releaseDate = moment(movies.release_date).calendar();
@@ -71105,7 +71176,7 @@
 					_react2.default.createElement(
 						'select',
 						{ onChange: function onChange(event) {
-								return _this2.props.fetchBySeason(_this2.state.id, event.target.value);
+								return _this4.props.fetchBySeason(_this4.state.id, event.target.value);
 							} },
 						seasons.length != 0 ? this.renderSeasons() : _react2.default.createElement(
 							'option',
@@ -71144,14 +71215,14 @@
 		}, {
 			key: 'renderEpisodes',
 			value: function renderEpisodes() {
-				var _this3 = this;
+				var _this5 = this;
 
 				var episodes = this.props.episodes.results;
 				if (episodes != null) {
-					console.log("episode number = ", this.state.num);
-					console.log("trying the map", episodes);
+					//console.log("episode number = ", this.state.num)
+					//console.log("trying the map", episodes);
 					var list = episodes.map(function (episode, i) {
-						console.log("list = ", episode);
+						//console.log("list = ", episode);
 						var id = i;
 						return _react2.default.createElement(
 							'div',
@@ -71159,7 +71230,7 @@
 							_react2.default.createElement(
 								'a',
 								{ href: '#openModal', value: i, onClick: function onClick() {
-										return _this3.setState({ num: { i: i }.i });
+										return _this5.setState({ num: { i: i }.i });
 									} },
 								_react2.default.createElement('img', { src: episode.thumbnail_400x225 }),
 								_react2.default.createElement(
@@ -71190,24 +71261,24 @@
 									_react2.default.createElement(
 										'h2',
 										null,
-										episodes[_this3.state.num].title
+										episodes[_this5.state.num].title
 									),
 									_react2.default.createElement(
 										'p',
 										null,
-										episodes[_this3.state.num].first_aired
+										episodes[_this5.state.num].first_aired
 									),
 									_react2.default.createElement(
 										'p',
 										null,
-										episodes[_this3.state.num].overview
+										episodes[_this5.state.num].overview
 									),
-									episodes[_this3.state.num].free_web_sources.length ? _react2.default.createElement(
+									episodes[_this5.state.num].free_web_sources.length ? _react2.default.createElement(
 										'h6',
 										null,
 										'Free:'
 									) : '',
-									episodes[_this3.state.num].free_web_sources.map(function (service, i) {
+									episodes[_this5.state.num].free_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
 											{ key: i },
@@ -71221,12 +71292,12 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
-									episodes[_this3.state.num].subscription_web_sources.length ? _react2.default.createElement(
+									episodes[_this5.state.num].subscription_web_sources.length ? _react2.default.createElement(
 										'h6',
 										null,
 										'Subscription:'
 									) : '',
-									episodes[_this3.state.num].subscription_web_sources.map(function (service, i) {
+									episodes[_this5.state.num].subscription_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
 											{ key: i },
@@ -71240,12 +71311,12 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
-									episodes[_this3.state.num].tv_everywhere_web_sources.length ? _react2.default.createElement(
+									episodes[_this5.state.num].tv_everywhere_web_sources.length ? _react2.default.createElement(
 										'h6',
 										null,
 										'Tv Everywhere:'
 									) : '',
-									episodes[_this3.state.num].tv_everywhere_web_sources.map(function (service, i) {
+									episodes[_this5.state.num].tv_everywhere_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
 											{ key: i },
@@ -71259,12 +71330,12 @@
 											_react2.default.createElement('br', null)
 										);
 									}),
-									episodes[_this3.state.num].purchase_web_sources.length ? _react2.default.createElement(
+									episodes[_this5.state.num].purchase_web_sources.length ? _react2.default.createElement(
 										'h6',
 										null,
 										'Purchase:'
 									) : '',
-									episodes[_this3.state.num].purchase_web_sources.map(function (service, i) {
+									episodes[_this5.state.num].purchase_web_sources.map(function (service, i) {
 										return _react2.default.createElement(
 											'div',
 											{ key: i },
@@ -71474,6 +71545,8 @@
 
 	var _Socket = __webpack_require__(256);
 
+	var _reactRouter = __webpack_require__(193);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71491,7 +71564,8 @@
 	        var _this = _possibleConstructorReturn(this, (FriendsList.__proto__ || Object.getPrototypeOf(FriendsList)).call(this, props));
 
 	        _this.state = {
-	            'friends': []
+	            'friends': [],
+	            'all_movies': []
 	        };
 	        return _this;
 	    }
@@ -71502,18 +71576,49 @@
 	            var _this2 = this;
 
 	            _Socket.Socket.on('friendsList', function (data) {
-	                _this2.setState({ 'friends': data['friends'] });
+	                _this2.setState({ 'friends': data['friends'],
+	                    'all_movies': data['all_movies']
+	                });
 	            });
+	        }
+	    }, {
+	        key: 'renderClicks',
+	        value: function renderClicks(n) {
+	            //console.log("all movies", this.state.all_movies);
+	            //<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
+	            var movies = this.state.all_movies[n].map(function (n, index) {
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: index },
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/" + n.types + "/" + n.movie_ids + "", className: 'movie-item-link' },
+	                        n.movies
+	                    ),
+	                    console.log(n)
+	                );
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                movies
+	            );
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
 
 	            var friends = this.state.friends.map(function (n, index) {
 	                return _react2.default.createElement(
 	                    'div',
 	                    { key: index },
-	                    n
+	                    n.names[0],
+	                    _react2.default.createElement(
+	                        'ul',
+	                        null,
+	                        _this3.renderClicks(n.IDs[0])
+	                    )
 	                );
 	            });
 	            return _react2.default.createElement(
