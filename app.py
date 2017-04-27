@@ -69,7 +69,7 @@ def get_friends(data):
         print ""
         print friend
         cur = conn.cursor()
-        cur.execute("""SELECT * FROM Clicks WHERE user_id = '""" + str(friend['id']) + "'")
+        cur.execute("""SELECT * FROM Clicks WHERE user_id = '""" + str(friend['id']) + "' ORDER BY id desc LIMIT 3")
         records = cur.fetchall();
         all_movies = {friend['id']: []};
         movies = [];
