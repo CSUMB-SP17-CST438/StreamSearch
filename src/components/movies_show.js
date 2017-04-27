@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { fetchMovie, fetchMovieReviews, fetchMovieTrailers, fetchMovieForGB, fetchMovieGB } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
+import { Socket } from './Socket';
 
 class MoviesShow extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-        	getID: false };
+        	getID: false,
+        	sentClick: false};
 	}
 	
 	ifIdIsGot () {
@@ -22,7 +24,26 @@ class MoviesShow extends Component {
 		this.props.fetchMovieReviews(this.props.params.id);
 		this.props.fetchMovieTrailers(this.props.params.id);
 		this.props.fetchMovieForGB(this.props.params.id);
+		
 	}
+	
+	sendClick() {
+		if (this.props.movie != null && this.state.sentClick == false) {
+			FB.getLoginStatus((response) => {if (response.status == 'connected') 
+	            {
+	            	console.log("this is where im at", response);
+	                Socket.emit('onClick', {'fb_access_token':response.authResponse.accessToken,
+	                						'user_id':response.authResponse.userID,
+	                						'type': "movies",
+	                						'title_id': this.props.movieID,
+	                						'title': this.props.movie.title
+	                });
+	            }
+	       });
+	       this.setState({sentClick: true})
+		}
+	}
+	
 
 	renderTrailers() {
 
@@ -88,6 +109,8 @@ class MoviesShow extends Component {
 			this.props.fetchMovieGB(movieID);
 			return;
 		}
+		if (!this.state.sentClick)
+			this.sendClick();
 		console.log("heres the movie - ", movieGB);
 		const list = (
 					<div id="movieLinks">

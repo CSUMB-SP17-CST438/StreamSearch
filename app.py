@@ -7,13 +7,17 @@ from flask_socketio import SocketIO
 import chill
 import certifi
 import facebook
-
+import flask_sqlalchemy
 
 import requests
 
 app = flask.Flask(__name__)
+
+import models
 socketio = flask_socketio.SocketIO(app)
 messages = []
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+db = flask_sqlalchemy.SQLAlchemy(app)
 #Guidebox API Key c338d925a0672acf243133ddc1d5d66fb0191391
 #http://api-public.guidebox.com/v1.43/ {region} / {api key}
 @app.route('/', defaults={'path': ''})
@@ -53,7 +57,31 @@ def get_friends(data):
     for friend in friends['data']:
         active_friends.append("{0}".format(friend['name'].encode('utf-8')))
     print active_friends
+    #cur = db.cursor()
+    #cur.execute("""SELECT * FROM Clicks WHERE 1""")
+    #records = cur.fetchall();
+    #print "\nShow me the databases:\n"
+    #for row in records:
+    #    print "   ", row[0]
     socketio.emit('friendsList', {'friends': active_friends})
+    
+@socketio.on('onClick')
+def get_Click(data):
+    print ""
+    print str(data['user_id']) + " is clicking " + str(data['title'])
+    print ""
+    #graph = facebook.GraphAPI(data['fb_access_token'])
+    #friends = graph.get_object("me/friends")
+    newRecord = models.Clicks(data['user_id'], data['type'], data['title'], data['title_id'])
+    #newRecord = models.Clicks(123, "test", "test", 123)
+    db.session.add(newRecord)
+    db.session.commit()
+    active_friends = []
+    #for friend in friends['data']:
+    #    active_friends.append("{0}".format(friend['name'].encode('utf-8')))
+    #print active_friends
+    
+#    socketio.emit('friendsList', {'friends': active_friends})
     
 @socketio.on('new message')
 def on_new_message(data):
@@ -78,6 +106,7 @@ def onSearch(data):
     #print data
     #print "here"
     print ""
+
  
 if __name__ == '__main__':
     socketio.run(

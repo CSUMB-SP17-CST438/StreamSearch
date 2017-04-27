@@ -21555,8 +21555,10 @@
 				});
 				FB.getLoginStatus(function (response) {
 					if (response.status == 'connected') {
-						console.log(response);
-						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken });
+						//console.log(response);
+						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken,
+							'user_id': response.authResponse.userID
+						});
 					}
 				});
 			}
@@ -70646,6 +70648,8 @@
 
 	var _helpers = __webpack_require__(461);
 
+	var _Socket = __webpack_require__(256);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70663,7 +70667,8 @@
 			var _this = _possibleConstructorReturn(this, (MoviesShow.__proto__ || Object.getPrototypeOf(MoviesShow)).call(this, props));
 
 			_this.state = {
-				getID: false };
+				getID: false,
+				sentClick: false };
 			return _this;
 		}
 
@@ -70679,6 +70684,26 @@
 				this.props.fetchMovieReviews(this.props.params.id);
 				this.props.fetchMovieTrailers(this.props.params.id);
 				this.props.fetchMovieForGB(this.props.params.id);
+			}
+		}, {
+			key: 'sendClick',
+			value: function sendClick() {
+				var _this2 = this;
+
+				if (this.props.movie != null && this.state.sentClick == false) {
+					FB.getLoginStatus(function (response) {
+						if (response.status == 'connected') {
+							console.log("this is where im at", response);
+							_Socket.Socket.emit('onClick', { 'fb_access_token': response.authResponse.accessToken,
+								'user_id': response.authResponse.userID,
+								'type': "movies",
+								'title_id': _this2.props.movieID,
+								'title': _this2.props.movie.title
+							});
+						}
+					});
+					this.setState({ sentClick: true });
+				}
 			}
 		}, {
 			key: 'renderTrailers',
@@ -70761,6 +70786,7 @@
 					this.props.fetchMovieGB(movieID);
 					return;
 				}
+				if (!this.state.sentClick) this.sendClick();
 				console.log("heres the movie - ", movieGB);
 				var list = _react2.default.createElement(
 					'div',
@@ -71018,6 +71044,8 @@
 	var _actions = __webpack_require__(431);
 
 	var _helpers = __webpack_require__(461);
+
+	var _Socket = __webpack_require__(256);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

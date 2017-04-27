@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { fetchShow, fetchSeasons, fetchBySeason } from '../actions';
 import { convertMinutesToHoursString } from '../helpers';
+import { Socket } from './Socket';
 
 class ShowDetails extends Component {
 
