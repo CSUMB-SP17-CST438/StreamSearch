@@ -71519,7 +71519,8 @@
 	        var _this = _possibleConstructorReturn(this, (FriendsList.__proto__ || Object.getPrototypeOf(FriendsList)).call(this, props));
 
 	        _this.state = {
-	            'friends': []
+	            'friends': [],
+	            'all_movies': []
 	        };
 	        return _this;
 	    }
@@ -71530,18 +71531,44 @@
 	            var _this2 = this;
 
 	            _Socket.Socket.on('friendsList', function (data) {
-	                _this2.setState({ 'friends': data['friends'] });
+	                _this2.setState({ 'friends': data['friends'],
+	                    'all_movies': data['all_movies']
+	                });
 	            });
+	        }
+	    }, {
+	        key: 'renderClicks',
+	        value: function renderClicks(n) {
+	            console.log("all movies", this.state.all_movies);
+	            var movies = this.state.all_movies[n].map(function (n, index) {
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: index },
+	                    n
+	                );
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                movies
+	            );
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
 
 	            var friends = this.state.friends.map(function (n, index) {
 	                return _react2.default.createElement(
 	                    'div',
 	                    { key: index },
-	                    n
+	                    console.log(n.IDs),
+	                    n.names[0],
+	                    _react2.default.createElement(
+	                        'ul',
+	                        null,
+	                        _this3.renderClicks(n.IDs[0])
+	                    )
 	                );
 	            });
 	            return _react2.default.createElement(

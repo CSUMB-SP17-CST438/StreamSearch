@@ -8,6 +8,12 @@ import chill
 import certifi
 import facebook
 import flask_sqlalchemy
+import psycopg2
+
+try:
+    conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
+except:
+    print "I am unable to connect to the database"
 
 import requests
 
@@ -51,19 +57,37 @@ def get_token1(data):
     
 @socketio.on('friends')
 def get_friends(data):
+    global conn
     graph = facebook.GraphAPI(data['fb_access_token'])
     friends = graph.get_object("me/friends")
+    
+    all_movies = []
+    all_friends = []
     active_friends = []
+    active_IDs = []
     for friend in friends['data']:
+        print ""
+        print friend
+        cur = conn.cursor()
+        cur.execute("""SELECT * FROM Clicks WHERE user_id = '""" + str(friend['id']) + "'")
+        records = cur.fetchall();
+        all_movies = {friend['id']: []};
+        movies = [];
+        for row in records:
+            movies.append(row[3])
+            print "   ", row[1], "   ", row[2]
+        movies.append("test");
+        movies.append("test");
+        movies.append("test");
+        all_movies = {friend['id']: movies}
         active_friends.append("{0}".format(friend['name'].encode('utf-8')))
+        active_IDs.append(friend['id'])
+        all_friends.append({'names': active_friends, 'IDs': active_IDs})
     print active_friends
-    #cur = db.cursor()
-    #cur.execute("""SELECT * FROM Clicks WHERE 1""")
-    #records = cur.fetchall();
-    #print "\nShow me the databases:\n"
-    #for row in records:
-    #    print "   ", row[0]
-    socketio.emit('friendsList', {'friends': active_friends})
+    
+    socketio.emit('friendsList', {'friends': all_friends,
+                                  'all_movies': all_movies
+    })
     
 @socketio.on('onClick')
 def get_Click(data):

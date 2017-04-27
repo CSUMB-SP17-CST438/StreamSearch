@@ -9,16 +9,37 @@ export class FriendsList extends Component {
 		super(props);
 		this.state = {
             'friends': [],
+            'all_movies': []
 		}
 	}
  componentDidMount() {
-        Socket.on('friendsList', (data) => {this.setState({'friends': data['friends']});});
+        Socket.on('friendsList', (data) => {this.setState({'friends': data['friends'],
+                                                           'all_movies': data['all_movies']
+                                            });});
+ }
+ 
+ renderClicks(n) {
+     console.log("all movies", this.state.all_movies);
+     let movies = this.state.all_movies[n].map((n, index) =>
+        <li key={index}>{n}</li>
+     );
+     return (
+         <div>
+            {movies}
+         </div>);
+     
  }
 render() {
+
         
         let friends = this.state.friends.map((n, index) =>
+        
             <div key={index}>
-                {n}
+            {console.log(n.IDs)}
+                {n.names[0]}
+                <ul>
+                    {this.renderClicks(n.IDs[0])}
+                </ul>
             </div>
         );
 	return (
