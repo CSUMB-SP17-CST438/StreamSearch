@@ -127,6 +127,10 @@ def on_new_message(data):
 @socketio.on('movie Id')
 def whatever(data):
     socketio.emit('movie Id2')
+
+@socketio.on('show Id')
+def whatever2(data):
+    socketio.emit('show Id2')
     
 @socketio.on('search1')
 def onSearch(data):
