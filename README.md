@@ -13,7 +13,7 @@ List of changes made in Handin 3, 4/24:
 3. Integrated tmdb and Guidebox apis for movies - Brandon
 4. Catch-all for page refreshes that would result in errors - Miguel
 5. Styling for Website - Michael
-6. Facebook API for friendslist(still being worked on) - Michael, Miguel
+6. Facebook API for friendslist - Michael, Miguel, Brandon
 
 List of changes made in Handin 2, 4/10:
 
