@@ -10,8 +10,26 @@ import facebook
 import flask_sqlalchemy
 import psycopg2
 
+from urlparse import urlparse
+
+url = urlparse(os.environ['DATABASE_URL'])
+dbname = url.path[1:]
+user = url.username
+password = url.password
+host = url.hostname
+port = url.port
+
+#con = psycopg2.connect(
+ #           dbname=dbname,
+  #          user=user,
+   #         password=password,
+    #        host=host,
+     #       port=port
+      #      )
+
 try:
-    conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
+    conn = psycopg2.connect("dbname='"+dbname+"' user='" + user + "' host='"+host+"' password='"+password+"'")
+    #conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
 except:
     print "I am unable to connect to the database"
 
