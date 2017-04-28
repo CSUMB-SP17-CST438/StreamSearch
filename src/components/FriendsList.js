@@ -52,9 +52,7 @@ render() {
             <div className="friend-box-content">
             {this.state.friends.length > 0 ? friends : "You have no friends"}
             	<ul className = 'myFL'>
-            	    
                 </ul>
-                <input type = "text" id = "message_in"></input> <Button>Send</Button>
             </div>
         </div>
        

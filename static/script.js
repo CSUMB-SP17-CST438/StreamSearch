@@ -71630,14 +71630,7 @@
 	                    'div',
 	                    { className: 'friend-box-content' },
 	                    this.state.friends.length > 0 ? friends : "You have no friends",
-	                    _react2.default.createElement('ul', { className: 'myFL' }),
-	                    _react2.default.createElement('input', { type: 'text', id: 'message_in' }),
-	                    ' ',
-	                    _react2.default.createElement(
-	                        _Button.Button,
-	                        null,
-	                        'Send'
-	                    )
+	                    _react2.default.createElement('ul', { className: 'myFL' })
 	                )
 	            );
 	        }
