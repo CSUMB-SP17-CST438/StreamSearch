@@ -7,3 +7,4 @@ gevent-websocket
 requests
 certifi
 facebook
+facebook-sdk
