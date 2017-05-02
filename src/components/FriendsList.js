@@ -16,28 +16,54 @@ export class FriendsList extends Component {
 		}
 	}
  componentDidMount() {
-        Socket.on('friendsList', (data) => {this.setState({'friends': data['friends'],
-                                                           'all_movies': data['all_movies']
+    Socket.on('friendsList', (data) => {this.setState({'friends': data['friends'],
+                                                    'all_movies': data['all_movies']
                                           });});
-        FB.getLoginStatus((response) => {if (response.status == 'connected') 
-            {
-                graph.setAccessToken(response.authResponse.accessToken);
-                FB.api('/me/friends', {accessToken: response.authResponse.accessToken}, function(response) {
-                  console.log(response.data[0]);
-                  this.setState({'fb_ids': response.data});
+    FB.getLoginStatus((response) => {if (response.status == 'connected') 
+        {
+            graph.setAccessToken(response.authResponse.accessToken);
+            graph.get('me/friends', {access_token: response.authResponse.accessToken}, function(err, res) {
+              if(res.paging && res.paging.next) {
+                graph.get(res.paging.next, function(err, res) {
+                  // page 2 
                 });
-            }
-       });
-       
+              }
+              console.log("graph api resp: ", res);
+              this.setState({fb_ids: res.data});
+            }.bind(this));
+            
+        }
+    });
         
  }
  
- renderClicks(n) {
+ getIDs() {
+    
+    console.log("returning");
+    return null;
+ }
+ 
+ checkFriend(id) {
+     const movies = this.state.all_movies;
+     for (var i=0;i<movies.length;i++)
+     {
+         console.log("the for loop - ", movies[i]);
+         if (movies[i][id] != null)
+            return i;
+     }
+     return -1;
+ }
+ renderClicks(id) {
      //console.log("all movies", this.state.all_movies);
      //<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
-     let movies = this.state.all_movies[n].map((n, index) =>
+     
+     var index = this.checkFriend(id);
+     console.log("this is the index", index);
+     console.log(this.state.all_movies);
+     let movies = this.state.all_movies[index][id].map((n, index) =>
         <li key={index}><Link to={"/"+ n.types + "/" + n.movie_ids + ""} className="movie-item-link">{n.movies}</Link>
-        {console.log(n)}</li>
+        {console.log(n)}
+        </li>
      );
      return (
          <div>
@@ -49,11 +75,12 @@ export class FriendsList extends Component {
 render() {
 
         
-        let friends = this.state.friends.map((n, index) =>
+        let friends = this.state.fb_ids.map((n, index) =>
             <div key={index}>
-                {n.names[0]}
+            {n.name}
+                {console.log("this is what im doing ", n)}
                 <ul>
-                    {this.renderClicks(n.IDs[0])}
+                    {this.renderClicks(n.id)}
                 </ul>
             </div>
         );

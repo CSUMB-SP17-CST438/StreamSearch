@@ -35449,19 +35449,45 @@
 	            FB.getLoginStatus(function (response) {
 	                if (response.status == 'connected') {
 	                    _fbReactSdk2.default.setAccessToken(response.authResponse.accessToken);
-	                    FB.api('/me/friends', { accessToken: response.authResponse.accessToken }, function (response) {
-	                        console.log(response.data[0]);
-	                        this.setState({ 'fb_ids': response.data });
-	                    });
+	                    _fbReactSdk2.default.get('me/friends', { access_token: response.authResponse.accessToken }, function (err, res) {
+	                        if (res.paging && res.paging.next) {
+	                            _fbReactSdk2.default.get(res.paging.next, function (err, res) {
+	                                // page 2 
+	                            });
+	                        }
+	                        console.log("graph api resp: ", res);
+	                        this.setState({ fb_ids: res.data });
+	                    }.bind(_this2));
 	                }
 	            });
 	        }
 	    }, {
+	        key: 'getIDs',
+	        value: function getIDs() {
+
+	            console.log("returning");
+	            return null;
+	        }
+	    }, {
+	        key: 'checkFriend',
+	        value: function checkFriend(id) {
+	            var movies = this.state.all_movies;
+	            for (var i = 0; i < movies.length; i++) {
+	                console.log("the for loop - ", movies[i]);
+	                if (movies[i][id] != null) return i;
+	            }
+	            return -1;
+	        }
+	    }, {
 	        key: 'renderClicks',
-	        value: function renderClicks(n) {
+	        value: function renderClicks(id) {
 	            //console.log("all movies", this.state.all_movies);
 	            //<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
-	            var movies = this.state.all_movies[n].map(function (n, index) {
+
+	            var index = this.checkFriend(id);
+	            console.log("this is the index", index);
+	            console.log(this.state.all_movies);
+	            var movies = this.state.all_movies[index][id].map(function (n, index) {
 	                return _react2.default.createElement(
 	                    'li',
 	                    { key: index },
@@ -35484,15 +35510,16 @@
 	        value: function render() {
 	            var _this3 = this;
 
-	            var friends = this.state.friends.map(function (n, index) {
+	            var friends = this.state.fb_ids.map(function (n, index) {
 	                return _react2.default.createElement(
 	                    'div',
 	                    { key: index },
-	                    n.names[0],
+	                    n.name,
+	                    console.log("this is what im doing ", n),
 	                    _react2.default.createElement(
 	                        'ul',
 	                        null,
-	                        _this3.renderClicks(n.IDs[0])
+	                        _this3.renderClicks(n.id)
 	                    )
 	                );
 	            });
