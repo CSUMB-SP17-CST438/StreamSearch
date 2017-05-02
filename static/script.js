@@ -83319,7 +83319,7 @@
 							_Socket.Socket.emit('onClick', { 'fb_access_token': response.authResponse.accessToken,
 								'user_id': response.authResponse.userID,
 								'type': "movies",
-								'title_id': _this3.props.movieID,
+								'title_id': _this3.props.movie.id,
 								'title': _this3.props.movie.title
 							});
 						}
