@@ -83343,7 +83343,7 @@
 					var url = 'https://www.youtube.com/embed/' + key;
 					return _react2.default.createElement(
 						'div',
-						{ className: 'trailer', key: i },
+						{ key: i, style: { display: 'table-cell' }, id: 'trailer', className: 'trailer' },
 						_react2.default.createElement('iframe', { width: '560', height: '315', src: url, frameBorder: '0', allowFullScreen: true })
 					);
 				});
@@ -83558,7 +83558,24 @@
 						{ className: 'summary' },
 						movie.overview
 					),
-					trailers.length > 0 ? this.renderTrailers() : '',
+					trailers.length > 0 ? _react2.default.createElement(
+						'h2',
+						null,
+						'Trailers:'
+					) : '',
+					trailers.length > 0 ? _react2.default.createElement(
+						'div',
+						{ style: { overflow: 'hidden', width: '100%' } },
+						_react2.default.createElement(
+							'div',
+							{ style: { overflowX: 'scroll', width: 'auto' } },
+							_react2.default.createElement(
+								'div',
+								{ style: { display: "table" } },
+								this.renderTrailers()
+							)
+						)
+					) : '',
 					reviews.length > 0 ? this.renderReviews() : '',
 					this.renderLinks()
 				);

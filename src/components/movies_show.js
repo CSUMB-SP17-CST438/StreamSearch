@@ -57,8 +57,8 @@ class MoviesShow extends Component {
 			const { key } = trailer;
 			const url = `https://www.youtube.com/embed/${key}`;
 			return (
-				<div className="trailer" key={i} >
-					<iframe width="560" height="315" src={url} frameBorder="0" allowFullScreen></iframe>
+				<div key={i} style={{display: 'table-cell'}} id="trailer" className="trailer">
+						<iframe width="560" height="315" src={url} frameBorder="0" allowFullScreen></iframe>
 				</div>
 			);
 		});
@@ -161,7 +161,18 @@ class MoviesShow extends Component {
 				<p className="summary">
 					{movie.overview}
 				</p>
-				{trailers.length > 0 ? this.renderTrailers() : ''}
+				
+				{trailers.length > 0 ? <h2>Trailers:</h2>: ''}
+				{trailers.length > 0 ? 
+				<div style={{overflow: 'hidden', width: '100%'}}>
+					<div style={{overflowX: 'scroll', width: 'auto'}}>
+						<div style={{display: "table"}}>
+						
+						{this.renderTrailers()}
+						</div>
+					</div>
+				</div>
+				 : ''}
 				{reviews.length > 0 ? this.renderReviews() : ''}
 				{this.renderLinks()}
 			</div>
