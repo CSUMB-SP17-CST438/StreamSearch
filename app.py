@@ -100,14 +100,14 @@ def get_friends(data):
         movie_ids = [];
         types = [];
         array = []
-        movies.append("test");
-        movies.append("test");
-        types.append("shows");
-        types.append("movies");
-        movie_ids.append("43403");
-        movie_ids.append("321612");
-        array.append({'types': types[0], 'movies': movies[0], 'movie_ids': movie_ids[0]})
-        array.append({'types': types[1], 'movies': movies[1], 'movie_ids': movie_ids[1]})
+        #movies.append("test");
+        #movies.append("test");
+        #types.append("shows");
+        #types.append("movies");
+        #movie_ids.append("43403");
+        #movie_ids.append("321612");
+        #array.append({'types': types[0], 'movies': movies[0], 'movie_ids': movie_ids[0]})
+        #array.append({'types': types[1], 'movies': movies[1], 'movie_ids': movie_ids[1]})
         for row in records:
             array.append({'types': row[2], 'movies': row[3], 'movie_ids': row[4]})
             #print "   ", row[1], "   ", row[2], "   ", row[3], "   ", row[4]

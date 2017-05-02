@@ -60,6 +60,7 @@ export class FriendsList extends Component {
      var index = this.checkFriend(id);
      console.log("this is the index", index);
      console.log(this.state.all_movies);
+     if (index != -1) {
      let movies = this.state.all_movies[index][id].map((n, index) =>
         <li key={index}><Link to={"/"+ n.types + "/" + n.movie_ids + ""} className="movie-item-link">{n.movies}</Link>
         {console.log(n)}
@@ -70,6 +71,14 @@ export class FriendsList extends Component {
             {movies}
          </div>
          );
+     }
+     else if (index == -1){
+         return (
+         <div>
+            <li>Has not looked up anything</li>
+         </div>
+         );
+     }
      
  }
 render() {
