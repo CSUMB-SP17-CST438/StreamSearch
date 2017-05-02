@@ -19,16 +19,20 @@ password = url.password
 host = url.hostname
 port = url.port
 
-#con = psycopg2.connect(
- #           dbname=dbname,
-  #          user=user,
-   #         password=password,
-    #        host=host,
-     #       port=port
-      #      )
+
 
 try:
-    conn = psycopg2.connect("dbname='"+dbname+"' user='" + user + "' host='"+host+"' password='"+password+"'")
+    print "dbname="+dbname+" user=" + user + " host="+host+" password="+password+""
+    #conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
+    conn = psycopg2.connect(
+            dbname=dbname,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+            )
+    #conn = psycopg2.connect("dbname='"+dbname+"' user='" + user + "' host='"+host+"' password='"+password+"'")
+    print "connected to db"
     #conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
 except:
     print "I am unable to connect to the database"
@@ -78,7 +82,10 @@ def get_friends(data):
     global conn
     graph = facebook.GraphAPI(data['fb_access_token'])
     friends = graph.get_object("me/friends")
-    
+    cur = conn.cursor()
+    cur.execute("""SELECT DISTINCT user_id FROM Clicks""")
+    fb_ids = cur.fetchall();
+    print fb_ids
     all_movies = []
     all_friends = []
     active_friends = []

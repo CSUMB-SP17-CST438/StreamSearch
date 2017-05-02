@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Button } from './Button';
 import { Socket } from './Socket';
 import { Link } from 'react-router';
+import graph from 'fb-react-sdk';
 
 export class FriendsList extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
+		    'fb_ids': [],
             'friends': [],
             'all_movies': []
 		}
@@ -17,6 +19,17 @@ export class FriendsList extends Component {
         Socket.on('friendsList', (data) => {this.setState({'friends': data['friends'],
                                                            'all_movies': data['all_movies']
                                           });});
+        FB.getLoginStatus((response) => {if (response.status == 'connected') 
+            {
+                graph.setAccessToken(response.authResponse.accessToken);
+                FB.api('/me/friends', {accessToken: response.authResponse.accessToken}, function(response) {
+                  console.log(response.data[0]);
+                  this.setState({'fb_ids': response.data});
+                });
+            }
+       });
+       
+        
  }
  
  renderClicks(n) {
@@ -29,14 +42,14 @@ export class FriendsList extends Component {
      return (
          <div>
             {movies}
-         </div>);
+         </div>
+         );
      
  }
 render() {
 
         
         let friends = this.state.friends.map((n, index) =>
-        
             <div key={index}>
                 {n.names[0]}
                 <ul>
@@ -50,7 +63,7 @@ render() {
             <input type="checkbox" />
             <label data-expanded="Close Friends List" data-collapsed="Friends List"></label>
             <div className="friend-box-content">
-            {this.state.friends.length > 0 ? friends : "You have no friends"}
+            {this.state.fb_ids.length > 0 ? friends : "You have no friends"}
             	<ul className = 'myFL'>
                 </ul>
             </div>
