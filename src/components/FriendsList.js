@@ -36,18 +36,13 @@ export class FriendsList extends Component {
     });
         
  }
- 
- getIDs() {
-    
-    console.log("returning");
-    return null;
- }
+
  
  checkFriend(id) {
      const movies = this.state.all_movies;
      for (var i=0;i<movies.length;i++)
      {
-         console.log("the for loop - ", movies[i]);
+         //console.log("the for loop - ", movies[i]);
          if (movies[i][id] != null)
             return i;
      }
@@ -59,8 +54,15 @@ export class FriendsList extends Component {
      
      var index = this.checkFriend(id);
      console.log("this is the index", index);
-     console.log(this.state.all_movies);
-     if (index != -1) {
+     console.log("movies:",this.state.all_movies);
+     if (index == -1){
+         return (
+         <div>
+            <li>Has not looked up anything</li>
+         </div>
+         );
+     }
+     else if (index != -1) {
      let movies = this.state.all_movies[index][id].map((n, index) =>
         <li key={index}><Link to={"/"+ n.types + "/" + n.movie_ids + ""} className="movie-item-link">{n.movies}</Link>
         {console.log(n)}
@@ -72,13 +74,7 @@ export class FriendsList extends Component {
          </div>
          );
      }
-     else if (index == -1){
-         return (
-         <div>
-            <li>Has not looked up anything</li>
-         </div>
-         );
-     }
+     
      
  }
 render() {
@@ -87,7 +83,6 @@ render() {
         let friends = this.state.fb_ids.map((n, index) =>
             <div key={index}>
             {n.name}
-                {console.log("this is what im doing ", n)}
                 <ul>
                     {this.renderClicks(n.id)}
                 </ul>
