@@ -35462,18 +35462,11 @@
 	            });
 	        }
 	    }, {
-	        key: 'getIDs',
-	        value: function getIDs() {
-
-	            console.log("returning");
-	            return null;
-	        }
-	    }, {
 	        key: 'checkFriend',
 	        value: function checkFriend(id) {
 	            var movies = this.state.all_movies;
 	            for (var i = 0; i < movies.length; i++) {
-	                console.log("the for loop - ", movies[i]);
+	                //console.log("the for loop - ", movies[i]);
 	                if (movies[i][id] != null) return i;
 	            }
 	            return -1;
@@ -35486,24 +35479,36 @@
 
 	            var index = this.checkFriend(id);
 	            console.log("this is the index", index);
-	            console.log(this.state.all_movies);
-	            var movies = this.state.all_movies[index][id].map(function (n, index) {
+	            console.log("movies:", this.state.all_movies);
+	            if (index == -1) {
 	                return _react2.default.createElement(
-	                    'li',
-	                    { key: index },
+	                    'div',
+	                    null,
 	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: "/" + n.types + "/" + n.movie_ids + "", className: 'movie-item-link' },
-	                        n.movies
-	                    ),
-	                    console.log(n)
+	                        'li',
+	                        null,
+	                        'Has not looked up anything'
+	                    )
 	                );
-	            });
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                movies
-	            );
+	            } else if (index != -1) {
+	                var movies = this.state.all_movies[index][id].map(function (n, index) {
+	                    return _react2.default.createElement(
+	                        'li',
+	                        { key: index },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: "/" + n.types + "/" + n.movie_ids + "", className: 'movie-item-link' },
+	                            n.movies
+	                        ),
+	                        console.log(n)
+	                    );
+	                });
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    movies
+	                );
+	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -35515,7 +35520,6 @@
 	                    'div',
 	                    { key: index },
 	                    n.name,
-	                    console.log("this is what im doing ", n),
 	                    _react2.default.createElement(
 	                        'ul',
 	                        null,
