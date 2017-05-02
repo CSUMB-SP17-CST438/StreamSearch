@@ -10,8 +10,30 @@ import facebook
 import flask_sqlalchemy
 import psycopg2
 
+from urlparse import urlparse
+
+url = urlparse(os.environ['DATABASE_URL'])
+dbname = url.path[1:]
+user = url.username
+password = url.password
+host = url.hostname
+port = url.port
+
+
+
 try:
-    conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
+    print "dbname="+dbname+" user=" + user + " host="+host+" password="+password+""
+    #conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
+    conn = psycopg2.connect(
+            dbname=dbname,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+            )
+    #conn = psycopg2.connect("dbname='"+dbname+"' user='" + user + "' host='"+host+"' password='"+password+"'")
+    print "connected to db"
+    #conn = psycopg2.connect("dbname='postgres' user='admin' host='localhost' password='admin'")
 except:
     print "I am unable to connect to the database"
 
@@ -58,20 +80,22 @@ def get_token1(data):
 @socketio.on('friends')
 def get_friends(data):
     global conn
-    graph = facebook.GraphAPI(data['fb_access_token'])
-    friends = graph.get_object("me/friends")
-    
+    #graph = facebook.GraphAPI(data['fb_access_token'])
+    #friends = graph.get_object("me/friends")
+    cur = conn.cursor()
+    cur.execute("""SELECT DISTINCT user_id FROM Clicks""")
+    fb_ids = cur.fetchall();
     all_movies = []
     all_friends = []
     active_friends = []
     active_IDs = []
-    for friend in friends['data']:
+    for friend in fb_ids:
         print ""
-        print friend
+        print friend[0]
         cur = conn.cursor()
-        cur.execute("""SELECT * FROM Clicks WHERE user_id = '""" + str(friend['id']) + "' ORDER BY id desc LIMIT 3")
+        cur.execute("""SELECT * FROM Clicks WHERE user_id = '""" + str(friend[0]) + "' ORDER BY id desc LIMIT 3")
         records = cur.fetchall();
-        all_movies = {friend['id']: []};
+        #all_movies = {friend[0]: []};
         movies = [];
         movie_ids = [];
         types = [];
@@ -86,12 +110,11 @@ def get_friends(data):
         array.append({'types': types[1], 'movies': movies[1], 'movie_ids': movie_ids[1]})
         for row in records:
             array.append({'types': row[2], 'movies': row[3], 'movie_ids': row[4]})
-            print "   ", row[1], "   ", row[2]
-        all_movies = {friend['id']: array}
-        active_friends.append("{0}".format(friend['name'].encode('utf-8')))
-        active_IDs.append(friend['id'])
+            #print "   ", row[1], "   ", row[2], "   ", row[3], "   ", row[4]
+        all_movies.append({str(friend[0]): array})
+        #active_friends.append("{0}".format(friend['name'].encode('utf-8')))
+        active_IDs.append(friend[0])
         all_friends.append({'names': active_friends, 'IDs': active_IDs})
-    print active_friends
     
     socketio.emit('friendsList', {'friends': all_friends,
                                   'all_movies': all_movies
@@ -102,7 +125,7 @@ def get_Click(data):
     if (data['title'] is None):
         return
     print ""
-    print str(data['user_id']) + " is clicking " + str(data['title'])
+    print str(data['user_id']) + " is clicking " + str(data['title']) + "id: " + str(data['title_id']) + "type: " + data['type']
     print ""
     #graph = facebook.GraphAPI(data['fb_access_token'])
     #friends = graph.get_object("me/friends")

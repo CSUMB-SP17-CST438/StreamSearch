@@ -39,7 +39,7 @@ class MoviesShow extends Component {
 	                Socket.emit('onClick', {'fb_access_token':response.authResponse.accessToken,
 	                						'user_id':response.authResponse.userID,
 	                						'type': "movies",
-	                						'title_id': this.props.movieID,
+	                						'title_id': this.props.movie.id,
 	                						'title': this.props.movie.title
 	                });
 	            }
