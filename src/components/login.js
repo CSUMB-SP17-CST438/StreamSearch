@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 export class Login extends Component {
 
 	componentDidMount(){
+	    console.log("i am logging in");
        FB.getLoginStatus((response) => {if (response.status == 'connected') 
             {
             	window.location.replace('/');
@@ -12,15 +13,29 @@ export class Login extends Component {
        });
     }
     render() {
-        <div>
-                <div                  
-                    className="fb-login-button"     
-                    data-max-rows="1"
-                    data-size="large"
-                    data-show-faces="true" 
-                    data-auto-logout-link="true">
-                </div>
-        </div>
+        FB.getLoginStatus((response) => {if (response.status == 'connected') 
+            {
+            	window.location.replace('/');
+            }
+       });
+        return(
+            <div id="login_button">
+                   <div className="fb-login-button" 
+                   data-max-rows="1" 
+                   data-size="large" 
+                   data-button-type="continue_with" 
+                   data-show-faces="true" 
+                   data-auto-logout-link="false" 
+                   data-use-continue-as="false"
+                   ></div>
+            </div>
+        );
     }
 	
 }
+function mapStateToProps({ movies }) {
+	return {
+	};
+}
+
+export default connect(mapStateToProps, { })(Login);

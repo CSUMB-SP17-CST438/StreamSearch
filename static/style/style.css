@@ -332,3 +332,7 @@ body {
     padding: 0;
     overflow: auto;
 }
+
+#login_button {
+  text-align: center;
+}
