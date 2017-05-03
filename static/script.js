@@ -83527,36 +83527,61 @@
 						'Back to List'
 					),
 					_react2.default.createElement(
-						'h2',
-						{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
-						movie.title
-					),
-					_react2.default.createElement(
-						'h6',
-						{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
-						movie.tagline
-					),
-					_react2.default.createElement(
-						'a',
-						{ href: movie.homepage, target: '_blank' },
-						movie.homepage
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'header-details' },
-						runTime,
-						' | ',
-						genres,
-						' | ',
-						releaseDate,
-						' | ',
-						rating,
-						'/10'
-					),
-					_react2.default.createElement(
-						'p',
-						{ className: 'summary' },
-						movie.overview
+						'table',
+						{ id: 'm_table' },
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'td',
+								{ id: 'm_info' },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
+									movie.title
+								),
+								_react2.default.createElement(
+									'h6',
+									{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
+									movie.tagline
+								),
+								_react2.default.createElement(
+									'a',
+									{ href: movie.homepage, target: '_blank' },
+									movie.homepage
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'header-details' },
+									runTime,
+									' | ',
+									genres,
+									' | ',
+									releaseDate,
+									' | ',
+									rating,
+									'/10'
+								),
+								_react2.default.createElement(
+									'p',
+									{ className: 'summary' },
+									movie.overview
+								)
+							)
+						),
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'td',
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'scrollableInfo' },
+									this.renderLinks()
+								)
+							)
+						)
 					),
 					trailers.length > 0 ? _react2.default.createElement(
 						'h2',
@@ -83576,8 +83601,7 @@
 							)
 						)
 					) : '',
-					reviews.length > 0 ? this.renderReviews() : '',
-					this.renderLinks()
+					reviews.length > 0 ? this.renderReviews() : ''
 				);
 			}
 		}, {
