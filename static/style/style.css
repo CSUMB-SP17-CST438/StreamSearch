@@ -332,10 +332,11 @@ body {
     overflow: auto;
 }
 
-#login_button {
-  text-align: center;
+#fb-button {
+  color: white !important;
+  text-align: right !important;
 }
 
-#fb-button {
-  color: white;
+.msd.fsm {
+  color: white !important;
 }
