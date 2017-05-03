@@ -7,7 +7,7 @@
 
 body {
 	
-    background-image: url("http://hdqwalls.com/download/beige-blur-light-3840x2160.jpg");
+    background-image: url("/static/img/background.jpg");
     background-repeat: no-repeat;
     background-position: bottom;
     background-attachment: fixed;
