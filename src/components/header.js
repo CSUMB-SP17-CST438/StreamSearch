@@ -16,6 +16,10 @@ export default class App extends Component {
                 						'user_id':response.authResponse.userID
                 });
             }
+            else {
+            	if (window.location.pathname != ('/login'))
+            	window.location.replace('/login');
+            }
        });
     }
 	

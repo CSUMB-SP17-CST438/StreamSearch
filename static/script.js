@@ -21559,6 +21559,8 @@
 						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken,
 							'user_id': response.authResponse.userID
 						});
+					} else {
+						if (window.location.pathname != '/login') window.location.replace('/login');
 					}
 				});
 			}
