@@ -84085,10 +84085,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      FB.getLoginStatus(function (response) {
-	        if (response.status == 'connected') {
-	          window.location.replace('/');
-	        }
+	      FB.Event.subscribe("auth.login", function () {
+	        window.location = '/';
 	      });
 	      return _react2.default.createElement(
 	        'div',

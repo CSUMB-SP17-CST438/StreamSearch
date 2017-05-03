@@ -13,11 +13,7 @@ export class Login extends Component {
        });
     }
     render() {
-        FB.getLoginStatus((response) => {if (response.status == 'connected') 
-            {
-            	window.location.replace('/');
-            }
-       });
+       FB.Event.subscribe("auth.login", function() {window.location = '/'});
         return(
             <div id="login_button">
                    <div className="fb-login-button" 
