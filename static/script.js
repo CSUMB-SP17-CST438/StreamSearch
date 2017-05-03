@@ -21491,7 +21491,7 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'app container' },
-					_react2.default.createElement('div', { className: 'fb-like', 'data-href': 'https://developers.facebook.com/docs/plugins/', 'data-layout': 'standard', 'data-action': 'like', 'data-size': 'small', 'data-show-faces': 'true', 'data-share': 'true' }),
+					_react2.default.createElement('div', { className: 'fb-like', 'data-href': 'https://overlook-stream-search.herokuapp.com/', 'data-layout': 'standard', 'data-action': 'like', 'data-size': 'small', 'data-show-faces': 'true', 'data-share': 'true' }),
 					_react2.default.createElement('div', { id: 'fb-button',
 						className: 'fb-login-button',
 						'data-max-rows': '1',
