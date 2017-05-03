@@ -7,7 +7,7 @@
 
 body {
 	
-    background-image: url("http://wallpapersonthe.net/wallpapers/l/blurry_blue_light_abstract_blur_light-16947.jpg");
+    background-image: url("/static/img/background.jpg");
     background-repeat: no-repeat;
     background-position: bottom;
     background-attachment: fixed;
