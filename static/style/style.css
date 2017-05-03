@@ -337,5 +337,10 @@ body {
 }
 
 #fb-button {
-  color: white;
+  color: white !important;
+  text-align: right;
+}
+
+.msd.fsm {
+  color: white !important;
 }
