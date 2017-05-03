@@ -25,10 +25,10 @@ export class FriendsList extends Component {
             graph.get('me/friends', {access_token: response.authResponse.accessToken}, function(err, res) {
               if(res.paging && res.paging.next) {
                 graph.get(res.paging.next, function(err, res) {
-                  // page 2 
+                  console.log("next page", res)
                 });
               }
-              console.log("graph api resp: ", res);
+              //console.log("graph api resp: ", res);
               this.setState({fb_ids: res.data});
             }.bind(this));
             
@@ -46,17 +46,14 @@ export class FriendsList extends Component {
      }
      return -1;
  }
- linkClicked(type, id) {
-     console.log("the redirect is being called");
-     //window.location.replace('/' + type +"/" + id);
- }
+
  renderClicks(id) {
      //console.log("all movies", this.state.all_movies);
      //<Link key={i} to={`/shows/${movie.id}`} className="movie-item-link">
      
      var index = this.checkFriend(id);
-     console.log("this is the index", index);
-     console.log("movies:",this.state.all_movies);
+     //console.log("this is the index", index);
+     //console.log("movies:",this.state.all_movies);
      if (index == -1){
          return (
          <div>
@@ -69,7 +66,6 @@ export class FriendsList extends Component {
      let movies = this.state.all_movies[index][id].map((n, index) =>
         <li key={index}>
             <a href={('/' + n.types +"/" + n.movie_ids)}>{n.movies}</a>
-        {console.log(n)}
         </li>
      );
      return (
