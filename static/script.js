@@ -35486,6 +35486,12 @@
 	            return -1;
 	        }
 	    }, {
+	        key: 'linkClicked',
+	        value: function linkClicked(type, id) {
+	            console.log("the redirect is being called");
+	            //window.location.replace('/' + type +"/" + id);
+	        }
+	    }, {
 	        key: 'renderClicks',
 	        value: function renderClicks(id) {
 	            //console.log("all movies", this.state.all_movies);
@@ -35504,25 +35510,27 @@
 	                        'Has not looked up anything'
 	                    )
 	                );
-	            } else if (index != -1) {
-	                var movies = this.state.all_movies[index][id].map(function (n, index) {
-	                    return _react2.default.createElement(
-	                        'li',
-	                        { key: index },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: "/" + n.types + "/" + n.movie_ids + "", className: 'movie-item-link' },
-	                            n.movies
-	                        ),
-	                        console.log(n)
-	                    );
-	                });
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    movies
-	                );
 	            }
+	            //<Link to={"/"+ n.types + "/" + n.movie_ids + ""} className="movie-item-link"></Link>
+	            else if (index != -1) {
+	                    var movies = this.state.all_movies[index][id].map(function (n, index) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { key: index },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '/' + n.types + "/" + n.movie_ids },
+	                                n.movies
+	                            ),
+	                            console.log(n)
+	                        );
+	                    });
+	                    return _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        movies
+	                    );
+	                }
 	        }
 	    }, {
 	        key: 'render',
