@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 export class Login extends Component {
 
 	componentDidMount(){
-	    console.log("i am logging in");
        FB.getLoginStatus((response) => {if (response.status == 'connected') 
             {
             	window.location.replace('/');

@@ -21474,6 +21474,15 @@
 		}
 
 		_createClass(App, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				FB.getLoginStatus(function (response) {
+					if (response.status == 'connected') {} else {
+						if (window.location.pathname != '/login') window.location.replace('/login');
+					}
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				FB.Event.subscribe("auth.logout", function () {
@@ -84078,7 +84087,6 @@
 	  _createClass(Login, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      console.log("i am logging in");
 	      FB.getLoginStatus(function (response) {
 	        if (response.status == 'connected') {
 	          window.location.replace('/');
