@@ -21476,6 +21476,9 @@
 		_createClass(App, [{
 			key: 'render',
 			value: function render() {
+				FB.Event.subscribe("auth.logout", function () {
+					window.location = '/login';
+				});
 				return _react2.default.createElement(
 					'div',
 					{ className: 'app container' },
@@ -21559,6 +21562,8 @@
 						_Socket.Socket.emit('friends', { 'fb_access_token': response.authResponse.accessToken,
 							'user_id': response.authResponse.userID
 						});
+					} else {
+						if (window.location.pathname != '/login') window.location.replace('/login');
 					}
 				});
 			}
@@ -65188,8 +65193,13 @@
 
 	var _show_details2 = _interopRequireDefault(_show_details);
 
+	var _login = __webpack_require__(546);
+
+	var _login2 = _interopRequireDefault(_login);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// mapping of URL's to routed components
 	exports.default = _react2.default.createElement(
 		_reactRouter.Route,
 		{ path: '/', component: _app2.default },
@@ -65197,8 +65207,9 @@
 		_react2.default.createElement(_reactRouter.Route, { component: _movies_list2.default, path: 'movies' }),
 		_react2.default.createElement(_reactRouter.Route, { component: _shows_list2.default, path: 'shows' }),
 		_react2.default.createElement(_reactRouter.Route, { component: _movies_show2.default, path: 'movies/:id' }),
-		_react2.default.createElement(_reactRouter.Route, { component: _show_details2.default, path: 'shows/:id' })
-	); // mapping of URL's to routed components
+		_react2.default.createElement(_reactRouter.Route, { component: _show_details2.default, path: 'shows/:id' }),
+		_react2.default.createElement(_reactRouter.Route, { component: _login2.default, path: 'login' })
+	);
 
 /***/ },
 /* 396 */
@@ -83528,61 +83539,41 @@
 						'Back to List'
 					),
 					_react2.default.createElement(
-						'table',
-						{ id: 'm_table' },
-						_react2.default.createElement(
-							'tr',
-							null,
-							_react2.default.createElement(
-								'td',
-								{ id: 'm_info' },
-								_react2.default.createElement(
-									'h2',
-									{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
-									movie.title
-								),
-								_react2.default.createElement(
-									'h6',
-									{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
-									movie.tagline
-								),
-								_react2.default.createElement(
-									'a',
-									{ href: movie.homepage, target: '_blank' },
-									movie.homepage
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'header-details' },
-									runTime,
-									' | ',
-									genres,
-									' | ',
-									releaseDate,
-									' | ',
-									rating,
-									'/10'
-								),
-								_react2.default.createElement(
-									'p',
-									{ className: 'summary' },
-									movie.overview
-								)
-							)
-						),
-						_react2.default.createElement(
-							'tr',
-							null,
-							_react2.default.createElement(
-								'td',
-								null,
-								_react2.default.createElement(
-									'div',
-									{ className: 'scrollableInfo' },
-									this.renderLinks()
-								)
-							)
-						)
+						'h2',
+						{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
+						movie.title
+					),
+					_react2.default.createElement(
+						'h6',
+						{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
+						movie.tagline
+					),
+					_react2.default.createElement(
+						'a',
+						{ href: movie.homepage, target: '_blank' },
+						movie.homepage
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'header-details' },
+						runTime,
+						' | ',
+						genres,
+						' | ',
+						releaseDate,
+						' | ',
+						rating,
+						'/10'
+					),
+					_react2.default.createElement(
+						'p',
+						{ className: 'summary' },
+						movie.overview
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'scrollableInfo' },
+						this.renderLinks()
 					),
 					trailers.length > 0 ? _react2.default.createElement(
 						'h2',
@@ -84045,6 +84036,86 @@
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShow: _actions.fetchShow, fetchSeasons: _actions.fetchSeasons, fetchBySeason: _actions.fetchBySeason })(ShowDetails);
+
+/***/ },
+/* 546 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Login = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(193);
+
+	var _reactRedux = __webpack_require__(160);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Login = exports.Login = function (_Component) {
+	  _inherits(Login, _Component);
+
+	  function Login() {
+	    _classCallCheck(this, Login);
+
+	    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+	  }
+
+	  _createClass(Login, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log("i am logging in");
+	      FB.getLoginStatus(function (response) {
+	        if (response.status == 'connected') {
+	          window.location.replace('/');
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      FB.Event.subscribe("auth.login", function () {
+	        window.location = '/';
+	      });
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'login_button' },
+	        _react2.default.createElement('div', { className: 'fb-login-button',
+	          'data-max-rows': '1',
+	          'data-size': 'large',
+	          'data-button-type': 'continue_with',
+	          'data-show-faces': 'true',
+	          'data-auto-logout-link': 'false',
+	          'data-use-continue-as': 'false'
+	        })
+	      );
+	    }
+	  }]);
+
+	  return Login;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+	  var movies = _ref.movies;
+
+	  return {};
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, {})(Login);
 
 /***/ }
 /******/ ]);

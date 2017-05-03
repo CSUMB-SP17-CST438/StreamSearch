@@ -9,6 +9,7 @@ export default class App extends Component {
 
 	
 	render() {
+		FB.Event.subscribe("auth.logout", function() {window.location = '/login'});
 		return (
 			<div className="app container">
 				

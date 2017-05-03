@@ -153,27 +153,20 @@ class MoviesShow extends Component {
 				<Link to="/movies" className="btn btn-primary" style={{ float: "right" }}>
 					Back to List
 				</Link>
-				<table id="m_table">
-				<tr>
-					<td id="m_info">
-						<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movie.title}</h2>
-						<h6 className="tagline" style={{marginTop: "0px", fontSize:"14px"}}>{movie.tagline}</h6>
-						<a href={movie.homepage} target="_blank">{movie.homepage}</a>
-						<div className="header-details">
-							{runTime} | {genres} | {releaseDate} | {rating}/10
-						</div>
-						<p className="summary">
-							{movie.overview}
-						</p>
-					</td>
-					</tr>
-					<tr>
-					<td><div className="scrollableInfo">
-						{this.renderLinks()}
-						</div>
-					</td>
-					</tr>
-				</table>
+				
+				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movie.title}</h2>
+				<h6 className="tagline" style={{marginTop: "0px", fontSize:"14px"}}>{movie.tagline}</h6>
+				<a href={movie.homepage} target="_blank">{movie.homepage}</a>
+				<div className="header-details">
+					{runTime} | {genres} | {releaseDate} | {rating}/10
+				</div>
+				<p className="summary">
+					{movie.overview}
+				</p>
+				<div className="scrollableInfo">
+					{this.renderLinks()}
+				</div>
+				
 				
 				{trailers.length > 0 ? <h2>Trailers:</h2>: ''}
 				{trailers.length > 0 ? 
