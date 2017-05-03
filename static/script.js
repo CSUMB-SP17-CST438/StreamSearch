@@ -21476,6 +21476,9 @@
 		_createClass(App, [{
 			key: 'render',
 			value: function render() {
+				FB.Event.subscribe("auth.logout", function () {
+					window.location = '/login';
+				});
 				return _react2.default.createElement(
 					'div',
 					{ className: 'app container' },
