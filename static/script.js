@@ -83343,7 +83343,7 @@
 					var url = 'https://www.youtube.com/embed/' + key;
 					return _react2.default.createElement(
 						'div',
-						{ className: 'trailer', key: i },
+						{ key: i, style: { display: 'table-cell' }, id: 'trailer', className: 'trailer' },
 						_react2.default.createElement('iframe', { width: '560', height: '315', src: url, frameBorder: '0', allowFullScreen: true })
 					);
 				});
@@ -83423,6 +83423,7 @@
 						null,
 						'Links: '
 					),
+					movieGB.free_web_sources.length == 0 && movieGB.subscription_web_sources.length == 0 && movieGB.tv_everywhere_web_sources.length == 0 && movieGB.purchase_web_sources.length == 0 ? "No links available" : "",
 					movieGB.free_web_sources.length ? _react2.default.createElement(
 						'h6',
 						null,
@@ -83527,40 +83528,81 @@
 						'Back to List'
 					),
 					_react2.default.createElement(
+						'table',
+						{ id: 'm_table' },
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'td',
+								{ id: 'm_info' },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
+									movie.title
+								),
+								_react2.default.createElement(
+									'h6',
+									{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
+									movie.tagline
+								),
+								_react2.default.createElement(
+									'a',
+									{ href: movie.homepage, target: '_blank' },
+									movie.homepage
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'header-details' },
+									runTime,
+									' | ',
+									genres,
+									' | ',
+									releaseDate,
+									' | ',
+									rating,
+									'/10'
+								),
+								_react2.default.createElement(
+									'p',
+									{ className: 'summary' },
+									movie.overview
+								)
+							)
+						),
+						_react2.default.createElement(
+							'tr',
+							null,
+							_react2.default.createElement(
+								'td',
+								null,
+								_react2.default.createElement(
+									'div',
+									{ className: 'scrollableInfo' },
+									this.renderLinks()
+								)
+							)
+						)
+					),
+					trailers.length > 0 ? _react2.default.createElement(
 						'h2',
-						{ className: 'title', style: { marginBottom: "3px", fontSize: "36px" } },
-						movie.title
-					),
-					_react2.default.createElement(
-						'h6',
-						{ className: 'tagline', style: { marginTop: "0px", fontSize: "14px" } },
-						movie.tagline
-					),
-					_react2.default.createElement(
-						'a',
-						{ href: movie.homepage, target: '_blank' },
-						movie.homepage
-					),
-					_react2.default.createElement(
+						null,
+						'Trailers:'
+					) : '',
+					trailers.length > 0 ? _react2.default.createElement(
 						'div',
-						{ className: 'header-details' },
-						runTime,
-						' | ',
-						genres,
-						' | ',
-						releaseDate,
-						' | ',
-						rating,
-						'/10'
-					),
-					_react2.default.createElement(
-						'p',
-						{ className: 'summary' },
-						movie.overview
-					),
-					trailers.length > 0 ? this.renderTrailers() : '',
-					reviews.length > 0 ? this.renderReviews() : '',
-					this.renderLinks()
+						{ style: { overflow: 'hidden', width: '100%' } },
+						_react2.default.createElement(
+							'div',
+							{ style: { overflowX: 'scroll', width: 'auto' } },
+							_react2.default.createElement(
+								'div',
+								{ style: { display: "table" } },
+								this.renderTrailers()
+							)
+						)
+					) : '',
+					reviews.length > 0 ? this.renderReviews() : ''
 				);
 			}
 		}, {

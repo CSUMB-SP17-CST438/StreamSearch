@@ -57,8 +57,8 @@ class MoviesShow extends Component {
 			const { key } = trailer;
 			const url = `https://www.youtube.com/embed/${key}`;
 			return (
-				<div className="trailer" key={i} >
-					<iframe width="560" height="315" src={url} frameBorder="0" allowFullScreen></iframe>
+				<div key={i} style={{display: 'table-cell'}} id="trailer" className="trailer">
+						<iframe width="560" height="315" src={url} frameBorder="0" allowFullScreen></iframe>
 				</div>
 			);
 		});
@@ -119,6 +119,7 @@ class MoviesShow extends Component {
 		const list = (
 					<div id="movieLinks">
 					<h2>Links: </h2>
+					{movieGB.free_web_sources.length == 0 && movieGB.subscription_web_sources.length == 0 && movieGB.tv_everywhere_web_sources.length == 0 && movieGB.purchase_web_sources.length == 0 ? "No links available":""} 
 					{movieGB.free_web_sources.length ? <h6>Free:</h6> : ''}
 					{movieGB.free_web_sources.map((service,i) => {
 						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
@@ -152,18 +153,40 @@ class MoviesShow extends Component {
 				<Link to="/movies" className="btn btn-primary" style={{ float: "right" }}>
 					Back to List
 				</Link>
-				<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movie.title}</h2>
-				<h6 className="tagline" style={{marginTop: "0px", fontSize:"14px"}}>{movie.tagline}</h6>
-				<a href={movie.homepage} target="_blank">{movie.homepage}</a>
-				<div className="header-details">
-					{runTime} | {genres} | {releaseDate} | {rating}/10
+				<table id="m_table">
+				<tr>
+					<td id="m_info">
+						<h2 className="title" style={{marginBottom: "3px", fontSize:"36px"}}>{movie.title}</h2>
+						<h6 className="tagline" style={{marginTop: "0px", fontSize:"14px"}}>{movie.tagline}</h6>
+						<a href={movie.homepage} target="_blank">{movie.homepage}</a>
+						<div className="header-details">
+							{runTime} | {genres} | {releaseDate} | {rating}/10
+						</div>
+						<p className="summary">
+							{movie.overview}
+						</p>
+					</td>
+					</tr>
+					<tr>
+					<td><div className="scrollableInfo">
+						{this.renderLinks()}
+						</div>
+					</td>
+					</tr>
+				</table>
+				
+				{trailers.length > 0 ? <h2>Trailers:</h2>: ''}
+				{trailers.length > 0 ? 
+				<div style={{overflow: 'hidden', width: '100%'}}>
+					<div style={{overflowX: 'scroll', width: 'auto'}}>
+						<div style={{display: "table"}}>
+						
+						{this.renderTrailers()}
+						</div>
+					</div>
 				</div>
-				<p className="summary">
-					{movie.overview}
-				</p>
-				{trailers.length > 0 ? this.renderTrailers() : ''}
+				 : ''}
 				{reviews.length > 0 ? this.renderReviews() : ''}
-				{this.renderLinks()}
 			</div>
 		);
 	}
