@@ -332,13 +332,9 @@ body {
     overflow: auto;
 }
 
-#login_button {
-  text-align: center;
-}
-
 #fb-button {
   color: white !important;
-  text-align: right;
+  text-align: right !important;
 }
 
 .msd.fsm {

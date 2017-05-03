@@ -21495,34 +21495,38 @@
 						'table',
 						null,
 						_react2.default.createElement(
-							'tr',
+							'tbody',
 							null,
 							_react2.default.createElement(
-								'td',
+								'tr',
 								null,
 								_react2.default.createElement(
-									'a',
-									{ href: '#', onclick: 'FacebookInviteFriends();' },
-									'Facebook Invite Friends Link'
+									'td',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: '#', onclick: 'FacebookInviteFriends();' },
+										'Facebook Invite Friends Link'
+									),
+									_react2.default.createElement('p', null),
+									_react2.default.createElement('div', { className: 'fb-like',
+										'data-href': 'https://overlook-stream-search.herokuapp.com/',
+										'data-layout': 'standard',
+										'data-action': 'like',
+										'data-size': 'small',
+										'data-show-faces': 'false',
+										'data-share': 'true' })
 								),
-								_react2.default.createElement('p', null),
-								_react2.default.createElement('div', { className: 'fb-like',
-									'data-href': 'https://overlook-stream-search.herokuapp.com/',
-									'data-layout': 'standard',
-									'data-action': 'like',
-									'data-size': 'small',
-									'data-show-faces': 'false',
-									'data-share': 'true' })
-							),
-							_react2.default.createElement(
-								'td',
-								{ align: 'right', id: 'fb-button' },
-								_react2.default.createElement('div', { id: 'fb-button',
-									className: 'fb-login-button',
-									'data-max-rows': '1',
-									'data-size': 'medium',
-									'data-show-faces': 'true',
-									'data-auto-logout-link': 'true' })
+								_react2.default.createElement(
+									'td',
+									{ align: 'right' },
+									_react2.default.createElement('div', { id: 'fb-button',
+										className: 'fb-login-button',
+										'data-max-rows': '1',
+										'data-size': 'medium',
+										'data-show-faces': 'true',
+										'data-auto-logout-link': 'true' })
+								)
 							)
 						)
 					),

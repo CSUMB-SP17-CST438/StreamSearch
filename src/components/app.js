@@ -22,6 +22,7 @@ export default class App extends Component {
 		return (
 			<div className="app container">
 			<table>
+			<tbody>
 				<tr>
 					<td>
 						<a href='#' onclick="FacebookInviteFriends();"> 
@@ -36,7 +37,7 @@ export default class App extends Component {
 							data-share="true">
 						</div>
 					</td>
-					<td align="right" id="fb-button">
+					<td align="right">
 						<div id="fb-button"                 
 			                className="fb-login-button"     
 			                data-max-rows="1"
@@ -46,6 +47,7 @@ export default class App extends Component {
 			            </div>
 		            </td>
 	            </tr>
+	            </tbody>
             </table>
 				
 				<Header />
