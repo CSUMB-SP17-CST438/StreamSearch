@@ -21,14 +21,21 @@ export default class App extends Component {
 		FB.Event.subscribe("auth.logout", function() {window.location = '/login'});
 		return (
 			<div className="app container">
-				<div className="fb-like" data-href="https://overlook-stream-search.herokuapp.com/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-				<div id="fb-button"                 
-                    className="fb-login-button"     
-                    data-max-rows="1"
-                    data-size="medium"
-                    data-show-faces="true" 
-                    data-auto-logout-link="true">
-                </div>
+				<div className="fb-like" 
+				data-href="https://overlook-stream-search.herokuapp.com/" 
+				data-layout="standard" 
+				data-action="like" 
+				data-size="small" 
+				data-show-faces="false" 
+				data-share="true">
+			</div>
+			<div id="fb-button"                 
+                className="fb-login-button"     
+                data-max-rows="1"
+                data-size="medium"
+                data-show-faces="true" 
+                data-auto-logout-link="true">
+            </div>
 				
 				<Header />
 				<div>
