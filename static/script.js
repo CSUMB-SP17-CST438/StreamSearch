@@ -83423,6 +83423,7 @@
 						null,
 						'Links: '
 					),
+					movieGB.free_web_sources.length == 0 && movieGB.subscription_web_sources.length == 0 && movieGB.tv_everywhere_web_sources.length == 0 && movieGB.purchase_web_sources.length == 0 ? "No links available" : "",
 					movieGB.free_web_sources.length ? _react2.default.createElement(
 						'h6',
 						null,

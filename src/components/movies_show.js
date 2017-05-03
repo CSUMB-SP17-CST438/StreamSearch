@@ -119,6 +119,7 @@ class MoviesShow extends Component {
 		const list = (
 					<div id="movieLinks">
 					<h2>Links: </h2>
+					{movieGB.free_web_sources.length == 0 && movieGB.subscription_web_sources.length == 0 && movieGB.tv_everywhere_web_sources.length == 0 && movieGB.purchase_web_sources.length == 0 ? "No links available":""} 
 					{movieGB.free_web_sources.length ? <h6>Free:</h6> : ''}
 					{movieGB.free_web_sources.map((service,i) => {
 						return(<div key={i}><a href={service.link} > {service.display_name} </a><br /></div>);})}
