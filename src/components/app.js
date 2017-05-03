@@ -6,7 +6,16 @@ import {Chat} from './Chat';
 import {FriendsList} from './FriendsList';
 
 export default class App extends Component {
-
+	componentDidMount(){
+       FB.getLoginStatus((response) => {if (response.status == 'connected') 
+            {
+            }
+            else {
+            	if (window.location.pathname != ('/login'))
+            	window.location.replace('/login');
+            }
+       });
+    }
 	
 	render() {
 		FB.Event.subscribe("auth.logout", function() {window.location = '/login'});
