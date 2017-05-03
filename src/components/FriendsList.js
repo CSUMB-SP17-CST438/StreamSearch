@@ -34,9 +34,7 @@ export class FriendsList extends Component {
             
         }
     });
-        
  }
-
  
  checkFriend(id) {
      const movies = this.state.all_movies;
@@ -47,6 +45,10 @@ export class FriendsList extends Component {
             return i;
      }
      return -1;
+ }
+ linkClicked(type, id) {
+     console.log("the redirect is being called");
+     //window.location.replace('/' + type +"/" + id);
  }
  renderClicks(id) {
      //console.log("all movies", this.state.all_movies);
@@ -62,9 +64,11 @@ export class FriendsList extends Component {
          </div>
          );
      }
+     //<Link to={"/"+ n.types + "/" + n.movie_ids + ""} className="movie-item-link"></Link>
      else if (index != -1) {
      let movies = this.state.all_movies[index][id].map((n, index) =>
-        <li key={index}><Link to={"/"+ n.types + "/" + n.movie_ids + ""} className="movie-item-link">{n.movies}</Link>
+        <li key={index}>
+            <a href={('/' + n.types +"/" + n.movie_ids)}>{n.movies}</a>
         {console.log(n)}
         </li>
      );
