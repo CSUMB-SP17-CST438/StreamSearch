@@ -23,9 +23,11 @@ export class FriendsList extends Component {
         {
             graph.setAccessToken(response.authResponse.accessToken);
             graph.get('me/friends', {access_token: response.authResponse.accessToken}, function(err, res) {
+                console.log("this is the paging",res.paging);
               if(res.paging && res.paging.next) {
+                  console.log("starting paging");
                 graph.get(res.paging.next, function(err, res) {
-                  console.log("next page", res)
+                  console.log("next page", res);
                 });
               }
               //console.log("graph api resp: ", res);
