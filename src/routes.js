@@ -7,6 +7,7 @@ import MoviesList from './components/movies_list';
 import ShowsList from './components/shows_list';
 import MoviesShow from './components/movies_show';
 import ShowDetails from './components/show_details';
+import Login from './components/login';
 
 export default (
 	<Route path="/" component={App}>
@@ -15,6 +16,7 @@ export default (
 		<Route component={ShowsList} path="shows" />
 		<Route component={MoviesShow} path="movies/:id" />
 		<Route component={ShowDetails} path="shows/:id" />
+		<Route component={Login} path="login" />
 	</Route>
 	
 );
