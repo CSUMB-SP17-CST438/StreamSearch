@@ -57,7 +57,8 @@ export default class App extends Component {
 			                data-max-rows="1"
 			                data-size="medium"
 			                data-show-faces="true" 
-			                data-auto-logout-link="true">
+			                data-auto-logout-link="true"
+                			data-scope="public_profile, user_friends">
 			            </div>
 		            </td>
 	            </tr>
