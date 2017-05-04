@@ -16,6 +16,20 @@ export default class App extends Component {
             }
        });
     }
+    FacebookInviteFriends()
+				{
+				FB.ui({
+				  method: 'send',
+				  link: 'https://overlook-stream-search.herokuapp.com/',
+				});
+				/**
+				 FB.ui({
+				  method: 'share',
+				  mobile_iframe: true,
+				  href: 'https://developers.facebook.com/docs/',
+				}, function(response){});
+				*/
+				}
 	
 	render() {
 		FB.Event.subscribe("auth.logout", function() {window.location = '/login'});
@@ -25,7 +39,7 @@ export default class App extends Component {
 			<tbody>
 				<tr>
 					<td>
-						<a href='#' onclick="FacebookInviteFriends();"> 
+						<a href='#' onClick={event => this.FacebookInviteFriends()}> 
 						Facebook Invite Friends Link
 						</a><p></p>
 						<div className="fb-like" 

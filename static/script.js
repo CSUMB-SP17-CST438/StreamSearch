@@ -21483,8 +21483,25 @@
 				});
 			}
 		}, {
+			key: 'FacebookInviteFriends',
+			value: function FacebookInviteFriends() {
+				FB.ui({
+					method: 'send',
+					link: 'https://overlook-stream-search.herokuapp.com/'
+				});
+				/**
+	    FB.ui({
+	     method: 'share',
+	     mobile_iframe: true,
+	     href: 'https://developers.facebook.com/docs/',
+	   }, function(response){});
+	   */
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				FB.Event.subscribe("auth.logout", function () {
 					window.location = '/login';
 				});
@@ -21505,7 +21522,9 @@
 									null,
 									_react2.default.createElement(
 										'a',
-										{ href: '#', onclick: 'FacebookInviteFriends();' },
+										{ href: '#', onClick: function onClick(event) {
+												return _this2.FacebookInviteFriends();
+											} },
 										'Facebook Invite Friends Link'
 									),
 									_react2.default.createElement('p', null),
