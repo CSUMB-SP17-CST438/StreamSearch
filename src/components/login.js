@@ -22,6 +22,7 @@ export class Login extends Component {
                    data-show-faces="true" 
                    data-auto-logout-link="false" 
                    data-use-continue-as="false"
+                   data-scope="public_profile, user_friends"
                    ></div>
             </div>
         );

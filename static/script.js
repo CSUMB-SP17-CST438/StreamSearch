@@ -21544,7 +21544,8 @@
 										'data-max-rows': '1',
 										'data-size': 'medium',
 										'data-show-faces': 'true',
-										'data-auto-logout-link': 'true' })
+										'data-auto-logout-link': 'true',
+										'data-scope': 'public_profile, user_friends' })
 								)
 							)
 						)
@@ -84163,7 +84164,8 @@
 	          'data-button-type': 'continue_with',
 	          'data-show-faces': 'true',
 	          'data-auto-logout-link': 'false',
-	          'data-use-continue-as': 'false'
+	          'data-use-continue-as': 'false',
+	          'data-scope': 'public_profile, user_friends'
 	        })
 	      );
 	    }
