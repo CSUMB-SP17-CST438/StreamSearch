@@ -42,6 +42,7 @@ class MoviesShow extends Component {
 	                						'title_id': this.props.movie.id,
 	                						'title': this.props.movie.title
 	                });
+	                Socket.emit('friends', {'data':"something"});
 	            }
 	       });
 	       this.setState({sentClick: true})

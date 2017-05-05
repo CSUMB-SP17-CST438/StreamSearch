@@ -83402,6 +83402,7 @@
 								'title_id': _this3.props.movie.id,
 								'title': _this3.props.movie.title
 							});
+							_Socket.Socket.emit('friends', { 'data': "something" });
 						}
 					});
 					this.setState({ sentClick: true });
@@ -83837,6 +83838,7 @@
 								'title_id': _this3.props.show.id,
 								'title': _this3.props.show.title
 							});
+							_Socket.Socket.emit('friends', { 'data': "something" });
 						}
 					});
 					this.setState({ sentClick: true });
