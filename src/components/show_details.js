@@ -46,6 +46,7 @@ class ShowDetails extends Component {
 	                						'title_id': this.props.show.id,
 	                						'title': this.props.show.title
 	                });
+	                Socket.emit('friends', {'data':"something"});
 	            }
 	       });
 	       this.setState({sentClick: true})
